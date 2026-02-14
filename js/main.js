@@ -484,3 +484,42 @@ function animateHero(){
   }
   requestAnimationFrame(animate);
 })();
+
+/* ===== MESSETERMINE – AUTO DATE LOGIC ===== */
+(function(){
+  const cards = document.querySelectorAll('.termin-card[data-date]');
+  if(!cards.length) return;
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  let nextFound = false;
+  cards.forEach(card => {
+    const d = new Date(card.dataset.date + 'T00:00:00');
+    if(d < now){
+      card.classList.add('is-past');
+    } else if(!nextFound){
+      card.classList.add('is-next');
+      nextFound = true;
+    }
+  });
+})();
+
+/* ===== FAQ ACCORDION ===== */
+(function(){
+  const items = document.querySelectorAll('.faq-item');
+  items.forEach(item => {
+    const btn = item.querySelector('.faq-question');
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      // Close all
+      items.forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-question').setAttribute('aria-expanded','false');
+      });
+      // Toggle clicked
+      if(!isOpen){
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+})();
