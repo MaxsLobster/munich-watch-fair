@@ -861,53 +861,6 @@ function animateHero(){
   }
 })();
 
-/* ===== 2. HORIZONTAL SCROLL SHOWCASE ===== */
-(function(){
-  if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || window.innerWidth < 769) return;
-  gsap.registerPlugin(ScrollTrigger);
-
-  const section = document.getElementById('hscrollSection');
-  const track = document.getElementById('hscrollTrack');
-  const dots = document.querySelectorAll('.hscroll-dot');
-  if(!section || !track) return;
-
-  const panels = track.querySelectorAll('.hscroll-panel');
-  const totalPanels = panels.length;
-
-  gsap.to(track, {
-    x: () => -(track.scrollWidth - section.offsetWidth),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: section,
-      pin: true,
-      scrub: 1,
-      end: () => '+=' + (track.scrollWidth - section.offsetWidth),
-      onUpdate: self => {
-        const idx = Math.min(totalPanels - 1, Math.floor(self.progress * totalPanels));
-        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-      }
-    }
-  });
-
-  // Panel content animations
-  panels.forEach(panel => {
-    const inner = panel.querySelector('.hscroll-panel-inner');
-    if(!inner) return;
-    gsap.fromTo(inner,
-      { opacity: 0, y: 40, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power2.out',
-        scrollTrigger: {
-          trigger: panel,
-          containerAnimation: gsap.getById && gsap.getById('hscrollAnim'),
-          start: 'left 80%',
-          toggleActions: 'play none none none',
-          once: true
-        }
-      }
-    );
-  });
-})();
-
 /* ===== 3. REVEAL-ON-SCROLL TEXT EFFECTS ===== */
 (function(){
   if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
