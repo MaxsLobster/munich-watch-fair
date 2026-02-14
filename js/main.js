@@ -1,63 +1,37 @@
 /* LOADER */
 window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden');animateHero();setTimeout(animateStickyNote,1200)},2200)});
 
-/* STICKY NOTE ANIMATION - JS driven for reliability */
+/* NOTIFICATION BAR ANIMATION */
 function animateStickyNote(){
-  const note = document.getElementById('stickyNote');
-  if(!note) return;
-
-  const isMobile = window.innerWidth < 769;
-  const landPos = isMobile ? 'bottom' : 'top';
-  const landVal = isMobile ? '20px' : '90px';
-  const startPos = isMobile ? 'bottom' : 'top';
-  const startVal = '-200px';
+  const bar = document.getElementById('stickyNote');
+  if(!bar) return;
 
   // Reset
-  note.style.transition = 'none';
-  if(isMobile) {
-    note.style.bottom = '-200px'; note.style.top = 'auto';
-  } else {
-    note.style.top = '-200px'; note.style.bottom = 'auto';
-  }
-  note.style.transform = 'rotate(-12deg) scale(0.6)';
-  note.style.opacity = '0';
+  bar.style.transition = 'none';
+  bar.style.bottom = '-60px';
+  bar.style.opacity = '0';
 
   // Force reflow
-  note.offsetHeight;
+  bar.offsetHeight;
 
-  // Drop in
-  note.style.transition = startPos + ' 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease';
-  if(isMobile) { note.style.bottom = landVal; } else { note.style.top = landVal; }
-  note.style.transform = 'rotate(3deg) scale(1)';
-  note.style.opacity = '1';
-
-  // Gentle float
-  setTimeout(() => {
-    const prop = isMobile ? 'bottom' : 'top';
-    const v1 = isMobile ? '16px' : '86px';
-    const v2 = isMobile ? '23px' : '93px';
-    note.style.transition = prop + ' 3s ease-in-out, transform 3s ease-in-out, box-shadow 0.3s, filter 0.3s';
-    let up = true;
-    setInterval(() => {
-      note.style[prop] = up ? v1 : v2;
-      note.style.transform = up ? 'rotate(2deg) scale(1)' : 'rotate(4deg) scale(1)';
-      up = !up;
-    }, 3000);
-  }, 800);
+  // Slide up
+  bar.style.transition = 'bottom 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, background 0.3s, box-shadow 0.3s, border-color 0.3s';
+  bar.style.bottom = '20px';
+  bar.style.opacity = '1';
 }
 
-// Sticky note close button
+// Notification bar close button
 document.addEventListener('click', function(e){
   const closeBtn = e.target.closest('#stickyNoteClose');
   if(!closeBtn) return;
   e.preventDefault();
   e.stopPropagation();
-  const note = document.getElementById('stickyNote');
-  if(!note) return;
-  note.style.transition = 'transform .4s cubic-bezier(.6,-.28,.74,.05), opacity .3s ease';
-  note.style.transform = 'rotate(-12deg) scale(0.3)';
-  note.style.opacity = '0';
-  setTimeout(() => note.style.display = 'none', 400);
+  const bar = document.getElementById('stickyNote');
+  if(!bar) return;
+  bar.style.transition = 'bottom .4s cubic-bezier(.6,-.28,.74,.05), opacity .3s ease';
+  bar.style.bottom = '-60px';
+  bar.style.opacity = '0';
+  setTimeout(() => bar.style.display = 'none', 400);
 });
 
 function animateHero(){
