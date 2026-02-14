@@ -1,0 +1,108 @@
+/* ===== EXHIBITOR PORTAL STYLES ===== */
+
+/* Registration step indicator */
+.reg-steps{
+  display:flex;align-items:center;justify-content:center;
+  gap:.5rem;margin-bottom:1.5rem;
+}
+.reg-step-indicator{
+  width:28px;height:28px;
+  border-radius:50%;
+  border:1.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:600;
+  color:var(--text-muted);
+  transition:all .3s var(--ease);
+}
+.reg-step-indicator.active{
+  border-color:var(--gold);
+  color:var(--gold);
+}
+.reg-step-indicator.current{
+  background:var(--gold);
+  color:var(--white);
+  border-color:var(--gold);
+}
+.reg-step-line{
+  width:30px;height:1px;
+  background:var(--border);
+  transition:background .3s;
+}
+
+/* Form buttons row */
+.form-buttons{
+  display:flex;gap:.8rem;margin-top:.5rem;
+}
+.form-buttons .btn{flex:1;justify-content:center}
+
+/* Dashboard */
+.exhibitor-dashboard{
+  display:none;
+  margin-top:2rem;
+  animation:revealPricing .8s var(--ease-out);
+}
+.exhibitor-dashboard.visible{display:block}
+
+.dashboard-greeting{
+  text-align:center;margin-bottom:1rem;
+}
+.dashboard-greeting h3{
+  font-family:var(--font-display);
+  font-size:1.4rem;font-weight:600;
+  margin-bottom:.3rem;
+}
+.dashboard-greeting p{
+  font-size:.85rem;color:var(--text-mid);font-weight:300;
+}
+
+.dashboard-next-event{
+  text-align:center;
+  background:rgba(184,134,11,.06);
+  border:1px solid var(--gold-border);
+  padding:1.2rem;
+  margin-bottom:1.5rem;
+}
+.dashboard-next-event span{
+  font-size:.65rem;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);display:block;margin-bottom:.3rem;
+}
+.dashboard-next-event strong{
+  font-family:var(--font-display);
+  font-size:1.1rem;font-weight:600;
+  color:var(--text);
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.2rem;
+  margin-top:1.5rem;
+}
+.dashboard-card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  padding:1.5rem;
+  transition:all .4s var(--ease);
+}
+.dashboard-card:hover{
+  border-color:var(--gold-border);
+  box-shadow:0 8px 24px rgba(0,0,0,.04);
+  transform:translateY(-2px);
+}
+.dashboard-card-icon{
+  font-size:1.5rem;margin-bottom:.8rem;display:block;
+}
+.dashboard-card h4{
+  font-family:var(--font-display);
+  font-size:1rem;font-weight:600;
+  margin-bottom:.4rem;
+}
+.dashboard-card p{
+  font-size:.82rem;color:var(--text-mid);font-weight:300;line-height:1.5;
+}
+
+@media(max-width:600px){
+  .dashboard-grid{grid-template-columns:1fr}
+  .form-buttons{flex-direction:column}
+}
