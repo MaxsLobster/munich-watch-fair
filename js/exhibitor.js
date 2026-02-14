@@ -50,8 +50,9 @@
   /* Tabs */
   tabs.forEach(function(tab){
     tab.addEventListener('click', function(){
-      tabs.forEach(function(t){ t.classList.remove('active'); });
+      tabs.forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
       tab.classList.add('active');
+      tab.setAttribute('aria-selected','true');
       if(formReg) formReg.classList.toggle('active', tab.dataset.tab === 'register');
       if(formLogin) formLogin.classList.toggle('active', tab.dataset.tab === 'login');
       if(formSuccess) formSuccess.style.display = 'none';
