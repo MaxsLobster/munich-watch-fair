@@ -1392,3 +1392,165 @@ body.gsap-ready .reveal-scale.visible{
 
 /* ===== PARALLAX ===== */
 .hero-bg{will-change:transform}
+
+/* ===== CINEMATIC HERO ===== */
+.hero-cinematic .hero-banner{
+  opacity:0;
+}
+.hero-cinematic .hero-letter{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(40px) rotateX(-40deg);
+}
+.hero-cinematic .hero-date{
+  opacity:0;
+}
+.hero-cinematic .hero-date .typewriter-char{
+  display:inline;
+  opacity:0;
+}
+
+/* Scroll-down indicator */
+.hero-scroll-indicator{
+  position:absolute;bottom:2.5rem;left:50%;
+  transform:translateX(-50%);
+  z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;
+  opacity:0;
+}
+.hero-scroll-text{
+  font-size:.55rem;font-weight:400;
+  letter-spacing:.35em;text-transform:uppercase;
+  color:var(--text-muted);
+}
+.hero-scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(180deg,var(--orange),transparent);
+  animation:scrollLineAnim 2s ease-in-out infinite;
+  transform-origin:top;
+}
+@keyframes scrollLineAnim{
+  0%{transform:scaleY(0);opacity:0}
+  40%{transform:scaleY(1);opacity:1}
+  80%{transform:scaleY(1);opacity:0}
+  100%{transform:scaleY(0);opacity:0}
+}
+
+/* Hero fade-out on scroll (overlay-scroll) */
+.hero{
+  z-index:1;
+}
+.hero-fade-overlay{
+  position:absolute;inset:0;
+  background:var(--bg);
+  opacity:0;
+  pointer-events:none;
+  z-index:10;
+}
+
+/* ===== HORIZONTAL SCROLL SHOWCASE ===== */
+.hscroll-section{
+  position:relative;
+  overflow:hidden;
+}
+.hscroll-track{
+  display:flex;
+  width:300%;
+}
+.hscroll-panel{
+  width:100%;
+  min-height:60vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:3rem 2rem;
+  flex-shrink:0;
+}
+.hscroll-panel-inner{
+  max-width:560px;
+  text-align:center;
+  position:relative;
+  background:rgba(255,255,255,.3);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.45);
+  box-shadow:0 8px 32px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.5);
+  padding:clamp(3rem,5vw,4.5rem);
+}
+.hscroll-panel-inner::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:50%;
+  background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,transparent 100%);
+  pointer-events:none;
+}
+.hscroll-panel-inner::after{
+  content:'';position:absolute;bottom:0;left:15%;right:15%;height:1.5px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent);
+  opacity:.4;
+}
+.hscroll-panel-num{
+  font-family:var(--font-display);
+  font-size:5rem;font-weight:700;
+  color:rgba(232,145,45,.08);
+  position:absolute;top:1rem;left:1.5rem;
+  line-height:1;
+}
+.hscroll-panel-icon{
+  font-size:3rem;margin-bottom:1.5rem;display:inline-block;
+}
+.hscroll-panel-inner h3{
+  font-family:var(--font-display);font-size:1.6rem;font-weight:600;
+  margin-bottom:1.2rem;
+}
+.hscroll-panel-inner p{
+  font-size:.92rem;color:var(--text-mid);line-height:1.7;font-weight:300;
+}
+.hscroll-progress{
+  position:absolute;bottom:2rem;left:50%;
+  transform:translateX(-50%);
+  display:flex;gap:.6rem;
+  z-index:5;
+}
+.hscroll-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--border-strong);
+  transition:all .4s var(--ease);
+}
+.hscroll-dot.active{
+  background:var(--orange);
+  transform:scale(1.3);
+}
+
+/* Mobile: hide hscroll, show grid */
+.info-grid-mobile{display:none}
+@media(max-width:768px){
+  .hscroll-section{display:none}
+  .info-grid-mobile{display:grid;grid-template-columns:1fr;gap:1rem}
+}
+
+/* ===== REVEAL-ON-SCROLL TEXT EFFECTS ===== */
+.section-title .reveal-word{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(30px);
+}
+.section-title .reveal-letter{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(-50px);
+}
+.section-title .reveal-wipe{
+  display:inline-block;
+  clip-path:inset(0 100% 0 0);
+}
+
+/* ===== LENIS SMOOTH SCROLL ===== */
+html.lenis,html.lenis body{
+  height:auto;
+}
+.lenis.lenis-smooth{
+  scroll-behavior:auto!important;
+}
+.lenis.lenis-smooth [data-lenis-prevent]{
+  overscroll-behavior:contain;
+}
+
+/* ===== CURSOR: DOT ONLY (ring removed) ===== */
+.custom-cursor-ring{display:none!important}

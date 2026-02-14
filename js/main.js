@@ -550,45 +550,18 @@ function animateHero(){
   update();
 })();
 
-/* ===== CUSTOM CURSOR (Desktop only) ===== */
+/* ===== CUSTOM CURSOR – DOT ONLY (Desktop) ===== */
 (function(){
   if(window.innerWidth < 1024 || 'ontouchstart' in window) return;
   const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  if(!dot || !ring) return;
-
+  if(!dot) return;
   document.body.classList.add('custom-cursor-active');
-  let mx = -100, my = -100, rx = -100, ry = -100;
-
   document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top = my + 'px';
+    dot.style.left = e.clientX + 'px';
+    dot.style.top = e.clientY + 'px';
     dot.style.opacity = '1';
-    ring.style.opacity = '1';
   });
-
-  function animateRing(){
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  const interactives = 'a, button, input, textarea, [role="button"], .btn';
-  const cardSelectors = '.info-card-glass, .termin-card, .ticket-card, .pricing-card, .timeline-card-glass, .anfahrt-info, .anfahrt-map';
-
-  document.addEventListener('mouseover', e => {
-    if(e.target.closest(interactives)) ring.classList.add('hover-link');
-    else if(e.target.closest(cardSelectors)) ring.classList.add('hover-card');
-  });
-  document.addEventListener('mouseout', e => {
-    if(e.target.closest(interactives)) ring.classList.remove('hover-link');
-    if(e.target.closest(cardSelectors)) ring.classList.remove('hover-card');
-  });
-  document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+  document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; });
 })();
 
 /* ===== PARALLAX (Desktop only) ===== */
@@ -747,6 +720,313 @@ function animateHero(){
   if(!video || !wrap) return;
   video.addEventListener('canplaythrough', () => { wrap.classList.add('loaded'); });
   video.addEventListener('error', () => { wrap.style.display = 'none'; });
-  // If video source doesn't exist, hide wrap gracefully
   setTimeout(() => { if(!wrap.classList.contains('loaded')) wrap.style.display = 'none'; }, 5000);
+})();
+
+/* ===== 1. CINEMATIC HERO – Letter-by-letter reveal ===== */
+(function(){
+  if(typeof gsap === 'undefined') return;
+  const hero = document.getElementById('hero');
+  const banner = document.getElementById('heroBanner');
+  if(!hero || !banner) return;
+
+  hero.classList.add('hero-cinematic');
+
+  // Split logo text into letters
+  function splitIntoLetters(el){
+    const text = el.textContent;
+    el.textContent = '';
+    text.split('').forEach(ch => {
+      const span = document.createElement('span');
+      span.className = 'hero-letter';
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      el.appendChild(span);
+    });
+  }
+
+  const logoMunich = banner.querySelector('.logo-munich');
+  const logoFair = banner.querySelector('.logo-fair');
+  if(logoMunich) splitIntoLetters(logoMunich);
+  if(logoFair) splitIntoLetters(logoFair);
+
+  // Typewriter for date
+  const heroDate = document.querySelector('.hero-date');
+  let dateText = '';
+  if(heroDate){
+    dateText = heroDate.textContent;
+    heroDate.textContent = '';
+    heroDate.style.opacity = '1';
+    heroDate.style.transform = 'none';
+  }
+
+  // After loader hides, start cinematic sequence
+  function startCinematic(){
+    const tl = gsap.timeline({ delay: 0.3 });
+
+    // Banner fades in
+    tl.to(banner, { opacity: 1, duration: 0.6, ease: 'power2.out' });
+
+    // Logo letters reveal
+    const munichLetters = banner.querySelectorAll('.logo-munich .hero-letter');
+    const fairLetters = banner.querySelectorAll('.logo-fair .hero-letter');
+
+    tl.to(munichLetters, {
+      opacity: 1, y: 0, rotateX: 0,
+      duration: 0.5, stagger: 0.04, ease: 'back.out(1.5)'
+    }, '-=0.2');
+
+    // W + A SVG area handled by existing code, just show it
+    const logoWatch = banner.querySelector('.logo-watch');
+    if(logoWatch){
+      tl.fromTo(logoWatch,
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' },
+        '-=0.3'
+      );
+    }
+
+    tl.to(fairLetters, {
+      opacity: 1, y: 0, rotateX: 0,
+      duration: 0.5, stagger: 0.04, ease: 'back.out(1.5)'
+    }, '-=0.4');
+
+    // Banner line + badge
+    const line = banner.querySelector('.hero-banner-line');
+    const badge = banner.querySelector('.hero-banner-badge');
+    if(line) tl.to(line, { opacity: 0.5, duration: 0.6 }, '-=0.1');
+    if(badge) tl.to(badge, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
+
+    // Typewriter date
+    if(heroDate && dateText){
+      tl.add(() => {
+        let i = 0;
+        const interval = setInterval(() => {
+          if(i < dateText.length){
+            heroDate.textContent += dateText[i];
+            i++;
+          } else { clearInterval(interval); }
+        }, 25);
+      }, '-=0.1');
+    }
+
+    // Countdown
+    const countdown = document.querySelector('.countdown');
+    if(countdown){
+      tl.to(countdown, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '+=0.3');
+    }
+
+    // Scroll indicator
+    const scrollInd = document.getElementById('heroScrollIndicator');
+    if(scrollInd){
+      tl.to(scrollInd, { opacity: 1, duration: 0.8, ease: 'power2.out' }, '+=0.2');
+    }
+  }
+
+  // Hook into loader completion
+  const origLoad = window.addEventListener;
+  const loaderCheck = setInterval(() => {
+    const loader = document.getElementById('loader');
+    if(loader && loader.classList.contains('hidden')){
+      clearInterval(loaderCheck);
+      setTimeout(startCinematic, 200);
+    }
+  }, 100);
+
+  // Hero fade-out on scroll
+  if(typeof ScrollTrigger !== 'undefined'){
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.create({
+      trigger: hero,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+      onUpdate: self => {
+        const p = self.progress;
+        const heroContent = hero.querySelector('.hero-banner');
+        const heroIcons = document.getElementById('heroIcons');
+        const heroInfo = hero.querySelector('.hero-info');
+        const heroCW = hero.querySelector('.hero-countdown-wrap');
+        const scrollInd = document.getElementById('heroScrollIndicator');
+        const fade = Math.max(0, 1 - p * 2.5);
+        const ty = p * 80;
+        [heroContent, heroIcons, heroInfo, heroCW].forEach(el => {
+          if(el){
+            el.style.opacity = fade;
+            el.style.transform = 'translateY(-' + ty + 'px)';
+          }
+        });
+        if(scrollInd) scrollInd.style.opacity = Math.max(0, 1 - p * 5);
+      }
+    });
+  }
+})();
+
+/* ===== 2. HORIZONTAL SCROLL SHOWCASE ===== */
+(function(){
+  if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || window.innerWidth < 769) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.getElementById('hscrollSection');
+  const track = document.getElementById('hscrollTrack');
+  const dots = document.querySelectorAll('.hscroll-dot');
+  if(!section || !track) return;
+
+  const panels = track.querySelectorAll('.hscroll-panel');
+  const totalPanels = panels.length;
+
+  gsap.to(track, {
+    x: () => -(track.scrollWidth - section.offsetWidth),
+    ease: 'none',
+    scrollTrigger: {
+      trigger: section,
+      pin: true,
+      scrub: 1,
+      end: () => '+=' + (track.scrollWidth - section.offsetWidth),
+      onUpdate: self => {
+        const idx = Math.min(totalPanels - 1, Math.floor(self.progress * totalPanels));
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    }
+  });
+
+  // Panel content animations
+  panels.forEach(panel => {
+    const inner = panel.querySelector('.hscroll-panel-inner');
+    if(!inner) return;
+    gsap.fromTo(inner,
+      { opacity: 0, y: 40, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power2.out',
+        scrollTrigger: {
+          trigger: panel,
+          containerAnimation: gsap.getById && gsap.getById('hscrollAnim'),
+          start: 'left 80%',
+          toggleActions: 'play none none none',
+          once: true
+        }
+      }
+    );
+  });
+})();
+
+/* ===== 3. REVEAL-ON-SCROLL TEXT EFFECTS ===== */
+(function(){
+  if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // "Alle Termine 2026" — word-by-word stagger
+  const termineTitle = document.getElementById('termine-title');
+  if(termineTitle){
+    const html = termineTitle.innerHTML;
+    const wrapped = html.replace(/(\S+)/g, '<span class="reveal-word">$1</span>');
+    termineTitle.innerHTML = wrapped;
+    const words = termineTitle.querySelectorAll('.reveal-word');
+    gsap.to(words, {
+      opacity: 1, y: 0,
+      duration: 0.6, stagger: 0.12, ease: 'power3.out',
+      scrollTrigger: { trigger: termineTitle, start: 'top 85%', once: true }
+    });
+  }
+
+  // "Häufige Fragen" — horizontal wipe
+  const faqTitle = document.getElementById('faq-title');
+  if(faqTitle){
+    const spans = faqTitle.querySelectorAll('.orange');
+    // Wipe the whole title
+    faqTitle.style.clipPath = 'inset(0 100% 0 0)';
+    gsap.to(faqTitle, {
+      clipPath: 'inset(0 0% 0 0)',
+      duration: 1.2, ease: 'power3.inOut',
+      scrollTrigger: { trigger: faqTitle, start: 'top 85%', once: true }
+    });
+  }
+
+  // "Anfahrt & Location" — letters drop from above
+  const anfahrtTitle = document.getElementById('anfahrt-title');
+  if(anfahrtTitle){
+    const text = anfahrtTitle.innerHTML;
+    // Wrap each non-tag character in a span
+    let result = '';
+    let inTag = false;
+    for(let i = 0; i < text.length; i++){
+      if(text[i] === '<') inTag = true;
+      if(inTag){
+        result += text[i];
+        if(text[i] === '>') inTag = false;
+      } else if(text[i] === ' '){
+        result += ' ';
+      } else {
+        result += '<span class="reveal-letter">' + text[i] + '</span>';
+      }
+    }
+    anfahrtTitle.innerHTML = result;
+    const letters = anfahrtTitle.querySelectorAll('.reveal-letter');
+    gsap.to(letters, {
+      opacity: 1, y: 0,
+      duration: 0.4, stagger: 0.03, ease: 'bounce.out',
+      scrollTrigger: { trigger: anfahrtTitle, start: 'top 85%', once: true }
+    });
+  }
+
+  // "Tickets sichern" — scale burst
+  const ticketsTitle = document.getElementById('tickets-title');
+  if(ticketsTitle){
+    gsap.fromTo(ticketsTitle,
+      { opacity: 0, scale: 0.6, rotateX: -20 },
+      { opacity: 1, scale: 1, rotateX: 0,
+        duration: 0.9, ease: 'back.out(1.7)',
+        scrollTrigger: { trigger: ticketsTitle, start: 'top 85%', once: true }
+      }
+    );
+  }
+
+  // "Aussteller werden" — slide from left
+  const ausstellerTitle = document.getElementById('aussteller-title');
+  if(ausstellerTitle){
+    gsap.fromTo(ausstellerTitle,
+      { opacity: 0, x: -80 },
+      { opacity: 1, x: 0,
+        duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: ausstellerTitle, start: 'top 85%', once: true }
+      }
+    );
+  }
+
+  // "Ihr Tag auf der Messe" — word stagger
+  const tagesTitle = document.getElementById('tagesablauf-title');
+  if(tagesTitle){
+    const html = tagesTitle.innerHTML;
+    const wrapped = html.replace(/(\S+)/g, '<span class="reveal-word">$1</span>');
+    tagesTitle.innerHTML = wrapped;
+    const words = tagesTitle.querySelectorAll('.reveal-word');
+    gsap.to(words, {
+      opacity: 1, y: 0,
+      duration: 0.5, stagger: 0.1, ease: 'power3.out',
+      scrollTrigger: { trigger: tagesTitle, start: 'top 85%', once: true }
+    });
+  }
+})();
+
+/* ===== 4. LENIS SMOOTH SCROLL ===== */
+(function(){
+  if(typeof Lenis === 'undefined' || window.innerWidth < 1024) return;
+
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: function(t){ return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 1,
+    touchMultiplier: 2
+  });
+
+  // Integrate Lenis with GSAP ScrollTrigger
+  if(typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined'){
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(time){ lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  }
 })();

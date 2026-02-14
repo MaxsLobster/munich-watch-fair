@@ -32,6 +32,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 
+<!-- Lenis Smooth Scroll -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
+
 <!-- GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -113,7 +116,6 @@
 
 <!-- Custom Cursor (Desktop only) -->
 <div class="custom-cursor-dot" id="cursorDot" aria-hidden="true"></div>
-<div class="custom-cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-logo">MUNICH <span>W</span>ATCH FAIR</div>
@@ -279,6 +281,12 @@
       <span class="hero-icon-label">Accessoires</span>
     </div>
   </div>
+
+  <!-- Scroll Down Indicator -->
+  <div class="hero-scroll-indicator" id="heroScrollIndicator" aria-hidden="true">
+    <span class="hero-scroll-text">Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
 </header>
 
 <div class="ticker" id="ticker">
@@ -352,7 +360,44 @@
     </div>
 
     <div class="section-header reveal"><div class="section-tag">Das Erlebnis</div><h2 class="section-title" id="info-title">Was Sie <span class="orange">erwartet</span></h2><p class="section-subtitle">Seit 1989 der Treffpunkt für Uhrenliebhaber, Sammler und Kenner – eine Messe, die aus Leidenschaft entstanden ist und stetig wächst.</p></div>
-    <div class="info-grid">
+
+    <!-- Horizontal Scroll Showcase (Desktop) -->
+    <div class="hscroll-section" id="hscrollSection">
+      <div class="hscroll-track" id="hscrollTrack">
+        <div class="hscroll-panel">
+          <div class="hscroll-panel-inner">
+            <span class="hscroll-panel-num">01</span>
+            <span class="hscroll-panel-icon">⏱️</span>
+            <h3>Uhren für <span class="orange">jeden Anspruch</span></h3>
+            <p>Der Großteil unserer Messe widmet sich hochwertigen Luxus- und Sammleruhren – neu und vintage, vom erschwinglichen Klassiker bis zur begehrten Rarität. Für jeden Geldbeutel und jede Leidenschaft.</p>
+          </div>
+        </div>
+        <div class="hscroll-panel">
+          <div class="hscroll-panel-inner">
+            <span class="hscroll-panel-num">02</span>
+            <span class="hscroll-panel-icon">💎</span>
+            <h3>Schmuck &amp; <span class="orange">Accessoires</span></h3>
+            <p>Was als Uhrenmesse begann, ist heute ein Erlebnis für alle Facetten des Luxus. Erlesener Schmuck, premium Vintage- und Designer-Handtaschen sowie exklusive Accessoires – für Damen und Herren.</p>
+          </div>
+        </div>
+        <div class="hscroll-panel">
+          <div class="hscroll-panel-inner">
+            <span class="hscroll-panel-num">03</span>
+            <span class="hscroll-panel-icon">🌍</span>
+            <h3>Internationale <span class="orange">Aussteller</span></h3>
+            <p>Händler und Sammler aus ganz Deutschland und dem europäischen Ausland präsentieren Raritäten, limitierte Editionen und lang gesuchte Sammlerstücke – alles unter einem Dach.</p>
+          </div>
+        </div>
+      </div>
+      <div class="hscroll-progress" id="hscrollProgress">
+        <span class="hscroll-dot active"></span>
+        <span class="hscroll-dot"></span>
+        <span class="hscroll-dot"></span>
+      </div>
+    </div>
+
+    <!-- Mobile fallback: vertical cards -->
+    <div class="info-grid info-grid-mobile">
       <div class="info-card-glass reveal stagger-1">
         <div class="info-card-glass-inner">
           <span class="info-glass-icon">⏱️</span>
