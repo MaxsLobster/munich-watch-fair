@@ -32,6 +32,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
 <!-- Structured Data: Event -->
 <script type="application/ld+json">
 {
@@ -104,6 +108,13 @@
 
 <a href="#info" class="skip-to-content">Zum Inhalt springen</a>
 
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- Custom Cursor (Desktop only) -->
+<div class="custom-cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="custom-cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-logo">MUNICH <span>W</span>ATCH FAIR</div>
   <div class="loader-sub">Seit 1989 · Die Uhrenbörse München</div>
@@ -146,6 +157,15 @@
 
 <header class="hero" id="hero" role="banner">
   <div class="hero-bg"><div class="hero-bg-gradient"></div></div>
+
+  <!-- Video Background (placeholder – Video-Datei hier einfügen: video/hero-bg.mp4) -->
+  <div class="hero-video-wrap" id="heroVideoWrap" aria-hidden="true">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="video/hero-bg.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+  </div>
+
   <div class="hero-deco hero-deco-1" aria-hidden="true"></div>
   <div class="hero-deco hero-deco-2" aria-hidden="true"></div>
 

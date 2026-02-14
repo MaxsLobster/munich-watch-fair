@@ -1293,3 +1293,102 @@ a{color:inherit;text-decoration:none}
 .countdown-value{will-change:transform}
 .hero-icon-item.floating .hero-icon-svg{will-change:transform}
 .timeline-line-fill{will-change:height}
+
+/* ===== SCROLL PROGRESS BAR ===== */
+.scroll-progress{
+  position:fixed;top:0;left:0;
+  width:0;height:3px;
+  background:linear-gradient(90deg,#e8a04c,#d4a853);
+  z-index:10001;
+  pointer-events:none;
+  will-change:width;
+}
+
+/* ===== CUSTOM CURSOR ===== */
+.custom-cursor-dot,.custom-cursor-ring{display:none}
+@media(min-width:1024px){
+  body.custom-cursor-active{cursor:none}
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active input,
+  body.custom-cursor-active textarea,
+  body.custom-cursor-active [role="button"]{cursor:none}
+  .custom-cursor-dot{
+    display:block;position:fixed;top:0;left:0;
+    width:8px;height:8px;
+    background:#e8a04c;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:10002;
+    transform:translate(-50%,-50%);
+    opacity:0;
+    transition:opacity .3s;
+  }
+  .custom-cursor-ring{
+    display:block;position:fixed;top:0;left:0;
+    width:35px;height:35px;
+    border:1.5px solid rgba(232,160,76,.5);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:10002;
+    transform:translate(-50%,-50%);
+    opacity:0;
+    transition:width .3s var(--ease),height .3s var(--ease),
+      border-color .3s,background .3s,opacity .3s;
+    will-change:transform;
+  }
+  .custom-cursor-ring.hover-link{
+    width:50px;height:50px;
+    background:rgba(232,160,76,.08);
+    border-color:rgba(232,160,76,.7);
+  }
+  .custom-cursor-ring.hover-card{
+    width:55px;height:55px;
+    background:rgba(232,160,76,.05);
+    border-color:rgba(232,160,76,.4);
+  }
+}
+
+/* ===== VIDEO HERO BACKGROUND ===== */
+.hero-video-wrap{
+  position:absolute;inset:0;z-index:0;
+  overflow:hidden;
+}
+.hero-video{
+  position:absolute;
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:0;
+}
+.hero-video-wrap.loaded .hero-video{
+  opacity:1;
+  transition:opacity 1.5s ease;
+}
+.hero-video-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(214,208,200,.85) 0%,
+    rgba(224,219,212,.7) 40%,
+    rgba(214,208,200,.9) 100%
+  );
+  z-index:1;
+}
+@media(max-width:768px){
+  .hero-video{display:none}
+}
+
+/* ===== GSAP OVERRIDES ===== */
+body.gsap-ready .reveal,
+body.gsap-ready .reveal.visible,
+body.gsap-ready .reveal-left,
+body.gsap-ready .reveal-left.visible,
+body.gsap-ready .reveal-right,
+body.gsap-ready .reveal-right.visible,
+body.gsap-ready .reveal-scale,
+body.gsap-ready .reveal-scale.visible{
+  transition:none;
+}
+
+/* ===== PARALLAX ===== */
+.hero-bg{will-change:transform}
