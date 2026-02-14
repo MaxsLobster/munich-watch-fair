@@ -523,3 +523,14 @@ function animateHero(){
     });
   });
 })();
+
+/* ===== LANGUAGE SWITCHER ===== */
+(function(){
+  const btns = document.querySelectorAll('.lang-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+})();
