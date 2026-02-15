@@ -1,28 +1,12 @@
 /* ===== LOADER ===== */
 window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden');animateHero();setTimeout(animateStickyNote,1200)},2200)});
 
-/* ===== NOTIFICATION BAR ===== */
+/* ===== TICKET BADGE ===== */
 function animateStickyNote(){
-  const bar = document.getElementById('stickyNote');
-  if(!bar) return;
-
-  // Slide up via CSS class (permanent)
-  bar.style.transition = 'bottom 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, background 0.3s, box-shadow 0.3s, border-color 0.3s';
-  bar.classList.add('visible');
+  const badge = document.getElementById('ticketBadge');
+  if(!badge) return;
+  badge.classList.add('visible');
 }
-
-// Notification bar close button
-document.addEventListener('click', function(e){
-  const closeBtn = e.target.closest('#stickyNoteClose');
-  if(!closeBtn) return;
-  e.preventDefault();
-  e.stopPropagation();
-  const bar = document.getElementById('stickyNote');
-  if(!bar) return;
-  bar.style.transition = 'bottom .4s cubic-bezier(.6,-.28,.74,.05), opacity .3s ease';
-  bar.classList.remove('visible');
-  setTimeout(() => bar.style.display = 'none', 400);
-});
 
 /* ===== HERO ANIMATION ===== */
 function animateHero(){

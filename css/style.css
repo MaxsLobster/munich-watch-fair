@@ -38,7 +38,7 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--orange) v
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--bg-alt)}
 ::-webkit-scrollbar-thumb{background:var(--orange);border-radius:3px}
-body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 
 /* LOADER */
@@ -614,57 +614,47 @@ a{color:inherit;text-decoration:none}
   .countdown-separator{display:none}
   .form-row{grid-template-columns:1fr}
   .gate-box .btn{display:block;width:100%;margin:.4rem 0}
-  .notification-bar{
-    width:calc(100% - 2rem);max-width:400px;
-    padding:.55rem 2rem .55rem 1rem;
-    gap:.5rem;
-  }
-  .notification-bar-text{font-size:.62rem;letter-spacing:.08em}
-  .notification-bar-cta{font-size:.62rem}
+  .ticket-badge{top:4rem;right:1rem;padding:.4rem .7rem}
   .cursor-spotlight{display:none!important}
   .watch-draw-wrap{max-width:200px}
 }
 @media(max-width:480px){.section{padding:3.5rem 1.25rem}.nav{padding:1rem 1.25rem}.countdown-unit{min-width:52px}.ticker-item{padding:0 1.5rem;font-size:.63rem}}
 
-/* ===== NOTIFICATION BAR CTA ===== */
-.notification-bar{
+/* ===== TICKET BADGE (top-right) ===== */
+.ticket-badge{
   position:fixed;
-  bottom:-60px;
-  left:50%;transform:translateX(-50%);
-  z-index:9999;
-  display:flex;align-items:center;gap:.8rem;
-  padding:.65rem 2rem .65rem 1.5rem;
-  background:var(--navy);
-  color:rgba(255,255,255,.85);
+  top:5rem;right:1.5rem;
+  z-index:999;
+  display:flex;flex-direction:column;align-items:flex-end;gap:.15rem;
+  padding:.5rem .9rem;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border:1px solid rgba(184,134,11,.25);
-  box-shadow:0 8px 30px rgba(0,0,0,.2);
+  box-shadow:0 4px 20px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.03);
   cursor:pointer;
   font-family:var(--font-body);
-  white-space:nowrap;
-  opacity:0;
-  transition:background .3s,box-shadow .3s,border-color .3s;
+  text-decoration:none;
+  opacity:0;transform:translateY(-8px);
+  transition:opacity .5s ease,transform .5s ease,background .3s,border-color .3s,box-shadow .3s;
 }
-.notification-bar.visible{
-  bottom:20px!important;
-  opacity:1!important;
+.ticket-badge.visible{
+  opacity:1;transform:translateY(0);
 }
-.notification-bar:hover{
-  background:var(--navy-light);
+.ticket-badge:hover{
+  background:rgba(255,255,255,.95);
   border-color:var(--gold);
-  box-shadow:0 8px 40px rgba(0,0,0,.3),0 0 20px rgba(184,134,11,.1);
+  box-shadow:0 6px 24px rgba(0,0,0,.08),0 0 12px rgba(184,134,11,.06);
 }
-.notification-bar-text{font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85)}
-.notification-bar-divider{color:var(--gold);opacity:.5}
-.notification-bar-cta{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-light)}
-.notification-bar-close{
-  position:absolute;top:50%;right:.5rem;transform:translateY(-50%);
-  background:none;border:none;cursor:pointer;
-  font-size:.85rem;line-height:1;color:rgba(255,255,255,.4);
-  width:20px;height:20px;display:flex;align-items:center;justify-content:center;
-  border-radius:50%;transition:all .2s ease;z-index:3;
-  font-family:var(--font-body);
+.ticket-badge-date{
+  font-size:.55rem;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--text-mid);
 }
-.notification-bar-close:hover{color:rgba(255,255,255,.8);background:rgba(255,255,255,.1)}
+.ticket-badge-cta{
+  font-size:.6rem;font-weight:600;
+  letter-spacing:.08em;
+  color:var(--orange);
+}
 
 /* ===== CURSOR SPOTLIGHT ===== */
 .cursor-spotlight{
