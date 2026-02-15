@@ -614,9 +614,8 @@ a{color:inherit;text-decoration:none}
   .countdown-separator{display:none}
   .form-row{grid-template-columns:1fr}
   .gate-box .btn{display:block;width:100%;margin:.4rem 0}
-  .ticket-badge{top:4rem;right:.8rem;width:200px;padding:1.1rem 1.2rem 1.3rem}
-  .ticket-badge-date{font-size:1.1rem}
-  .ticket-badge-cta{font-size:.9rem}
+  .ticket-badge{display:none}
+  .ticket-banner-mobile{display:flex}
   .cursor-spotlight{display:none!important}
   .watch-draw-wrap{max-width:200px}
 }
@@ -671,6 +670,26 @@ a{color:inherit;text-decoration:none}
   color:var(--navy);
   opacity:.6;
   margin-top:.25rem;
+}
+
+/* ===== MOBILE TICKET BANNER ===== */
+.ticket-banner-mobile{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;
+  z-index:9999;
+  height:46px;
+  align-items:center;justify-content:center;gap:.5rem;
+  background:var(--navy);
+  text-decoration:none;
+  box-shadow:0 -2px 8px rgba(0,0,0,.15);
+}
+.ticket-banner-mobile span{
+  font-size:.65rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);
+}
+.ticket-banner-mobile .mobile-cta{
+  color:var(--gold-light);
 }
 
 /* ===== CURSOR SPOTLIGHT ===== */
