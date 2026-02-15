@@ -308,7 +308,14 @@ a{color:inherit;text-decoration:none}
 .section-subtitle{font-size:clamp(.88rem,1.2vw,1rem);color:var(--text-light);font-weight:300;max-width:520px;margin:0 auto}
 
 /* INFO CARDS */
-.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+/* Asymmetric layout: 1 large left + 2 stacked right */
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr 1fr;
+  gap:1.5rem;
+}
+.info-card-featured{grid-row:1 / 3}
 
 /* Glassmorphism info cards */
 .info-card-glass{
@@ -316,8 +323,9 @@ a{color:inherit;text-decoration:none}
   background:rgba(255,255,255,.55);
   backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
   border:1px solid rgba(255,255,255,.6);
+  border-top:3px solid var(--gold);
   box-shadow:0 4px 20px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.02),inset 0 1px 0 rgba(255,255,255,.7);
-  transition:all .5s var(--ease);
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
 }
 .info-card-glass::before{
   content:'';position:absolute;top:0;left:0;right:0;height:50%;
@@ -327,24 +335,35 @@ a{color:inherit;text-decoration:none}
 .info-card-glass::after{
   content:'';position:absolute;bottom:0;left:15%;right:15%;height:1.5px;
   background:linear-gradient(90deg,transparent,var(--orange),transparent);
-  opacity:0;transition:opacity .5s var(--ease);
+  opacity:0;transition:opacity .3s ease;
 }
 .info-card-glass:hover{
-  transform:translateY(-4px);
-  box-shadow:0 16px 40px rgba(0,0,0,.06),0 0 20px rgba(184,134,11,.04);
-  border-color:var(--gold-border);
+  transform:translateY(-8px);
+  border-color:var(--orange);
+  box-shadow:0 16px 40px rgba(0,0,0,.08),0 0 24px rgba(184,134,11,.06);
 }
 .info-card-glass:hover::after{opacity:.5}
 .info-card-glass-inner{
   position:relative;z-index:1;
-  padding:clamp(2rem,3.5vw,2.8rem);
+  padding:clamp(1.8rem,3vw,2.5rem);
   text-align:center;
+  display:flex;flex-direction:column;align-items:center;
+  height:100%;
 }
-.info-glass-icon{
-  font-size:2.6rem;margin-bottom:1.2rem;display:inline-block;
-  transition:transform .5s var(--ease-spring);
+/* Featured card: vertically center content */
+.info-card-featured .info-card-glass-inner{
+  justify-content:center;
 }
-.info-card-glass:hover .info-glass-icon{transform:scale(1.25) rotate(-5deg)}
+/* SVG icons */
+.info-card-svg{
+  width:clamp(56px,8vw,72px);
+  margin-bottom:1rem;
+  overflow:visible;
+}
+.info-card-svg .draw{fill:none;stroke:var(--navy);stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+.info-card-svg .draw.thin{stroke-width:.5;stroke:rgba(26,26,46,.3)}
+.info-card-svg .draw.gold{stroke:var(--gold-light);stroke-width:.8}
+.info-card-glass:hover .info-card-svg{transform:scale(1.08);transition:transform .3s ease}
 .info-card-glass h3{
   font-family:var(--font-display);font-size:1.35rem;font-weight:600;margin-bottom:1rem;
 }
@@ -354,7 +373,7 @@ a{color:inherit;text-decoration:none}
 .info-card-glass-inner::after{
   content:'';display:block;width:40px;height:1.5px;margin:0 auto;
   background:linear-gradient(90deg,transparent,var(--orange),transparent);
-  opacity:.4;transition:all .5s var(--ease);
+  opacity:.4;transition:all .3s ease;
 }
 .info-card-glass:hover .info-card-glass-inner::after{width:80px;opacity:.7}
 
@@ -624,7 +643,9 @@ a{color:inherit;text-decoration:none}
   .nav:not(.scrolled) .nav-links.open{background:rgba(245,241,235,.97);border-bottom-color:var(--border)}
   .nav:not(.scrolled) .nav-links.open a{color:var(--navy)}
   .nav-toggle{display:flex}
-  .info-grid,.aussteller-benefits{grid-template-columns:1fr;gap:1rem}
+  .info-grid{grid-template-columns:1fr;grid-template-rows:auto;gap:1rem}
+  .info-card-featured{grid-row:auto}
+  .aussteller-benefits{grid-template-columns:1fr;gap:1rem}
   .pricing-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}
   .pricing-card.featured{transform:none}.pricing-card.featured:hover{transform:translateY(-10px)}
   .countdown-separator{display:none}
