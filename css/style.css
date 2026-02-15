@@ -116,9 +116,10 @@ a{color:inherit;text-decoration:none}
   display:flex;flex-direction:column;align-items:center;
   position:relative;
   opacity:0;transform:translateY(20px);
+  width:100%;
 }
 .logo-hero-svg{
-  width:clamp(280px,55vw,520px);
+  width:clamp(380px,72vw,700px);
   height:auto;
   display:block;
 }
