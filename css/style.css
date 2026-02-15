@@ -351,71 +351,55 @@ a{color:inherit;text-decoration:none}
   display:flex;flex-direction:column;align-items:center;
   height:100%;
 }
-/* Featured card: showcase layout */
+/* Featured card: text centered, watches as deco */
 .info-card-featured .info-card-glass-inner{
-  justify-content:flex-start;
-  padding-top:clamp(1.5rem,2.5vw,2rem);
-}
-/* Watch showcase grid */
-.showcase-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:.6rem;
-  width:100%;
-  margin:.8rem 0;
+  justify-content:center;
   position:relative;
+  overflow:visible;
 }
-.showcase-watch{
-  display:flex;flex-direction:column;align-items:center;
-  opacity:0;transform:translateY(15px);
-  transition:opacity .6s ease,transform .6s ease;
+/* Decorative watch SVGs — absolute positioned */
+.showcase-deco{
+  position:absolute;
+  width:65px;height:auto;
+  opacity:.3;
+  pointer-events:none;
+  z-index:0;
 }
-.showcase-watch.visible{opacity:1;transform:translateY(0)}
-.showcase-svg{width:clamp(70px,10vw,90px);height:auto}
-.showcase-label{
-  font-size:.52rem;font-weight:500;
-  letter-spacing:.18em;text-transform:uppercase;
-  color:var(--text-muted);margin-top:.25rem;
+/* Calatrava — top-left */
+.showcase-deco-1{
+  top:8%;left:6%;
+  transform:rotate(-8deg);
 }
-/* Staggered appearance */
-.showcase-w1.visible{transition-delay:0s}
-.showcase-w2.visible{transition-delay:.15s}
-.showcase-w3.visible{transition-delay:.3s}
-.showcase-w4.visible{transition-delay:.45s}
-/* Animated hands — each watch at different speed */
-.showcase-w1 .showcase-hand-m{animation:handSweep 8s linear infinite;transform-origin:50px 60px}
-.showcase-w2 .showcase-hand-m{animation:handSweep 12s linear infinite;transform-origin:50px 60px}
-.showcase-w3 .showcase-hand-m{animation:handSweep 6s linear infinite;transform-origin:50px 60px}
-.showcase-w4 .showcase-hand-m{animation:handSweep 10s linear infinite;transform-origin:50px 60px}
-.showcase-w1 .showcase-hand-h{animation:handSweep 96s linear infinite;transform-origin:50px 60px}
-.showcase-w2 .showcase-hand-h{animation:handSweep 144s linear infinite;transform-origin:50px 60px}
-.showcase-w3 .showcase-hand-h{animation:handSweep 72s linear infinite;transform-origin:50px 60px}
-.showcase-w4 .showcase-hand-h{animation:handSweep 120s linear infinite;transform-origin:50px 60px}
-@keyframes handSweep{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-/* Gold accent dots between watches */
-.showcase-accent{
-  position:absolute;top:50%;left:50%;
-  width:4px;height:4px;
-  background:var(--gold);border-radius:50%;
-  transform:translate(-50%,-50%);
-  opacity:.4;
-  box-shadow:
-    -14px -10px 0 0 rgba(184,134,11,.2),
-    14px 10px 0 0 rgba(184,134,11,.2),
-    0 -18px 0 0 rgba(184,134,11,.15),
-    0 18px 0 0 rgba(184,134,11,.15);
-  animation:accentPulse 3s ease-in-out infinite;
+/* Pocket Watch — right middle */
+.showcase-deco-2{
+  top:20%;right:4%;
+  transform:rotate(5deg);
 }
-@keyframes accentPulse{
-  0%,100%{opacity:.4}
-  50%{opacity:.7}
+/* Submariner — bottom-center-left */
+.showcase-deco-3{
+  bottom:6%;left:12%;
+  transform:rotate(-3deg);
 }
+/* Animated hands — each at different speed */
+.showcase-deco-1 .showcase-hand-m{animation:handSweep1 10s linear infinite;transform-origin:50px 50px}
+.showcase-deco-1 .showcase-hand-h{animation:handSweep1 120s linear infinite;transform-origin:50px 50px}
+.showcase-deco-2 .showcase-hand-m{animation:handSweep2 8s linear infinite;transform-origin:50px 60px}
+.showcase-deco-2 .showcase-hand-h{animation:handSweep2 96s linear infinite;transform-origin:50px 60px}
+.showcase-deco-3 .showcase-hand-m{animation:handSweep3 12s linear infinite;transform-origin:50px 50px}
+.showcase-deco-3 .showcase-hand-h{animation:handSweep3 144s linear infinite;transform-origin:50px 50px}
+@keyframes handSweep1{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes handSweep2{0%{transform:rotate(45deg)}100%{transform:rotate(405deg)}}
+@keyframes handSweep3{0%{transform:rotate(120deg)}100%{transform:rotate(480deg)}}
+/* Card text above deco */
+.info-card-featured h3,
+.info-card-featured p,
+.info-card-featured .showcase-tagline{position:relative;z-index:1}
 /* Tagline */
 .showcase-tagline{
   font-size:.6rem;font-weight:500;
   letter-spacing:.2em;text-transform:uppercase;
   color:var(--text-muted);
-  margin-top:.4rem;margin-bottom:0;
+  margin-top:.6rem;margin-bottom:0;
 }
 /* SVG icons */
 .info-card-svg{
@@ -427,18 +411,10 @@ a{color:inherit;text-decoration:none}
 .info-card-svg .draw{fill:none;stroke:var(--navy);stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
 .info-card-svg .draw.thin{stroke-width:.5;stroke:rgba(26,26,46,.3)}
 .info-card-svg .draw.gold{stroke:var(--gold-light);stroke-width:.8}
-/* Hover: watch hands rotate */
-.info-card-featured:hover .info-card-svg{animation:watchTick 1.5s ease-in-out}
 /* Hover: jewelry pulse */
 .info-card-glass:nth-child(2):hover .info-card-svg{animation:jewelPulse 1s ease-in-out}
 /* Hover: globe spin */
 .info-card-glass:nth-child(3):hover .info-card-svg{animation:globeSpin 2s linear}
-@keyframes watchTick{
-  0%{transform:rotate(0deg)}
-  25%{transform:rotate(3deg)}
-  75%{transform:rotate(-2deg)}
-  100%{transform:rotate(0deg)}
-}
 @keyframes jewelPulse{
   0%,100%{transform:scale(1)}
   30%{transform:scale(1.1)}
