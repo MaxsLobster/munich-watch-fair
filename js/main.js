@@ -523,7 +523,7 @@ function animateHero(){
   const termineTitle = document.getElementById('termine-title');
   if(termineTitle){
     const html = termineTitle.innerHTML;
-    const wrapped = html.replace(/(\S+)/g, '<span class="reveal-word">$1</span>');
+    const wrapped = html.replace(/<[^>]+>|(\S+)/g, function(m,word){ return word ? '<span class="reveal-word">'+word+'</span>' : m; });
     termineTitle.innerHTML = wrapped;
     const words = termineTitle.querySelectorAll('.reveal-word');
     gsap.to(words, {
