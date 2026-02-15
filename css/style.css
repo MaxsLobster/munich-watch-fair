@@ -936,6 +936,7 @@ a{color:inherit;text-decoration:none}
   .termin-day{font-size:2.2rem}
   .termin-month{font-size:.85rem}
   .termin-time,.termin-location{font-size:.7rem;line-height:1.4}
+  .termin-location{display:none!important}
   .termin-badge{font-size:.45rem;padding:.2rem 1.8rem;top:8px;right:-30px}
 }
 @media(max-width:360px){
