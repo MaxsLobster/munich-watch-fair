@@ -406,8 +406,22 @@ function animateHero(){
 
   hero.classList.add('hero-cinematic');
 
-  // Logo is now a single SVG image
-  const logoSvg = banner.querySelector('.logo-hero-svg');
+  // Split logo text into letters
+  function splitIntoLetters(el){
+    const text = el.textContent;
+    el.textContent = '';
+    text.split('').forEach(ch => {
+      const span = document.createElement('span');
+      span.className = 'hero-letter';
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      el.appendChild(span);
+    });
+  }
+
+  const logoMunich = banner.querySelector('.logo-munich');
+  const logoFair = banner.querySelector('.logo-fair');
+  if(logoMunich) splitIntoLetters(logoMunich);
+  if(logoFair) splitIntoLetters(logoFair);
 
   // Typewriter for date
   const heroDate = document.querySelector('.hero-date');
@@ -426,14 +440,29 @@ function animateHero(){
     // Banner fades in
     tl.to(banner, { opacity: 1, duration: 0.6, ease: 'power2.out' });
 
-    // Logo SVG reveal
-    if(logoSvg){
-      tl.fromTo(logoSvg,
-        { opacity: 0, scale: 0.9, y: 20 },
-        { opacity: 1, scale: 1, y: 0, duration: 1, ease: 'power3.out' },
-        '-=0.2'
+    // Logo letters reveal
+    const munichLetters = banner.querySelectorAll('.logo-munich .hero-letter');
+    const fairLetters = banner.querySelectorAll('.logo-fair .hero-letter');
+
+    tl.to(munichLetters, {
+      opacity: 1, y: 0, rotateX: 0,
+      duration: 0.5, stagger: 0.04, ease: 'back.out(1.5)'
+    }, '-=0.2');
+
+    // W + A SVG area handled by existing code, just show it
+    const logoWatch = banner.querySelector('.logo-watch');
+    if(logoWatch){
+      tl.fromTo(logoWatch,
+        { opacity: 0, scale: 0.8 },
+        { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' },
+        '-=0.3'
       );
     }
+
+    tl.to(fairLetters, {
+      opacity: 1, y: 0, rotateX: 0,
+      duration: 0.5, stagger: 0.04, ease: 'back.out(1.5)'
+    }, '-=0.4');
 
     // Banner line + badge
     const line = banner.querySelector('.hero-banner-line');
