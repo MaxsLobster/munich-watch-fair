@@ -113,53 +113,14 @@ a{color:inherit;text-decoration:none}
 }
 /* Logo recreation */
 .hero-logo{
-  display:flex;flex-direction:column;align-items:flex-start;
+  display:flex;flex-direction:column;align-items:center;
   position:relative;
   opacity:0;transform:translateY(20px);
 }
-.logo-munich{
-  font-family:var(--font-display);
-  font-size:clamp(2.6rem,6.5vw,4.8rem);
-  font-weight:700;
-  color:var(--navy);
-  letter-spacing:.06em;
-  line-height:1;
-}
-.logo-watch{
-  font-family:var(--font-display);
-  font-size:clamp(5rem,13vw,10rem);
-  font-weight:900;
-  color:var(--navy);
-  letter-spacing:.06em;
-  line-height:.82;
-  position:relative;
-  display:flex;align-items:baseline;
-}
-/* The A is replaced by an SVG clock-hand pointer */
-.logo-a-wrap{
-  display:inline-block;
-  position:relative;
-  width:clamp(2.4rem,6.2vw,4.8rem);
-  height:clamp(5rem,13vw,10rem);
-  vertical-align:baseline;
-}
-.logo-a-svg{
-  position:absolute;
-  bottom:-.15em;left:50%;
-  transform:translateX(-50%);
-  width:clamp(2.6rem,6.8vw,5.2rem);
-  height:clamp(4.2rem,11vw,8.2rem);
-  overflow:visible;
-}
-.logo-fair{
-  font-family:var(--font-display);
-  font-size:clamp(2.4rem,5.8vw,4.2rem);
-  font-weight:700;
-  color:var(--navy);
-  letter-spacing:.06em;
-  line-height:1;
-  align-self:flex-end;
-  margin-top:-.15em;
+.logo-hero-svg{
+  width:clamp(280px,55vw,520px);
+  height:auto;
+  display:block;
 }
 .hero-banner-line{
   width:80px;height:1px;margin:1rem auto;
