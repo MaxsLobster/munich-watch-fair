@@ -1347,6 +1347,26 @@ html.lenis,html.lenis body{
   overscroll-behavior:contain;
 }
 
+/* Contact Section */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(2rem,4vw,3.5rem);align-items:start}
+.glass-card{background:var(--bg-card);border:1px solid rgba(0,0,0,.06);border-radius:1.2rem;padding:clamp(1.5rem,3vw,2.5rem);box-shadow:0 2px 16px rgba(0,0,0,.04)}
+.contact-info-card h3{font-family:var(--font-display);font-size:1.3rem;font-weight:600;color:var(--navy);margin-bottom:1.5rem}
+.contact-item{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.25rem}
+.contact-item svg{flex-shrink:0;color:var(--orange);margin-top:.15rem}
+.contact-item .contact-label{display:block;font-family:var(--font-body);font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);margin-bottom:.15rem}
+.contact-item a,.contact-item span{font-family:var(--font-body);font-size:.95rem;color:var(--navy);line-height:1.6}
+.contact-item a:hover{color:var(--orange)}
+.contact-form{display:flex;flex-direction:column;gap:1.25rem}
+.form-group{display:flex;flex-direction:column;gap:.35rem}
+.form-group label{font-family:var(--font-body);font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-light)}
+.form-group input,.form-group select,.form-group textarea{font-family:var(--font-body);font-size:.95rem;padding:.75rem 1rem;border:1px solid var(--border);border-radius:.5rem;background:var(--bg);color:var(--navy);transition:border-color .3s var(--ease),box-shadow .3s var(--ease);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(205,127,50,.12)}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-group select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+@media(max-width:768px){
+  .contact-grid{grid-template-columns:1fr}
+}
+
 /* Legal Pages */
 .nav-legal{background:var(--bg);padding:1.2rem 2.5rem;border-bottom:1px solid var(--border)}
 .nav-legal .nav-logo{color:var(--text)}
