@@ -302,6 +302,26 @@ function animateHero(){
     );
   });
 
+  // Info cards – asymmetric slide-in
+  const infoFeatured = document.querySelector('.info-card-featured');
+  const infoRight = gsap.utils.toArray('.info-card-glass:not(.info-card-featured)');
+  if(infoFeatured){
+    gsap.fromTo(infoFeatured,
+      { opacity: 0, x: -60 },
+      { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: '.info-grid', start: 'top 82%', once: true }
+      }
+    );
+  }
+  if(infoRight.length){
+    gsap.fromTo(infoRight,
+      { opacity: 0, x: 60 },
+      { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', stagger: 0.2,
+        scrollTrigger: { trigger: '.info-grid', start: 'top 82%', once: true }
+      }
+    );
+  }
+
   // Termin cards – staggered
   const terminCards = gsap.utils.toArray('.termin-card');
   if(terminCards.length){
