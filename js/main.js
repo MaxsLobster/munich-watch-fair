@@ -108,7 +108,7 @@ function animateHero(){
     const vh = window.innerHeight;
     if(rect.top > vh || rect.bottom < 0) return;
     const progress = Math.min(1, Math.max(0, (vh - rect.top) / (rect.height + vh * 0.3)));
-    fill.style.height = (progress * 100) + '%';
+    fill.style.width = (progress * 100) + '%';
   }
   let ticking = false;
   window.addEventListener('scroll', () => {
@@ -627,7 +627,7 @@ function animateHero(){
   const tagesTitle = document.getElementById('tagesablauf-title');
   if(tagesTitle){
     const html = tagesTitle.innerHTML;
-    const wrapped = html.replace(/(\S+)/g, '<span class="reveal-word">$1</span>');
+    const wrapped = html.replace(/<[^>]+>|(\S+)/g, function(m,word){ return word ? '<span class="reveal-word">'+word+'</span>' : m; });
     tagesTitle.innerHTML = wrapped;
     const words = tagesTitle.querySelectorAll('.reveal-word');
     gsap.to(words, {
