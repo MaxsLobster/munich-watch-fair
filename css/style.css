@@ -614,46 +614,60 @@ a{color:inherit;text-decoration:none}
   .countdown-separator{display:none}
   .form-row{grid-template-columns:1fr}
   .gate-box .btn{display:block;width:100%;margin:.4rem 0}
-  .ticket-badge{top:4rem;right:1rem;padding:.4rem .7rem}
+  .ticket-badge{top:4rem;right:.8rem;padding:.5rem .7rem .6rem}
   .cursor-spotlight{display:none!important}
   .watch-draw-wrap{max-width:200px}
 }
 @media(max-width:480px){.section{padding:3.5rem 1.25rem}.nav{padding:1rem 1.25rem}.countdown-unit{min-width:52px}.ticker-item{padding:0 1.5rem;font-size:.63rem}}
 
-/* ===== TICKET BADGE (top-right) ===== */
+/* ===== TICKET POST-IT (top-right) ===== */
 .ticket-badge{
   position:fixed;
   top:5rem;right:1.5rem;
   z-index:999;
-  display:flex;flex-direction:column;align-items:flex-end;gap:.15rem;
-  padding:.5rem .9rem;
-  background:rgba(255,255,255,.88);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border:1px solid rgba(184,134,11,.25);
-  box-shadow:0 4px 20px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.03);
+  display:flex;flex-direction:column;align-items:flex-start;gap:.2rem;
+  padding:.6rem .85rem .7rem;
+  background:#FFF9C4;
+  border:none;
+  box-shadow:
+    1px 2px 6px rgba(0,0,0,.12),
+    -1px 1px 2px rgba(0,0,0,.04),
+    inset 0 -1px 0 rgba(0,0,0,.03);
   cursor:pointer;
   font-family:var(--font-body);
   text-decoration:none;
-  opacity:0;transform:translateY(-8px);
-  transition:opacity .5s ease,transform .5s ease,background .3s,border-color .3s,box-shadow .3s;
+  transform:rotate(2deg) translateY(-8px);
+  opacity:0;
+  transition:opacity .5s ease,transform .5s ease,box-shadow .3s;
 }
 .ticket-badge.visible{
-  opacity:1;transform:translateY(0);
+  opacity:1;transform:rotate(2deg) translateY(0);
 }
 .ticket-badge:hover{
-  background:rgba(255,255,255,.95);
-  border-color:var(--gold);
-  box-shadow:0 6px 24px rgba(0,0,0,.08),0 0 12px rgba(184,134,11,.06);
+  box-shadow:
+    2px 4px 12px rgba(0,0,0,.16),
+    -1px 2px 4px rgba(0,0,0,.06);
+  transform:rotate(1deg) translateY(-1px);
+}
+/* Paper fold effect */
+.ticket-badge::after{
+  content:'';position:absolute;
+  bottom:0;right:0;
+  width:12px;height:12px;
+  background:linear-gradient(135deg,#FFF9C4 50%,transparent 50%),
+    linear-gradient(135deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.02) 100%);
+  box-shadow:-1px -1px 2px rgba(0,0,0,.05);
 }
 .ticket-badge-date{
-  font-size:.55rem;font-weight:500;
-  letter-spacing:.15em;text-transform:uppercase;
-  color:var(--text-mid);
+  font-size:.58rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--navy);
 }
 .ticket-badge-cta{
-  font-size:.6rem;font-weight:600;
-  letter-spacing:.08em;
-  color:var(--orange);
+  font-size:.56rem;font-weight:600;
+  letter-spacing:.06em;
+  color:var(--navy);
+  opacity:.7;
 }
 
 /* ===== CURSOR SPOTLIGHT ===== */
