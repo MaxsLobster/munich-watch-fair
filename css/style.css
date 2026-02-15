@@ -470,15 +470,31 @@ a{color:inherit;text-decoration:none}
   }
   .timeline-item{scroll-snap-align:center;min-width:200px}
 }
-/* Mobile: stack 2+3 */
+/* Mobile: horizontal swipe */
 @media(max-width:600px){
   .timeline{
-    grid-template-columns:repeat(2,1fr);
-    overflow:visible;
+    display:flex;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+    gap:.75rem;
+    padding:0 1rem 1rem;
+    scrollbar-width:none;
   }
+  .timeline::-webkit-scrollbar{display:none}
   .timeline-line{display:none}
-  .timeline-item{padding-top:48px;min-width:0}
-  .timeline-node{width:34px;height:34px}
+  .timeline-item{
+    flex:0 0 70vw;max-width:260px;
+    scroll-snap-align:start;
+    padding-top:0;min-width:0;
+  }
+  .timeline-node{display:none}
+  .timeline-item::before{display:none}
+  .timeline-card-glass{padding:.9rem .8rem}
+  .timeline-card-glass h3{font-size:.85rem;margin-bottom:.2rem}
+  .timeline-card-glass p{
+    font-size:.72rem;line-height:1.4;
+    display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;
+  }
 }
 
 /* ===== TICKETS ===== */
