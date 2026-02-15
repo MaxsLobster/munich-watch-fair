@@ -79,18 +79,26 @@ a{color:inherit;text-decoration:none}
 .hero-deco-1{top:15%;left:5%;width:200px;height:200px;border:1px solid rgba(26,26,46,.06);border-radius:50%}
 .hero-deco-2{bottom:20%;right:8%;width:150px;height:150px;border:1px solid rgba(184,134,11,.15);border-radius:50%}
 
+/* Full-width navy band behind the banner */
+.hero-banner-band{
+  position:relative;z-index:3;
+  width:100vw;margin-left:calc(-50vw + 50%);
+  display:flex;justify-content:center;align-items:center;
+  padding:clamp(2rem,4vw,3.5rem) 2rem;
+  background:var(--navy);
+  margin-bottom:clamp(3rem,5vw,4.5rem);
+}
 /* Fixed top banner - Glassmorphism Card */
 .hero-banner{
   position:relative;z-index:3;
   display:flex;flex-direction:column;align-items:center;
   text-align:center;
-  margin-bottom:clamp(3rem,5vw,4.5rem);
   padding:clamp(2.5rem,5vw,4rem) clamp(3rem,6vw,6rem);
-  background:rgba(255,255,255,.65);
+  background:rgba(255,255,255,.85);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(184,134,11,.2);
-  box-shadow:0 8px 40px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.03),inset 0 1px 0 rgba(255,255,255,.8);
-  max-width:800px;width:100%;
+  border:1px solid rgba(184,134,11,.3);
+  box-shadow:0 8px 40px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.9);
+  max-width:900px;width:100%;
 }
 /* Glass reflection shine */
 .hero-banner::before{
@@ -112,7 +120,7 @@ a{color:inherit;text-decoration:none}
 }
 .logo-munich{
   font-family:var(--font-display);
-  font-size:clamp(2rem,5vw,3.6rem);
+  font-size:clamp(2.6rem,6.5vw,4.8rem);
   font-weight:700;
   color:var(--navy);
   letter-spacing:.06em;
@@ -120,7 +128,7 @@ a{color:inherit;text-decoration:none}
 }
 .logo-watch{
   font-family:var(--font-display);
-  font-size:clamp(3.8rem,10vw,7.5rem);
+  font-size:clamp(5rem,13vw,10rem);
   font-weight:900;
   color:var(--navy);
   letter-spacing:.06em;
@@ -132,21 +140,21 @@ a{color:inherit;text-decoration:none}
 .logo-a-wrap{
   display:inline-block;
   position:relative;
-  width:clamp(1.8rem,4.8vw,3.6rem);
-  height:clamp(3.8rem,10vw,7.5rem);
+  width:clamp(2.4rem,6.2vw,4.8rem);
+  height:clamp(5rem,13vw,10rem);
   vertical-align:baseline;
 }
 .logo-a-svg{
   position:absolute;
   bottom:-.15em;left:50%;
   transform:translateX(-50%);
-  width:clamp(2rem,5.2vw,4rem);
-  height:clamp(3.2rem,8.5vw,6.2rem);
+  width:clamp(2.6rem,6.8vw,5.2rem);
+  height:clamp(4.2rem,11vw,8.2rem);
   overflow:visible;
 }
 .logo-fair{
   font-family:var(--font-display);
-  font-size:clamp(1.8rem,4.5vw,3.2rem);
+  font-size:clamp(2.4rem,5.8vw,4.2rem);
   font-weight:700;
   color:var(--navy);
   letter-spacing:.06em;
@@ -161,7 +169,7 @@ a{color:inherit;text-decoration:none}
 }
 .hero-banner.animated .hero-banner-line{opacity:.5}
 .hero-banner-badge{
-  font-size:.6rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;
+  font-size:.75rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;
   color:var(--text-mid);
   opacity:0;transform:translateY(15px);
 }
