@@ -59,7 +59,7 @@ function animateHero(){
     const heroRect=hero.getBoundingClientRect();
     const bannerRect=banner.getBoundingClientRect();
     const bannerCenter=bannerRect.top+bannerRect.height/2-heroRect.top;
-    const bandH=bannerRect.height*0.5;
+    const bandH=bannerRect.height*0.35;
     band.style.top=(bannerCenter-bandH/2)+'px';
     band.style.height=bandH+'px';
   }
