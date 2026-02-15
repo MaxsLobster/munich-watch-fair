@@ -322,6 +322,19 @@ function animateHero(){
     );
   }
 
+  // Showcase watches – staggered reveal
+  const showcaseWatches = gsap.utils.toArray('.showcase-watch');
+  if(showcaseWatches.length){
+    ScrollTrigger.create({
+      trigger: '.showcase-grid',
+      start: 'top 85%',
+      once: true,
+      onEnter: function(){
+        showcaseWatches.forEach(function(w){ w.classList.add('visible'); });
+      }
+    });
+  }
+
   // Termin cards – staggered
   const terminCards = gsap.utils.toArray('.termin-card');
   if(terminCards.length){
