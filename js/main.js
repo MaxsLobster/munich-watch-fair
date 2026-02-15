@@ -6,18 +6,9 @@ function animateStickyNote(){
   const bar = document.getElementById('stickyNote');
   if(!bar) return;
 
-  // Reset
-  bar.style.transition = 'none';
-  bar.style.bottom = '-60px';
-  bar.style.opacity = '0';
-
-  // Force reflow
-  bar.offsetHeight;
-
-  // Slide up
+  // Slide up via CSS class (permanent)
   bar.style.transition = 'bottom 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, background 0.3s, box-shadow 0.3s, border-color 0.3s';
-  bar.style.bottom = '20px';
-  bar.style.opacity = '1';
+  bar.classList.add('visible');
 }
 
 // Notification bar close button
@@ -29,8 +20,7 @@ document.addEventListener('click', function(e){
   const bar = document.getElementById('stickyNote');
   if(!bar) return;
   bar.style.transition = 'bottom .4s cubic-bezier(.6,-.28,.74,.05), opacity .3s ease';
-  bar.style.bottom = '-60px';
-  bar.style.opacity = '0';
+  bar.classList.remove('visible');
   setTimeout(() => bar.style.display = 'none', 400);
 });
 
