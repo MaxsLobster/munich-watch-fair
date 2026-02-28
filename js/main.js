@@ -1,3 +1,108 @@
+/* ===== ZENTRALE MESSETERMINE ===== */
+const MESSE_TERMINE = [
+  { date: '2026-02-22', start: '07:00', end: '17:00', weekday: 'Sonntag', day: '22', month: 'Februar', year: '2026', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2026-03-29', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '29', month: 'März', year: '2026', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2026-05-17', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '17', month: 'Mai', year: '2026', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2026-06-28', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '28', month: 'Juni', year: '2026', location: 'Ballhausforum Unterschleißheim' },
+];
+
+function getNextTermin() {
+  const now = new Date();
+  for (const t of MESSE_TERMINE) {
+    const end = new Date(t.date + 'T' + t.end + ':00');
+    if (end > now) return t;
+  }
+  return null;
+}
+
+function formatTerminShort(t) {
+  return t.day + '. ' + t.month.substring(0, 3) + ' ' + t.year;
+}
+
+function formatTerminHero(t) {
+  return t.weekday + ', ' + t.day + '. ' + t.month + ' ' + t.year
+    + ' \u2003\u00B7\u2003' + t.start + ' \u2013 ' + t.end + ' Uhr'
+    + ' \u2003\u00B7\u2003' + t.location;
+}
+
+/* ===== DYNAMISCHE TERMIN-AKTUALISIERUNG ===== */
+(function updateAllTerminElements() {
+  const next = getNextTermin();
+
+  // Hero-Datum
+  const heroDate = document.querySelector('.hero-date');
+  if (heroDate) {
+    heroDate.textContent = next
+      ? formatTerminHero(next)
+      : 'Neue Termine folgen in Kürze';
+  }
+
+  // Ticket Badge (Desktop)
+  const badgeDate = document.querySelector('.ticket-badge-date');
+  if (badgeDate) {
+    badgeDate.textContent = next ? formatTerminShort(next) : '';
+  }
+  const ticketBadge = document.getElementById('ticketBadge');
+  if (ticketBadge && !next) ticketBadge.style.display = 'none';
+
+  // Ticket Banner (Mobile)
+  const mobileBanner = document.querySelector('.ticket-banner-mobile');
+  if (mobileBanner) {
+    const mobileDate = mobileBanner.querySelector('span:first-child');
+    if (mobileDate) mobileDate.textContent = next ? formatTerminShort(next) : '';
+    if (!next) mobileBanner.style.display = 'none';
+  }
+
+  // Ticket-Section Daten
+  const ticketDates = document.querySelectorAll('.ticket-date');
+  if (next && ticketDates.length) {
+    ticketDates[0].innerHTML = next.weekday + ', ' + next.day + '. ' + next.month + ' ' + next.year
+      + ' &ensp;|&ensp; ' + next.start + ' \u2013 ' + next.end + ' Uhr';
+    if (ticketDates[1]) {
+      ticketDates[1].innerHTML = next.weekday + ', ' + next.day + '. ' + next.month + ' ' + next.year
+        + ' &ensp;|&ensp; 10:30 \u2013 ' + next.end + ' Uhr';
+    }
+  }
+
+  // Schema.org aktualisieren
+  const schemaScript = document.querySelector('script[type="application/ld+json"]');
+  if (schemaScript && next) {
+    try {
+      const schema = JSON.parse(schemaScript.textContent);
+      schema.startDate = next.date + 'T' + next.start + ':00+01:00';
+      schema.endDate = next.date + 'T' + next.end + ':00+01:00';
+      schemaScript.textContent = JSON.stringify(schema, null, 2);
+    } catch(e) {}
+  }
+
+  // Termin-Karten: vergangene ausblenden, nächste markieren
+  const cards = document.querySelectorAll('.termin-card[data-date]');
+  const now = new Date();
+  cards.forEach(card => {
+    const endTime = card.dataset.date + 'T17:00:00';
+    const cardEnd = new Date(endTime);
+    card.classList.remove('is-past', 'is-next');
+    if (cardEnd < now) {
+      card.style.display = 'none';
+    } else if (next && card.dataset.date === next.date) {
+      card.classList.add('is-next');
+    }
+  });
+
+  // Wenn alle Termine vorbei: Hinweis in Termine-Sektion
+  const termineGrid = document.getElementById('termineGrid');
+  if (termineGrid && !next) {
+    const visibleCards = termineGrid.querySelectorAll('.termin-card:not([style*="display: none"])');
+    if (visibleCards.length === 0) {
+      const notice = document.createElement('div');
+      notice.className = 'termin-notice reveal';
+      notice.innerHTML = '<p>Neue Termine folgen in Kürze.</p>';
+      notice.style.cssText = 'text-align:center;padding:3rem 1rem;font-family:var(--font-display);font-size:1.3rem;color:var(--text-mid);grid-column:1/-1;';
+      termineGrid.appendChild(notice);
+    }
+  }
+})();
+
 /* ===== LOADER ===== */
 window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden');animateHero();setTimeout(animateStickyNote,1200)},2200)});
 
@@ -5,6 +110,7 @@ window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loa
 function animateStickyNote(){
   const badge = document.getElementById('ticketBadge');
   if(!badge) return;
+  if(badge.style.display === 'none') return;
   badge.classList.add('visible');
 }
 
@@ -52,7 +158,29 @@ function animateHero(){
 })();
 
 /* ===== COUNTDOWN ===== */
-(function(){const t=new Date('2026-02-22T10:00:00+01:00').getTime(),e={d:document.getElementById('cd-days'),h:document.getElementById('cd-hours'),m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};let p={};function pad(n){return String(n).padStart(2,'0')}function tick(el){el.classList.add('tick');setTimeout(()=>el.classList.remove('tick'),300)}function u(){const d=t-Date.now();if(d<=0){Object.values(e).forEach(x=>x.textContent='00');return}const v={d:Math.floor(d/864e5),h:Math.floor(d%864e5/36e5),m:Math.floor(d%36e5/6e4),s:Math.floor(d%6e4/1e3)};Object.keys(v).forEach(k=>{const s=pad(v[k]);if(p[k]!==s){e[k].textContent=s;tick(e[k]);p[k]=s}})}u();setInterval(u,1e3)})();
+(function(){
+  const next = getNextTermin();
+  const countdownWrap = document.querySelector('.hero-countdown-wrap');
+  if (!next) {
+    // Alle Termine vorbei: Countdown durch Hinweis ersetzen
+    if (countdownWrap) {
+      countdownWrap.innerHTML = '<p style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-mid);text-align:center;opacity:0;" data-hero-anim>Neue Termine folgen in Kürze</p>';
+    }
+    return;
+  }
+  const t = new Date(next.date + 'T' + next.start + ':00+01:00').getTime();
+  const e={d:document.getElementById('cd-days'),h:document.getElementById('cd-hours'),m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};
+  let p={};
+  function pad(n){return String(n).padStart(2,'0')}
+  function tick(el){el.classList.add('tick');setTimeout(()=>el.classList.remove('tick'),300)}
+  function u(){
+    const d=t-Date.now();
+    if(d<=0){Object.values(e).forEach(x=>x.textContent='00');return}
+    const v={d:Math.floor(d/864e5),h:Math.floor(d%864e5/36e5),m:Math.floor(d%36e5/6e4),s:Math.floor(d%6e4/1e3)};
+    Object.keys(v).forEach(k=>{const s=pad(v[k]);if(p[k]!==s){e[k].textContent=s;tick(e[k]);p[k]=s}});
+  }
+  u();setInterval(u,1e3);
+})();
 
 /* ===== SCROLL REVEAL ===== */
 (function(){const i=document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale');if(!('IntersectionObserver'in window)){i.forEach(e=>e.classList.add('visible'));return}const o=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');o.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});i.forEach(e=>o.observe(e))})();
@@ -139,23 +267,7 @@ function animateHero(){
   });
 })();
 
-/* ===== MESSETERMINE – AUTO DATE LOGIC ===== */
-(function(){
-  const cards = document.querySelectorAll('.termin-card[data-date]');
-  if(!cards.length) return;
-  const now = new Date();
-  now.setHours(0,0,0,0);
-  let nextFound = false;
-  cards.forEach(card => {
-    const d = new Date(card.dataset.date + 'T00:00:00');
-    if(d < now){
-      card.classList.add('is-past');
-    } else if(!nextFound){
-      card.classList.add('is-next');
-      nextFound = true;
-    }
-  });
-})();
+/* ===== MESSETERMINE – AUTO DATE LOGIC (now handled by central MESSE_TERMINE) ===== */
 
 /* ===== FAQ ACCORDION ===== */
 (function(){
