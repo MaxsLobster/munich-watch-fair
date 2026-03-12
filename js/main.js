@@ -19,6 +19,10 @@ function formatTerminShort(t) {
   return t.day + '. ' + t.month.substring(0, 3) + ' ' + t.year;
 }
 
+function formatTerminLong(t) {
+  return t.day + '. ' + t.month + ' ' + t.year;
+}
+
 function formatTerminHero(t) {
   return t.weekday + ', ' + t.day + '. ' + t.month + ' ' + t.year
     + ' \u2003\u00B7\u2003' + t.start + ' \u2013 ' + t.end + ' Uhr'
@@ -64,6 +68,30 @@ function formatTerminHero(t) {
     }
   }
 
+  // Dashboard: Nächste Messe
+  const dashboardEvent = document.getElementById('dashboardNextEvent');
+  if (dashboardEvent) {
+    dashboardEvent.innerHTML = next
+      ? formatTerminLong(next) + ' &middot; ' + next.location
+      : 'Neue Termine folgen in Kürze';
+  }
+
+  // CTA-Banner Datum
+  const ctaDate = document.getElementById('ctaDate');
+  if (ctaDate) {
+    ctaDate.textContent = next
+      ? formatTerminLong(next) + ' · ' + next.location
+      : 'Neue Termine folgen in Kürze';
+  }
+
+  // Tagesablauf Subtitle
+  const tagesablaufSub = document.getElementById('tagesablaufSubtitle');
+  if (tagesablaufSub) {
+    tagesablaufSub.textContent = next
+      ? 'Von früh bis spät – so läuft der ' + formatTerminLong(next) + ' ab.'
+      : 'Von früh bis spät – so läuft Ihr Messetag ab.';
+  }
+
   // Schema.org aktualisieren
   const schemaScript = document.querySelector('script[type="application/ld+json"]');
   if (schemaScript && next) {
@@ -100,6 +128,13 @@ function formatTerminHero(t) {
       notice.style.cssText = 'text-align:center;padding:3rem 1rem;font-family:var(--font-display);font-size:1.3rem;color:var(--text-mid);grid-column:1/-1;';
       termineGrid.appendChild(notice);
     }
+  }
+
+  // Meta description aktualisieren
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc && next) {
+    metaDesc.setAttribute('content',
+      'Europas führende Uhrenbörse seit 1989. Luxusuhren, Sammleruhren, Schmuck & Accessoires. 9× im Jahr im Ballhausforum Unterschleißheim bei München. Nächster Termin: ' + formatTerminLong(next) + '.');
   }
 })();
 
