@@ -1132,7 +1132,7 @@ a{color:inherit;text-decoration:none}
 
 /* ===== LANGUAGE SWITCHER ===== */
 .lang-switch{
-  display:flex;align-items:center;gap:.4rem;
+  display:flex;align-items:center;gap:.3rem;
   margin-left:1.5rem;
 }
 .lang-btn{

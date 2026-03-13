@@ -109,7 +109,7 @@
 </head>
 <body>
 
-<a href="#info" class="skip-to-content">Zum Inhalt springen</a>
+<a href="#info" class="skip-to-content" data-i18n-de="Zum Inhalt springen" data-i18n-en="Skip to content" data-i18n-it="Vai al contenuto">Zum Inhalt springen</a>
 
 <!-- Scroll Progress Bar -->
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -119,7 +119,7 @@
 
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-logo">MUNICH <span>W</span>ATCH FAIR</div>
-  <div class="loader-sub">Seit 1989 · Die Uhrenbörse München</div>
+  <div class="loader-sub" data-i18n-de="Seit 1989 · Die Uhrenbörse München" data-i18n-en="Since 1989 · The Munich Watch Exchange" data-i18n-it="Dal 1989 · La Borsa degli Orologi di Monaco">Seit 1989 · Die Uhrenbörse München</div>
   <div class="loader-bar"></div>
 </div>
 
@@ -132,31 +132,33 @@
 <!-- Ticket Badge (top-right, desktop) -->
 <a href="#tickets" class="ticket-badge" id="ticketBadge" aria-label="Tickets kaufen">
   <span class="ticket-badge-date"></span>
-  <span class="ticket-badge-cta">Tickets ab &euro;20 &rarr;</span>
+  <span class="ticket-badge-cta" data-i18n-html="true" data-i18n-de="Tickets ab &euro;20 &rarr;" data-i18n-en="Tickets from &euro;20 &rarr;" data-i18n-it="Biglietti da &euro;20 &rarr;">Tickets ab &euro;20 &rarr;</span>
 </a>
 <!-- Ticket Banner (bottom, mobile) -->
 <a href="#tickets" class="ticket-banner-mobile" aria-label="Tickets kaufen">
   <span></span>
   <span>&middot;</span>
-  <span class="mobile-cta">Tickets ab &euro;20 &rarr;</span>
+  <span class="mobile-cta" data-i18n-html="true" data-i18n-de="Tickets ab &euro;20 &rarr;" data-i18n-en="Tickets from &euro;20 &rarr;" data-i18n-it="Biglietti da &euro;20 &rarr;">Tickets ab &euro;20 &rarr;</span>
 </a>
 
 <nav class="nav" role="navigation" aria-label="Hauptnavigation">
   <a href="#" class="nav-logo">Munich <span>W</span>atch Fair</a>
   <ul class="nav-links" role="menubar">
-    <li role="none"><a href="#info" role="menuitem">Die Börse</a></li>
-    <li role="none"><a href="#tagesablauf" role="menuitem">Tagesablauf</a></li>
-    <li role="none"><a href="#tickets" role="menuitem">Tickets</a></li>
-    <li role="none"><a href="#aussteller" role="menuitem">Aussteller</a></li>
-    <li role="none"><a href="#termine" role="menuitem">Termine</a></li>
+    <li role="none"><a href="#info" role="menuitem" data-i18n-de="Die Börse" data-i18n-en="The Fair" data-i18n-it="La Fiera">Die Börse</a></li>
+    <li role="none"><a href="#tagesablauf" role="menuitem" data-i18n-de="Tagesablauf" data-i18n-en="Schedule" data-i18n-it="Programma">Tagesablauf</a></li>
+    <li role="none"><a href="#tickets" role="menuitem" data-i18n-de="Tickets" data-i18n-en="Tickets" data-i18n-it="Biglietti">Tickets</a></li>
+    <li role="none"><a href="#aussteller" role="menuitem" data-i18n-de="Aussteller" data-i18n-en="Exhibitors" data-i18n-it="Espositori">Aussteller</a></li>
+    <li role="none"><a href="#termine" role="menuitem" data-i18n-de="Termine" data-i18n-en="Dates" data-i18n-it="Date">Termine</a></li>
     <li role="none"><a href="#location" role="menuitem">Location</a></li>
     <li role="none"><a href="#faq" role="menuitem">FAQ</a></li>
-    <li role="none"><a href="#kontakt" role="menuitem">Kontakt</a></li>
+    <li role="none"><a href="#kontakt" role="menuitem" data-i18n-de="Kontakt" data-i18n-en="Contact" data-i18n-it="Contatti">Kontakt</a></li>
   </ul>
   <div class="lang-switch" aria-label="Sprache wechseln">
     <button class="lang-btn active" data-lang="de">DE</button>
     <span class="lang-divider">|</span>
     <button class="lang-btn" data-lang="en">EN</button>
+    <span class="lang-divider">|</span>
+    <button class="lang-btn" data-lang="it">IT</button>
   </div>
   <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
@@ -192,7 +194,7 @@
       <span class="logo-fair">Fair</span>
     </div>
     <div class="hero-banner-line"></div>
-    <div class="hero-banner-badge" data-hero-anim>Seit 1989 · Die Uhrenbörse München</div>
+    <div class="hero-banner-badge" data-hero-anim data-i18n-de="Seit 1989 · Die Uhrenbörse München" data-i18n-en="Since 1989 · The Munich Watch Exchange" data-i18n-it="Dal 1989 · La Borsa degli Orologi di Monaco">Seit 1989 · Die Uhrenbörse München</div>
   </div>
 
   <!-- Date & Venue -->
@@ -203,13 +205,13 @@
   <!-- Countdown -->
   <div class="hero-countdown-wrap">
     <div class="countdown" data-hero-anim role="timer" aria-label="Countdown">
-      <div class="countdown-unit"><span class="countdown-value" id="cd-days">--</span><span class="countdown-label">Tage</span></div>
+      <div class="countdown-unit"><span class="countdown-value" id="cd-days">--</span><span class="countdown-label" data-i18n-de="Tage" data-i18n-en="Days" data-i18n-it="Giorni">Tage</span></div>
       <span class="countdown-separator" aria-hidden="true">:</span>
-      <div class="countdown-unit"><span class="countdown-value" id="cd-hours">--</span><span class="countdown-label">Std</span></div>
+      <div class="countdown-unit"><span class="countdown-value" id="cd-hours">--</span><span class="countdown-label" data-i18n-de="Std" data-i18n-en="Hrs" data-i18n-it="Ore">Std</span></div>
       <span class="countdown-separator" aria-hidden="true">:</span>
-      <div class="countdown-unit"><span class="countdown-value" id="cd-mins">--</span><span class="countdown-label">Min</span></div>
+      <div class="countdown-unit"><span class="countdown-value" id="cd-mins">--</span><span class="countdown-label" data-i18n-de="Min" data-i18n-en="Min" data-i18n-it="Min">Min</span></div>
       <span class="countdown-separator" aria-hidden="true">:</span>
-      <div class="countdown-unit"><span class="countdown-value" id="cd-secs">--</span><span class="countdown-label">Sek</span></div>
+      <div class="countdown-unit"><span class="countdown-value" id="cd-secs">--</span><span class="countdown-label" data-i18n-de="Sek" data-i18n-en="Sec" data-i18n-it="Sec">Sek</span></div>
     </div>
   </div>
 
@@ -230,7 +232,7 @@
         <line class="draw gold d5" x1="6" y1="32" x2="16" y2="36"/>
         <line class="draw gold d5" x1="104" y1="30" x2="114" y2="26"/>
       </svg>
-      <span class="hero-icon-label">Schmuck</span>
+      <span class="hero-icon-label" data-i18n-de="Schmuck" data-i18n-en="Jewellery" data-i18n-it="Gioielli">Schmuck</span>
     </div>
 
     <!-- Round Chronograph Watch -->
@@ -280,7 +282,7 @@
         <!-- Center pinion -->
         <circle class="draw gold d5" cx="60" cy="75" r="2.5"/>
       </svg>
-      <span class="hero-icon-label">Uhren</span>
+      <span class="hero-icon-label" data-i18n-de="Uhren" data-i18n-en="Watches" data-i18n-it="Orologi">Uhren</span>
     </div>
 
     <!-- Birkin-Style Handbag -->
@@ -310,13 +312,13 @@
         <circle class="draw thin d4" cx="50" cy="133" r="1.5"/>
         <circle class="draw thin d4" cx="70" cy="133" r="1.5"/>
       </svg>
-      <span class="hero-icon-label">Accessoires</span>
+      <span class="hero-icon-label" data-i18n-de="Accessoires" data-i18n-en="Accessories" data-i18n-it="Accessori">Accessoires</span>
     </div>
   </div>
 
   <!-- Scroll Down Indicator -->
   <div class="hero-scroll-indicator" id="heroScrollIndicator" aria-hidden="true">
-    <span class="hero-scroll-text">Scroll</span>
+    <span class="hero-scroll-text" data-i18n-de="Scroll" data-i18n-en="Scroll" data-i18n-it="Scorri">Scroll</span>
     <div class="hero-scroll-line"></div>
   </div>
 </header>
@@ -391,7 +393,7 @@
       </svg>
     </div>
 
-    <div class="section-header reveal"><div class="section-tag">Das Erlebnis</div><h2 class="section-title" id="info-title">Was Sie <span class="orange">erwartet</span></h2><p class="section-subtitle">Seit 1989 der Treffpunkt für Uhrenliebhaber, Sammler und Kenner – eine Messe, die aus Leidenschaft entstanden ist und stetig wächst.</p></div>
+    <div class="section-header reveal"><div class="section-tag" data-i18n-de="Das Erlebnis" data-i18n-en="The Experience" data-i18n-it="L'esperienza">Das Erlebnis</div><h2 class="section-title" id="info-title" data-i18n-html="true" data-i18n-de='Was Sie <span class="orange">erwartet</span>' data-i18n-en='What to <span class="orange">Expect</span>' data-i18n-it='Cosa vi <span class="orange">aspetta</span>'>Was Sie <span class="orange">erwartet</span></h2><p class="section-subtitle" data-i18n-de="Seit 1989 der Treffpunkt für Uhrenliebhaber, Sammler und Kenner – eine Messe, die aus Leidenschaft entstanden ist und stetig wächst." data-i18n-en="Since 1989, the meeting point for watch enthusiasts, collectors and connoisseurs – a fair born of passion that continues to grow." data-i18n-it="Dal 1989, il punto d'incontro per appassionati di orologi, collezionisti e intenditori – una fiera nata dalla passione che continua a crescere.">Seit 1989 der Treffpunkt für Uhrenliebhaber, Sammler und Kenner – eine Messe, die aus Leidenschaft entstanden ist und stetig wächst.</p></div>
 
     <div class="info-grid">
       <div class="info-card-glass info-card-featured">
@@ -460,9 +462,9 @@
             <line class="showcase-hand-m" x1="50" y1="50" x2="76" y2="38" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round"/>
             <circle cx="50" cy="50" r="2.5" fill="var(--gold)"/>
           </svg>
-          <h3>Uhren für <span class="orange">jeden Anspruch</span></h3>
-          <p>Der Großteil unserer Messe widmet sich hochwertigen Luxus- und Sammleruhren – neu und vintage, vom erschwinglichen Klassiker bis zur begehrten Rarität. Für jeden Geldbeutel und jede Leidenschaft.</p>
-          <p class="showcase-tagline">Von Audemars Piguet bis Zenith &ensp;·&ensp; Vintage bis Neuware</p>
+          <h3 data-i18n-html="true" data-i18n-de='Uhren für <span class="orange">jeden Anspruch</span>' data-i18n-en='Watches for <span class="orange">Every Taste</span>' data-i18n-it='Orologi per <span class="orange">ogni esigenza</span>'>Uhren für <span class="orange">jeden Anspruch</span></h3>
+          <p data-i18n-de="Der Großteil unserer Messe widmet sich hochwertigen Luxus- und Sammleruhren – neu und vintage, vom erschwinglichen Klassiker bis zur begehrten Rarität. Für jeden Geldbeutel und jede Leidenschaft." data-i18n-en="The heart of our fair is dedicated to luxury and collector watches – new and vintage, from affordable classics to coveted rarities. For every budget and every passion." data-i18n-it="Il cuore della nostra fiera è dedicato agli orologi di lusso e da collezione – nuovi e vintage, dal classico accessibile alla rarità più ambita. Per ogni budget e ogni passione.">Der Großteil unserer Messe widmet sich hochwertigen Luxus- und Sammleruhren – neu und vintage, vom erschwinglichen Klassiker bis zur begehrten Rarität. Für jeden Geldbeutel und jede Leidenschaft.</p>
+          <p class="showcase-tagline" data-i18n-html="true" data-i18n-de="Von Audemars Piguet bis Zenith &ensp;·&ensp; Vintage bis Neuware" data-i18n-en="From Audemars Piguet to Zenith &ensp;·&ensp; Vintage to Brand New" data-i18n-it="Da Audemars Piguet a Zenith &ensp;·&ensp; Vintage e nuovo">Von Audemars Piguet bis Zenith &ensp;·&ensp; Vintage bis Neuware</p>
         </div>
       </div>
       <div class="info-card-glass">
@@ -476,8 +478,8 @@
             <circle class="draw gold d4" cx="40" cy="62" r="3"/>
             <line class="draw thin d4" x1="40" y1="59" x2="40" y2="56"/>
           </svg>
-          <h3>Schmuck &amp; <span class="orange">Accessoires</span></h3>
-          <p>Erlesener Schmuck, premium Vintage- und Designer-Handtaschen sowie exklusive Accessoires – für Damen und Herren.</p>
+          <h3 data-i18n-html="true" data-i18n-de='Schmuck &amp; <span class="orange">Accessoires</span>' data-i18n-en='Jewellery &amp; <span class="orange">Accessories</span>' data-i18n-it='Gioielli &amp; <span class="orange">Accessori</span>'>Schmuck &amp; <span class="orange">Accessoires</span></h3>
+          <p data-i18n-de="Erlesener Schmuck, premium Vintage- und Designer-Handtaschen sowie exklusive Accessoires – für Damen und Herren." data-i18n-en="Exquisite jewellery, premium vintage and designer handbags, and exclusive accessories – for women and men." data-i18n-it="Gioielli raffinati, borse vintage e firmate di alta gamma e accessori esclusivi – per donna e uomo.">Erlesener Schmuck, premium Vintage- und Designer-Handtaschen sowie exklusive Accessoires – für Damen und Herren.</p>
         </div>
       </div>
       <div class="info-card-glass">
@@ -493,8 +495,8 @@
             <circle class="draw gold d4" cx="40" cy="22" r="1.5"/>
             <circle class="draw gold d4" cx="40" cy="58" r="1.5"/>
           </svg>
-          <h3>Internationale <span class="orange">Aussteller</span></h3>
-          <p>Händler und Sammler aus ganz Deutschland und Europa präsentieren Raritäten und limitierte Editionen – alles unter einem Dach.</p>
+          <h3 data-i18n-html="true" data-i18n-de='Internationale <span class="orange">Aussteller</span>' data-i18n-en='International <span class="orange">Exhibitors</span>' data-i18n-it='Espositori <span class="orange">internazionali</span>'>Internationale <span class="orange">Aussteller</span></h3>
+          <p data-i18n-de="Händler und Sammler aus ganz Deutschland und Europa präsentieren Raritäten und limitierte Editionen – alles unter einem Dach." data-i18n-en="Dealers and collectors from across Germany and Europe present rarities and limited editions – all under one roof." data-i18n-it="Commercianti e collezionisti da tutta la Germania e l'Europa presentano rarità ed edizioni limitate – tutto sotto un unico tetto.">Händler und Sammler aus ganz Deutschland und Europa präsentieren Raritäten und limitierte Editionen – alles unter einem Dach.</p>
         </div>
       </div>
     </div>
@@ -504,52 +506,52 @@
 <!-- ===== TAGESABLAUF TIMELINE ===== -->
 <section class="section section-alt" id="tagesablauf" aria-labelledby="tagesablauf-title">
   <div class="section-inner">
-    <div class="section-header reveal"><div class="section-tag">Tagesablauf</div><h2 class="section-title" id="tagesablauf-title">Ihr Tag auf der <span class="orange">Messe</span></h2><p class="section-subtitle" id="tagesablaufSubtitle"></p></div>
+    <div class="section-header reveal"><div class="section-tag" data-i18n-de="Tagesablauf" data-i18n-en="Schedule" data-i18n-it="Programma">Tagesablauf</div><h2 class="section-title" id="tagesablauf-title" data-i18n-html="true" data-i18n-de='Ihr Tag auf der <span class="orange">Messe</span>' data-i18n-en='Your Day at the <span class="orange">Fair</span>' data-i18n-it='La vostra giornata in <span class="orange">fiera</span>'>Ihr Tag auf der <span class="orange">Messe</span></h2><p class="section-subtitle" id="tagesablaufSubtitle" data-i18n-dynamic="true"></p></div>
     <div class="timeline" id="timeline">
       <div class="timeline-line"><div class="timeline-line-fill" id="timelineFill"></div></div>
       
       <div class="timeline-item" data-time="07:00">
         <div class="timeline-node"><span class="timeline-clock">🔑</span></div>
         <div class="timeline-card-glass">
-          <span class="timeline-time">07:00 Uhr</span>
-          <h3>Aufbau &amp; <span class="orange">Vorbereitung</span></h3>
-          <p>Die Hallen öffnen für Aussteller mit Tischreservierung. Zeit zum Aufbauen, Einrichten und die besten Stücke in Szene zu setzen.</p>
+          <span class="timeline-time" data-i18n-de="07:00 Uhr" data-i18n-en="07:00" data-i18n-it="Ore 07:00">07:00 Uhr</span>
+          <h3 data-i18n-html="true" data-i18n-de='Aufbau &amp; <span class="orange">Vorbereitung</span>' data-i18n-en='Setup &amp; <span class="orange">Preparation</span>' data-i18n-it='Allestimento e <span class="orange">preparazione</span>'>Aufbau &amp; <span class="orange">Vorbereitung</span></h3>
+          <p data-i18n-de="Die Hallen öffnen für Aussteller mit Tischreservierung. Zeit zum Aufbauen, Einrichten und die besten Stücke in Szene zu setzen." data-i18n-en="The halls open for exhibitors with table reservations. Time to set up, arrange and showcase your finest pieces." data-i18n-it="I padiglioni aprono per gli espositori con prenotazione tavolo. Tempo per allestire, organizzare e mettere in mostra i pezzi migliori.">Die Hallen öffnen für Aussteller mit Tischreservierung. Zeit zum Aufbauen, Einrichten und die besten Stücke in Szene zu setzen.</p>
         </div>
       </div>
 
       <div class="timeline-item" data-time="08:00">
         <div class="timeline-node"><span class="timeline-clock">🌅</span></div>
         <div class="timeline-card-glass">
-          <span class="timeline-time">08:00 Uhr</span>
-          <h3>Early Bird &amp; <span class="orange">WTA-Mitglieder</span></h3>
-          <p>Exklusiver Früheinlass für Early-Bird-Ticketinhaber und WTA-Mitglieder. Zwei Stunden Vorsprung – die beste Auswahl, bevor es alle sehen.</p>
+          <span class="timeline-time" data-i18n-de="08:00 Uhr" data-i18n-en="08:00" data-i18n-it="Ore 08:00">08:00 Uhr</span>
+          <h3 data-i18n-html="true" data-i18n-de='Early Bird &amp; <span class="orange">WTA-Mitglieder</span>' data-i18n-en='Early Bird &amp; <span class="orange">WTA Members</span>' data-i18n-it='Early Bird e <span class="orange">membri WTA</span>'>Early Bird &amp; <span class="orange">WTA-Mitglieder</span></h3>
+          <p data-i18n-de="Exklusiver Früheinlass für Early-Bird-Ticketinhaber und WTA-Mitglieder. Zwei Stunden Vorsprung – die beste Auswahl, bevor es alle sehen." data-i18n-en="Exclusive early access for Early Bird ticket holders and WTA members. Two hours head start – the best selection before everyone else arrives." data-i18n-it="Accesso anticipato esclusivo per possessori di biglietti Early Bird e membri WTA. Due ore di vantaggio – la migliore selezione prima dell'apertura al pubblico.">Exklusiver Früheinlass für Early-Bird-Ticketinhaber und WTA-Mitglieder. Zwei Stunden Vorsprung – die beste Auswahl, bevor es alle sehen.</p>
         </div>
       </div>
 
       <div class="timeline-item" data-time="10:30">
         <div class="timeline-node"><span class="timeline-clock">🎟️</span></div>
         <div class="timeline-card-glass">
-          <span class="timeline-time">10:30 Uhr</span>
-          <h3>Einlass <span class="orange">für alle</span></h3>
-          <p>Die Messe öffnet ihre Türen für alle Besucher. Stöbern, fachsimpeln, entdecken – willkommen auf der Munich Watch Fair.</p>
+          <span class="timeline-time" data-i18n-de="10:30 Uhr" data-i18n-en="10:30" data-i18n-it="Ore 10:30">10:30 Uhr</span>
+          <h3 data-i18n-html="true" data-i18n-de='Einlass <span class="orange">für alle</span>' data-i18n-en='Open to <span class="orange">Everyone</span>' data-i18n-it='Apertura al <span class="orange">pubblico</span>'>Einlass <span class="orange">für alle</span></h3>
+          <p data-i18n-de="Die Messe öffnet ihre Türen für alle Besucher. Stöbern, fachsimpeln, entdecken – willkommen auf der Munich Watch Fair." data-i18n-en="The fair opens its doors to all visitors. Browse, discuss, discover – welcome to the Munich Watch Fair." data-i18n-it="La fiera apre le porte a tutti i visitatori. Scoprite, dialogate, esplorate – benvenuti alla Munich Watch Fair.">Die Messe öffnet ihre Türen für alle Besucher. Stöbern, fachsimpeln, entdecken – willkommen auf der Munich Watch Fair.</p>
         </div>
       </div>
 
       <div class="timeline-item" data-time="16:00">
         <div class="timeline-node"><span class="timeline-clock">⏳</span></div>
         <div class="timeline-card-glass">
-          <span class="timeline-time">16:00 Uhr</span>
-          <h3>Letzter <span class="orange">Eintritt</span></h3>
-          <p>Letzter Einlass – wer jetzt noch kommt, hat eine Stunde für die letzten Schnäppchen und Gespräche.</p>
+          <span class="timeline-time" data-i18n-de="16:00 Uhr" data-i18n-en="16:00" data-i18n-it="Ore 16:00">16:00 Uhr</span>
+          <h3 data-i18n-html="true" data-i18n-de='Letzter <span class="orange">Eintritt</span>' data-i18n-en='Last <span class="orange">Entry</span>' data-i18n-it='Ultimo <span class="orange">ingresso</span>'>Letzter <span class="orange">Eintritt</span></h3>
+          <p data-i18n-de="Letzter Einlass – wer jetzt noch kommt, hat eine Stunde für die letzten Schnäppchen und Gespräche." data-i18n-en="Last admission – latecomers still have one hour for final bargains and conversations." data-i18n-it="Ultimo ingresso – chi arriva ora ha ancora un'ora per gli ultimi affari e conversazioni.">Letzter Einlass – wer jetzt noch kommt, hat eine Stunde für die letzten Schnäppchen und Gespräche.</p>
         </div>
       </div>
 
       <div class="timeline-item" data-time="17:00">
         <div class="timeline-node"><span class="timeline-clock">🏁</span></div>
         <div class="timeline-card-glass">
-          <span class="timeline-time">17:00 Uhr</span>
-          <h3>Ende &amp; <span class="orange">Ausklang</span></h3>
-          <p>Die Messe schließt ihre Türen. Bis zum nächsten Mal!</p>
+          <span class="timeline-time" data-i18n-de="17:00 Uhr" data-i18n-en="17:00" data-i18n-it="Ore 17:00">17:00 Uhr</span>
+          <h3 data-i18n-html="true" data-i18n-de='Ende &amp; <span class="orange">Ausklang</span>' data-i18n-en='End &amp; <span class="orange">Closing</span>' data-i18n-it='Fine e <span class="orange">chiusura</span>'>Ende &amp; <span class="orange">Ausklang</span></h3>
+          <p data-i18n-de="Die Messe schließt ihre Türen. Bis zum nächsten Mal!" data-i18n-en="The fair closes its doors. See you next time!" data-i18n-it="La fiera chiude i battenti. Alla prossima!">Die Messe schließt ihre Türen. Bis zum nächsten Mal!</p>
         </div>
       </div>
 
@@ -561,56 +563,56 @@
 <section class="section" id="termine" aria-labelledby="termine-title">
   <div class="section-inner">
     <div class="section-header reveal">
-      <div class="section-tag">Kalender</div>
-      <h2 class="section-title" id="termine-title">Alle Termine <span class="orange">2026</span></h2>
-      <p class="section-subtitle">Die Munich Watch Fair findet 9× im Jahr statt – sichern Sie sich Ihren Wunschtermin.</p>
+      <div class="section-tag" data-i18n-de="Kalender" data-i18n-en="Calendar" data-i18n-it="Calendario">Kalender</div>
+      <h2 class="section-title" id="termine-title" data-i18n-html="true" data-i18n-de='Alle Termine <span class="orange">2026</span>' data-i18n-en='All Dates <span class="orange">2026</span>' data-i18n-it='Tutte le date <span class="orange">2026</span>'>Alle Termine <span class="orange">2026</span></h2>
+      <p class="section-subtitle" data-i18n-de="Die Munich Watch Fair findet 9× im Jahr statt – sichern Sie sich Ihren Wunschtermin." data-i18n-en="The Munich Watch Fair takes place 9 times a year – secure your preferred date." data-i18n-it="La Munich Watch Fair si tiene 9 volte l'anno – assicuratevi la data che preferite.">Die Munich Watch Fair findet 9× im Jahr statt – sichern Sie sich Ihren Wunschtermin.</p>
     </div>
     <div class="termine-grid" id="termineGrid">
       <div class="termin-card reveal stagger-1" data-date="2026-02-22">
-        <div class="termin-badge">Nächster Termin</div>
+        <div class="termin-badge" data-i18n-de="Nächster Termin" data-i18n-en="Next Date" data-i18n-it="Prossima data">Nächster Termin</div>
         <div class="termin-date-wrap">
-          <span class="termin-weekday">Sonntag</span>
+          <span class="termin-weekday" data-i18n-de="Sonntag" data-i18n-en="Sunday" data-i18n-it="Domenica">Sonntag</span>
           <span class="termin-day">22</span>
-          <span class="termin-month">Februar 2026</span>
+          <span class="termin-month" data-i18n-de="Februar 2026" data-i18n-en="February 2026" data-i18n-it="Febbraio 2026">Februar 2026</span>
         </div>
         <div class="termin-details">
-          <p class="termin-time">🕐 08:00 – 17:00 Uhr</p>
+          <p class="termin-time" data-i18n-de="🕐 08:00 – 17:00 Uhr" data-i18n-en="🕐 08:00 – 17:00" data-i18n-it="🕐 08:00 – 17:00">🕐 08:00 – 17:00 Uhr</p>
           <p class="termin-location">📍 Ballhausforum Unterschleißheim</p>
         </div>
       </div>
       <div class="termin-card reveal stagger-2" data-date="2026-03-29">
-        <div class="termin-badge">Nächster Termin</div>
+        <div class="termin-badge" data-i18n-de="Nächster Termin" data-i18n-en="Next Date" data-i18n-it="Prossima data">Nächster Termin</div>
         <div class="termin-date-wrap">
-          <span class="termin-weekday">Sonntag</span>
+          <span class="termin-weekday" data-i18n-de="Sonntag" data-i18n-en="Sunday" data-i18n-it="Domenica">Sonntag</span>
           <span class="termin-day">29</span>
-          <span class="termin-month">März 2026</span>
+          <span class="termin-month" data-i18n-de="März 2026" data-i18n-en="March 2026" data-i18n-it="Marzo 2026">März 2026</span>
         </div>
         <div class="termin-details">
-          <p class="termin-time">🕐 08:00 – 17:00 Uhr</p>
+          <p class="termin-time" data-i18n-de="🕐 08:00 – 17:00 Uhr" data-i18n-en="🕐 08:00 – 17:00" data-i18n-it="🕐 08:00 – 17:00">🕐 08:00 – 17:00 Uhr</p>
           <p class="termin-location">📍 Ballhausforum Unterschleißheim</p>
         </div>
       </div>
       <div class="termin-card reveal stagger-3" data-date="2026-05-17">
-        <div class="termin-badge">Nächster Termin</div>
+        <div class="termin-badge" data-i18n-de="Nächster Termin" data-i18n-en="Next Date" data-i18n-it="Prossima data">Nächster Termin</div>
         <div class="termin-date-wrap">
-          <span class="termin-weekday">Sonntag</span>
+          <span class="termin-weekday" data-i18n-de="Sonntag" data-i18n-en="Sunday" data-i18n-it="Domenica">Sonntag</span>
           <span class="termin-day">17</span>
-          <span class="termin-month">Mai 2026</span>
+          <span class="termin-month" data-i18n-de="Mai 2026" data-i18n-en="May 2026" data-i18n-it="Maggio 2026">Mai 2026</span>
         </div>
         <div class="termin-details">
-          <p class="termin-time">🕐 08:00 – 17:00 Uhr</p>
+          <p class="termin-time" data-i18n-de="🕐 08:00 – 17:00 Uhr" data-i18n-en="🕐 08:00 – 17:00" data-i18n-it="🕐 08:00 – 17:00">🕐 08:00 – 17:00 Uhr</p>
           <p class="termin-location">📍 Ballhausforum Unterschleißheim</p>
         </div>
       </div>
       <div class="termin-card reveal stagger-2" data-date="2026-06-28">
-        <div class="termin-badge">Nächster Termin</div>
+        <div class="termin-badge" data-i18n-de="Nächster Termin" data-i18n-en="Next Date" data-i18n-it="Prossima data">Nächster Termin</div>
         <div class="termin-date-wrap">
-          <span class="termin-weekday">Sonntag</span>
+          <span class="termin-weekday" data-i18n-de="Sonntag" data-i18n-en="Sunday" data-i18n-it="Domenica">Sonntag</span>
           <span class="termin-day">28</span>
-          <span class="termin-month">Juni 2026</span>
+          <span class="termin-month" data-i18n-de="Juni 2026" data-i18n-en="June 2026" data-i18n-it="Giugno 2026">Juni 2026</span>
         </div>
         <div class="termin-details">
-          <p class="termin-time">🕐 08:00 – 17:00 Uhr</p>
+          <p class="termin-time" data-i18n-de="🕐 08:00 – 17:00 Uhr" data-i18n-en="🕐 08:00 – 17:00" data-i18n-it="🕐 08:00 – 17:00">🕐 08:00 – 17:00 Uhr</p>
           <p class="termin-location">📍 Ballhausforum Unterschleißheim</p>
         </div>
       </div>
@@ -622,20 +624,20 @@
 
 <section class="section section-alt" id="tickets" aria-labelledby="tickets-title">
   <div class="section-inner">
-    <div class="section-header reveal"><div class="section-tag">Eintritt</div><h2 class="section-title" id="tickets-title">Tickets <span class="orange">sichern</span></h2><p class="section-subtitle">Sichern Sie sich jetzt Ihren Eintritt zur Munich Watch Fair 2026.</p></div>
+    <div class="section-header reveal"><div class="section-tag" data-i18n-de="Eintritt" data-i18n-en="Admission" data-i18n-it="Ingresso">Eintritt</div><h2 class="section-title" id="tickets-title" data-i18n-html="true" data-i18n-de='Tickets <span class="orange">sichern</span>' data-i18n-en='Get Your <span class="orange">Tickets</span>' data-i18n-it='Acquistate i <span class="orange">biglietti</span>'>Tickets <span class="orange">sichern</span></h2><p class="section-subtitle" data-i18n-de="Sichern Sie sich jetzt Ihren Eintritt zur Munich Watch Fair 2026." data-i18n-en="Secure your admission to the Munich Watch Fair 2026 now." data-i18n-it="Assicuratevi ora l'ingresso alla Munich Watch Fair 2026.">Sichern Sie sich jetzt Ihren Eintritt zur Munich Watch Fair 2026.</p></div>
     <div class="ticket-grid">
       <div class="ticket-card reveal-scale">
         <span class="ticket-badge">Early Bird</span>
-        <span class="ticket-icon">🌅</span><h3>Early Bird Ticket</h3>
-        <p class="ticket-date"></p>
-        <p class="ticket-price">€50</p><p class="ticket-price-sub">pro Person · inkl. MwSt.</p>
-        <a href="https://eventim-light.com/de/a/61256a72a91dc01b4b932fe4/" target="_blank" rel="noopener" class="btn btn-primary btn-pulse btn-magnet">Tickets kaufen</a>
+        <span class="ticket-icon">🌅</span><h3 data-i18n-de="Early Bird Ticket" data-i18n-en="Early Bird Ticket" data-i18n-it="Biglietto Early Bird">Early Bird Ticket</h3>
+        <p class="ticket-date" data-i18n-dynamic="true"></p>
+        <p class="ticket-price">€50</p><p class="ticket-price-sub" data-i18n-de="pro Person · inkl. MwSt." data-i18n-en="per person · incl. VAT" data-i18n-it="a persona · IVA inclusa">pro Person · inkl. MwSt.</p>
+        <a href="https://eventim-light.com/de/a/61256a72a91dc01b4b932fe4/" target="_blank" rel="noopener" class="btn btn-primary btn-pulse btn-magnet" data-i18n-de="Tickets kaufen" data-i18n-en="Buy Tickets" data-i18n-it="Acquista biglietti">Tickets kaufen</a>
       </div>
       <div class="ticket-card reveal-scale">
-        <span class="ticket-icon">🎟️</span><h3>Eintrittskarte</h3>
-        <p class="ticket-date"></p>
-        <p class="ticket-price">€20</p><p class="ticket-price-sub">pro Person · inkl. MwSt.</p>
-        <a href="https://eventim-light.com/de/a/61256a72a91dc01b4b932fe4/" target="_blank" rel="noopener" class="btn btn-primary btn-pulse btn-magnet">Tickets kaufen</a>
+        <span class="ticket-icon">🎟️</span><h3 data-i18n-de="Eintrittskarte" data-i18n-en="Standard Ticket" data-i18n-it="Biglietto d'ingresso">Eintrittskarte</h3>
+        <p class="ticket-date" data-i18n-dynamic="true"></p>
+        <p class="ticket-price">€20</p><p class="ticket-price-sub" data-i18n-de="pro Person · inkl. MwSt." data-i18n-en="per person · incl. VAT" data-i18n-it="a persona · IVA inclusa">pro Person · inkl. MwSt.</p>
+        <a href="https://eventim-light.com/de/a/61256a72a91dc01b4b932fe4/" target="_blank" rel="noopener" class="btn btn-primary btn-pulse btn-magnet" data-i18n-de="Tickets kaufen" data-i18n-en="Buy Tickets" data-i18n-it="Acquista biglietti">Tickets kaufen</a>
       </div>
     </div>
   </div>
@@ -652,19 +654,19 @@
 <section class="section" id="aussteller" aria-labelledby="aussteller-title">
   <div class="section-inner">
     <div class="section-header reveal">
-      <div class="section-tag">Für Händler</div>
-      <h2 class="section-title" id="aussteller-title">Aussteller <span class="orange">werden</span></h2>
-      <p class="section-subtitle">Präsentieren Sie Ihre Uhren einem exklusiven Publikum von Sammlern und Enthusiasten.</p>
+      <div class="section-tag" data-i18n-de="Für Händler" data-i18n-en="For Dealers" data-i18n-it="Per commercianti">Für Händler</div>
+      <h2 class="section-title" id="aussteller-title" data-i18n-html="true" data-i18n-de='Aussteller <span class="orange">werden</span>' data-i18n-en='Become an <span class="orange">Exhibitor</span>' data-i18n-it='Diventate <span class="orange">espositore</span>'>Aussteller <span class="orange">werden</span></h2>
+      <p class="section-subtitle" data-i18n-de="Präsentieren Sie Ihre Uhren einem exklusiven Publikum von Sammlern und Enthusiasten." data-i18n-en="Present your watches to an exclusive audience of collectors and enthusiasts." data-i18n-it="Presentate i vostri orologi a un pubblico esclusivo di collezionisti e appassionati.">Präsentieren Sie Ihre Uhren einem exklusiven Publikum von Sammlern und Enthusiasten.</p>
     </div>
 
     <!-- Benefits (always visible) -->
     <div class="aussteller-benefits reveal">
-      <div class="benefit-item"><span class="benefit-icon">🎯</span><h4>Exklusives Publikum</h4><p>Erreichen Sie Sammler und Kenner, die gezielt nach Qualität suchen.</p></div>
-      <div class="benefit-item"><span class="benefit-icon">📍</span><h4>Premium-Standort</h4><p>Modernes Ballhausforum mit exzellenter Anbindung und Infrastruktur.</p></div>
-      <div class="benefit-item"><span class="benefit-icon">🤝</span><h4>Persönliche Betreuung</h4><p>Individuelle Beratung und Unterstützung bei der Planung Ihres Auftritts.</p></div>
+      <div class="benefit-item"><span class="benefit-icon">🎯</span><h4 data-i18n-de="Exklusives Publikum" data-i18n-en="Exclusive Audience" data-i18n-it="Pubblico esclusivo">Exklusives Publikum</h4><p data-i18n-de="Erreichen Sie Sammler und Kenner, die gezielt nach Qualität suchen." data-i18n-en="Reach collectors and connoisseurs who are specifically looking for quality." data-i18n-it="Raggiungete collezionisti e intenditori alla ricerca mirata della qualità.">Erreichen Sie Sammler und Kenner, die gezielt nach Qualität suchen.</p></div>
+      <div class="benefit-item"><span class="benefit-icon">📍</span><h4 data-i18n-de="Premium-Standort" data-i18n-en="Premium Location" data-i18n-it="Location premium">Premium-Standort</h4><p data-i18n-de="Modernes Ballhausforum mit exzellenter Anbindung und Infrastruktur." data-i18n-en="Modern Ballhausforum with excellent transport links and infrastructure." data-i18n-it="Moderno Ballhausforum con eccellenti collegamenti e infrastrutture.">Modernes Ballhausforum mit exzellenter Anbindung und Infrastruktur.</p></div>
+      <div class="benefit-item"><span class="benefit-icon">🤝</span><h4 data-i18n-de="Persönliche Betreuung" data-i18n-en="Personal Support" data-i18n-it="Assistenza personalizzata">Persönliche Betreuung</h4><p data-i18n-de="Individuelle Beratung und Unterstützung bei der Planung Ihres Auftritts." data-i18n-en="Individual consultation and support in planning your appearance." data-i18n-it="Consulenza individuale e supporto nella pianificazione della vostra partecipazione.">Individuelle Beratung und Unterstützung bei der Planung Ihres Auftritts.</p></div>
     </div>
 
-    <p class="reveal" style="text-align:center;margin-top:2.5rem;font-size:1.1rem;color:var(--text-mid);">Interesse? Schreiben Sie uns an <a href="mailto:info@munichwatchfair.com" style="color:var(--orange);text-decoration:underline;">info@munichwatchfair.com</a> – wir melden uns baldmöglich.</p>
+    <p class="reveal" style="text-align:center;margin-top:2.5rem;font-size:1.1rem;color:var(--text-mid);" data-i18n-html="true" data-i18n-de='Interesse? Schreiben Sie uns an <a href="mailto:info@munichwatchfair.com" style="color:var(--orange);text-decoration:underline;">info@munichwatchfair.com</a> – wir melden uns baldmöglich.' data-i18n-en='Interested? Write to us at <a href="mailto:info@munichwatchfair.com" style="color:var(--orange);text-decoration:underline;">info@munichwatchfair.com</a> – we will get back to you shortly.' data-i18n-it='Interessati? Scriveteci a <a href="mailto:info@munichwatchfair.com" style="color:var(--orange);text-decoration:underline;">info@munichwatchfair.com</a> – vi ricontatteremo al più presto.'>Interesse? Schreiben Sie uns an <a href="mailto:info@munichwatchfair.com" style="color:var(--orange);text-decoration:underline;">info@munichwatchfair.com</a> – wir melden uns baldmöglich.</p>
   </div>
 </section>
 
@@ -673,36 +675,36 @@
 <section class="section" id="faq" aria-labelledby="faq-title">
   <div class="section-inner">
     <div class="section-header reveal">
-      <div class="section-tag">Fragen & Antworten</div>
-      <h2 class="section-title" id="faq-title">Häufige <span class="orange">Fragen</span></h2>
-      <p class="section-subtitle">Alles Wichtige rund um Ihren Besuch auf der Munich Watch Fair.</p>
+      <div class="section-tag" data-i18n-de="Fragen & Antworten" data-i18n-en="Questions & Answers" data-i18n-it="Domande e risposte">Fragen & Antworten</div>
+      <h2 class="section-title" id="faq-title" data-i18n-html="true" data-i18n-de='Häufige <span class="orange">Fragen</span>' data-i18n-en='Frequently Asked <span class="orange">Questions</span>' data-i18n-it='Domande <span class="orange">frequenti</span>'>Häufige <span class="orange">Fragen</span></h2>
+      <p class="section-subtitle" data-i18n-de="Alles Wichtige rund um Ihren Besuch auf der Munich Watch Fair." data-i18n-en="Everything you need to know about visiting the Munich Watch Fair." data-i18n-it="Tutto quello che dovete sapere per visitare la Munich Watch Fair.">Alles Wichtige rund um Ihren Besuch auf der Munich Watch Fair.</p>
     </div>
     <div class="faq-list" id="faqList">
       <div class="faq-item reveal">
         <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
-          <span>Wie komme ich zur Munich Watch Fair?</span>
+          <span data-i18n-de="Wie komme ich zur Munich Watch Fair?" data-i18n-en="How do I get to the Munich Watch Fair?" data-i18n-it="Come si arriva alla Munich Watch Fair?">Wie komme ich zur Munich Watch Fair?</span>
           <span class="faq-icon" aria-hidden="true"></span>
         </button>
         <div class="faq-answer" id="faq-answer-1">
-          <p>Die Messe findet im Ballhausforum Unterschleißheim statt (Am Haingraben 33, 85716 Unterschleißheim). Mit dem Auto: A92 Ausfahrt Unterschleißheim. Mit der S-Bahn: S1 bis Unterschleißheim, dann 10 Min. Fußweg. Kostenlose Parkplätze sind direkt am Veranstaltungsort vorhanden.</p>
+          <p data-i18n-de="Die Messe findet im Ballhausforum Unterschleißheim statt (Am Haingraben 33, 85716 Unterschleißheim). Mit dem Auto: A92 Ausfahrt Unterschleißheim. Mit der S-Bahn: S1 bis Unterschleißheim, dann 10 Min. Fußweg. Kostenlose Parkplätze sind direkt am Veranstaltungsort vorhanden." data-i18n-en="The fair takes place at the Ballhausforum Unterschleissheim (Am Haingraben 33, 85716 Unterschleissheim). By car: A92, exit Unterschleissheim. By S-Bahn: S1 to Unterschleissheim, then 10 min walk. Free parking is available at the venue." data-i18n-it="La fiera si svolge presso il Ballhausforum Unterschleissheim (Am Haingraben 33, 85716 Unterschleissheim). In auto: A92, uscita Unterschleissheim. Con la S-Bahn: S1 fino a Unterschleissheim, poi 10 min a piedi. Parcheggio gratuito disponibile presso la sede.">Die Messe findet im Ballhausforum Unterschleißheim statt (Am Haingraben 33, 85716 Unterschleißheim). Mit dem Auto: A92 Ausfahrt Unterschleißheim. Mit der S-Bahn: S1 bis Unterschleißheim, dann 10 Min. Fußweg. Kostenlose Parkplätze sind direkt am Veranstaltungsort vorhanden.</p>
         </div>
       </div>
       <div class="faq-item reveal">
         <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
-          <span>Was kostet der Eintritt?</span>
+          <span data-i18n-de="Was kostet der Eintritt?" data-i18n-en="How much is the admission?" data-i18n-it="Quanto costa l'ingresso?">Was kostet der Eintritt?</span>
           <span class="faq-icon" aria-hidden="true"></span>
         </button>
         <div class="faq-answer" id="faq-answer-2">
-          <p>Early Bird (08:00–17:00): €50 | Normal (10:30–17:00): €20. Tickets gibt es über Eventim.</p>
+          <p data-i18n-de="Early Bird (08:00–17:00): €50 | Normal (10:30–17:00): €20. Tickets gibt es über Eventim." data-i18n-en="Early Bird (08:00–17:00): €50 | Standard (10:30–17:00): €20. Tickets are available via Eventim." data-i18n-it="Early Bird (08:00–17:00): €50 | Standard (10:30–17:00): €20. I biglietti sono disponibili tramite Eventim.">Early Bird (08:00–17:00): €50 | Normal (10:30–17:00): €20. Tickets gibt es über Eventim.</p>
         </div>
       </div>
       <div class="faq-item reveal">
         <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
-          <span>Was wird auf der Messe angeboten?</span>
+          <span data-i18n-de="Was wird auf der Messe angeboten?" data-i18n-en="What is offered at the fair?" data-i18n-it="Cosa viene offerto in fiera?">Was wird auf der Messe angeboten?</span>
           <span class="faq-icon" aria-hidden="true"></span>
         </button>
         <div class="faq-answer" id="faq-answer-4">
-          <p>Schwerpunkt sind Luxus- und Sammleruhren aller Preisklassen – von Vintage bis neu. Zusätzlich Schmuck, Designer-Handtaschen und Accessoires.</p>
+          <p data-i18n-de="Schwerpunkt sind Luxus- und Sammleruhren aller Preisklassen – von Vintage bis neu. Zusätzlich Schmuck, Designer-Handtaschen und Accessoires." data-i18n-en="The focus is on luxury and collector watches of all price ranges – from vintage to new. Plus jewellery, designer handbags and accessories." data-i18n-it="Il focus è sugli orologi di lusso e da collezione di ogni fascia di prezzo – dal vintage al nuovo. In più gioielli, borse firmate e accessori.">Schwerpunkt sind Luxus- und Sammleruhren aller Preisklassen – von Vintage bis neu. Zusätzlich Schmuck, Designer-Handtaschen und Accessoires.</p>
         </div>
       </div>
     </div>
@@ -713,32 +715,32 @@
 <section class="section section-alt" id="kontakt" aria-labelledby="kontakt-title">
   <div class="section-inner">
     <div class="section-header reveal">
-      <div class="section-tag">Kontakt</div>
-      <h2 class="section-title" id="kontakt-title">Schreiben Sie <span class="orange">uns</span></h2>
-      <p class="section-subtitle">Haben Sie Fragen zur Messe, möchten Sie Aussteller werden oder brauchen Hilfe? Wir sind für Sie da.</p>
+      <div class="section-tag" data-i18n-de="Kontakt" data-i18n-en="Contact" data-i18n-it="Contatti">Kontakt</div>
+      <h2 class="section-title" id="kontakt-title" data-i18n-html="true" data-i18n-de='Schreiben Sie <span class="orange">uns</span>' data-i18n-en='Get in <span class="orange">Touch</span>' data-i18n-it='Scriveteci <span class="orange">ora</span>'>Schreiben Sie <span class="orange">uns</span></h2>
+      <p class="section-subtitle" data-i18n-de="Haben Sie Fragen zur Messe, möchten Sie Aussteller werden oder brauchen Hilfe? Wir sind für Sie da." data-i18n-en="Have questions about the fair, want to become an exhibitor, or need help? We are here for you." data-i18n-it="Avete domande sulla fiera, volete diventare espositori o avete bisogno di aiuto? Siamo a vostra disposizione.">Haben Sie Fragen zur Messe, möchten Sie Aussteller werden oder brauchen Hilfe? Wir sind für Sie da.</p>
     </div>
     <div class="contact-grid">
       <div class="contact-info reveal-left">
         <div class="contact-info-card glass-card">
-          <h3>Kontaktdaten</h3>
+          <h3 data-i18n-de="Kontaktdaten" data-i18n-en="Contact Details" data-i18n-it="Dati di contatto">Kontaktdaten</h3>
           <div class="contact-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             <div>
-              <span class="contact-label">E-Mail</span>
+              <span class="contact-label" data-i18n-de="E-Mail" data-i18n-en="Email" data-i18n-it="E-mail">E-Mail</span>
               <a href="mailto:info@munichwatchfair.com">info@munichwatchfair.com</a>
             </div>
           </div>
           <div class="contact-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             <div>
-              <span class="contact-label">Telefon</span>
+              <span class="contact-label" data-i18n-de="Telefon" data-i18n-en="Phone" data-i18n-it="Telefono">Telefon</span>
               <a href="tel:+491726412010">0172 6412010</a>
             </div>
           </div>
           <div class="contact-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <div>
-              <span class="contact-label">Adresse</span>
+              <span class="contact-label" data-i18n-de="Adresse" data-i18n-en="Address" data-i18n-it="Indirizzo">Adresse</span>
               <span>AME GbR<br>Urfahrnstrasse 10<br>83080 Oberaudorf</span>
             </div>
           </div>
@@ -747,27 +749,27 @@
       <div class="contact-form-wrap reveal-right">
         <form class="contact-form glass-card" action="https://formspree.io/f/placeholder" method="POST">
           <div class="form-group">
-            <label for="contact-name">Name</label>
-            <input type="text" id="contact-name" name="name" required placeholder="Ihr Name">
+            <label for="contact-name" data-i18n-de="Name" data-i18n-en="Name" data-i18n-it="Nome">Name</label>
+            <input type="text" id="contact-name" name="name" required placeholder="Ihr Name" data-i18n-ph-de="Ihr Name" data-i18n-ph-en="Your name" data-i18n-ph-it="Il vostro nome">
           </div>
           <div class="form-group">
-            <label for="contact-email">E-Mail</label>
-            <input type="email" id="contact-email" name="email" required placeholder="Ihre E-Mail-Adresse">
+            <label for="contact-email" data-i18n-de="E-Mail" data-i18n-en="Email" data-i18n-it="E-mail">E-Mail</label>
+            <input type="email" id="contact-email" name="email" required placeholder="Ihre E-Mail-Adresse" data-i18n-ph-de="Ihre E-Mail-Adresse" data-i18n-ph-en="Your email address" data-i18n-ph-it="Il vostro indirizzo e-mail">
           </div>
           <div class="form-group">
-            <label for="contact-subject">Betreff</label>
+            <label for="contact-subject" data-i18n-de="Betreff" data-i18n-en="Subject" data-i18n-it="Oggetto">Betreff</label>
             <select id="contact-subject" name="subject">
-              <option value="Allgemeine Anfrage">Allgemeine Anfrage</option>
-              <option value="Aussteller-Anmeldung">Aussteller-Anmeldung</option>
-              <option value="Ticketfrage">Ticketfrage</option>
-              <option value="Sonstiges">Sonstiges</option>
+              <option value="Allgemeine Anfrage" data-i18n-de="Allgemeine Anfrage" data-i18n-en="General Inquiry" data-i18n-it="Richiesta generale">Allgemeine Anfrage</option>
+              <option value="Aussteller-Anmeldung" data-i18n-de="Aussteller-Anmeldung" data-i18n-en="Exhibitor Registration" data-i18n-it="Iscrizione espositore">Aussteller-Anmeldung</option>
+              <option value="Ticketfrage" data-i18n-de="Ticketfrage" data-i18n-en="Ticket Question" data-i18n-it="Domanda sui biglietti">Ticketfrage</option>
+              <option value="Sonstiges" data-i18n-de="Sonstiges" data-i18n-en="Other" data-i18n-it="Altro">Sonstiges</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="contact-message">Nachricht</label>
-            <textarea id="contact-message" name="message" required rows="5" placeholder="Ihre Nachricht..."></textarea>
+            <label for="contact-message" data-i18n-de="Nachricht" data-i18n-en="Message" data-i18n-it="Messaggio">Nachricht</label>
+            <textarea id="contact-message" name="message" required rows="5" placeholder="Ihre Nachricht..." data-i18n-ph-de="Ihre Nachricht..." data-i18n-ph-en="Your message..." data-i18n-ph-it="Il vostro messaggio..."></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Absenden</button>
+          <button type="submit" class="btn btn-primary" data-i18n-de="Absenden" data-i18n-en="Send" data-i18n-it="Invia">Absenden</button>
         </form>
       </div>
     </div>
@@ -778,9 +780,9 @@
 <section class="section section-alt" id="location" aria-labelledby="anfahrt-title">
   <div class="section-inner">
     <div class="section-header reveal">
-      <div class="section-tag">Veranstaltungsort</div>
-      <h2 class="section-title" id="anfahrt-title">Anfahrt & <span class="orange">Location</span></h2>
-      <p class="section-subtitle">So finden Sie uns im Ballhausforum Unterschleißheim.</p>
+      <div class="section-tag" data-i18n-de="Veranstaltungsort" data-i18n-en="Venue" data-i18n-it="Sede">Veranstaltungsort</div>
+      <h2 class="section-title" id="anfahrt-title" data-i18n-html="true" data-i18n-de='Anfahrt & <span class="orange">Location</span>' data-i18n-en='Directions & <span class="orange">Location</span>' data-i18n-it='Come arrivare & <span class="orange">Location</span>'>Anfahrt & <span class="orange">Location</span></h2>
+      <p class="section-subtitle" data-i18n-de="So finden Sie uns im Ballhausforum Unterschleißheim." data-i18n-en="How to find us at the Ballhausforum Unterschleissheim." data-i18n-it="Come trovarci al Ballhausforum Unterschleissheim.">So finden Sie uns im Ballhausforum Unterschleißheim.</p>
     </div>
     <div class="anfahrt-grid">
       <div class="anfahrt-info reveal-left">
@@ -791,22 +793,22 @@
         <div class="anfahrt-block">
           <span class="anfahrt-icon">🚗</span>
           <div>
-            <h4>Mit dem Auto</h4>
-            <p>A92 Ausfahrt Unterschleißheim, dann Beschilderung folgen. Kostenlose Parkplätze direkt am Veranstaltungsort.</p>
+            <h4 data-i18n-de="Mit dem Auto" data-i18n-en="By Car" data-i18n-it="In auto">Mit dem Auto</h4>
+            <p data-i18n-de="A92 Ausfahrt Unterschleißheim, dann Beschilderung folgen. Kostenlose Parkplätze direkt am Veranstaltungsort." data-i18n-en="A92, exit Unterschleissheim, then follow signs. Free parking directly at the venue." data-i18n-it="A92, uscita Unterschleissheim, poi seguire le indicazioni. Parcheggio gratuito direttamente presso la sede.">A92 Ausfahrt Unterschleißheim, dann Beschilderung folgen. Kostenlose Parkplätze direkt am Veranstaltungsort.</p>
           </div>
         </div>
         <div class="anfahrt-block">
           <span class="anfahrt-icon">🚆</span>
           <div>
-            <h4>Mit der S-Bahn</h4>
-            <p>S1 bis Unterschleißheim, dann ca. 10 Minuten Fußweg. Alternativ Bus 219 bis Haltestelle Haingraben.</p>
+            <h4 data-i18n-de="Mit der S-Bahn" data-i18n-en="By S-Bahn" data-i18n-it="Con la S-Bahn">Mit der S-Bahn</h4>
+            <p data-i18n-de="S1 bis Unterschleißheim, dann ca. 10 Minuten Fußweg. Alternativ Bus 219 bis Haltestelle Haingraben." data-i18n-en="S1 to Unterschleissheim, then approx. 10 minutes on foot. Alternatively Bus 219 to Haingraben stop." data-i18n-it="S1 fino a Unterschleissheim, poi circa 10 minuti a piedi. In alternativa Bus 219 fino alla fermata Haingraben.">S1 bis Unterschleißheim, dann ca. 10 Minuten Fußweg. Alternativ Bus 219 bis Haltestelle Haingraben.</p>
           </div>
         </div>
         <div class="anfahrt-block">
           <span class="anfahrt-icon">🅿️</span>
           <div>
-            <h4>Parken</h4>
-            <p>Ausreichend kostenlose Parkplätze direkt vor dem Ballhausforum vorhanden.</p>
+            <h4 data-i18n-de="Parken" data-i18n-en="Parking" data-i18n-it="Parcheggio">Parken</h4>
+            <p data-i18n-de="Ausreichend kostenlose Parkplätze direkt vor dem Ballhausforum vorhanden." data-i18n-en="Ample free parking directly in front of the Ballhausforum." data-i18n-it="Ampio parcheggio gratuito direttamente davanti al Ballhausforum.">Ausreichend kostenlose Parkplätze direkt vor dem Ballhausforum vorhanden.</p>
           </div>
         </div>
       </div>
@@ -819,30 +821,30 @@
 
 <section class="cta-banner" aria-label="Call to Action">
   <div class="cta-banner-bg" aria-hidden="true"></div>
-  <h2 class="reveal">Bereit für die <span class="orange">Munich Watch Fair</span>?</h2>
-  <p class="reveal stagger-1" id="ctaDate"></p>
-  <a href="#tickets" class="btn btn-primary btn-pulse reveal stagger-2">Tickets sichern</a>
+  <h2 class="reveal" data-i18n-html="true" data-i18n-de='Bereit für die <span class="orange">Munich Watch Fair</span>?' data-i18n-en='Ready for the <span class="orange">Munich Watch Fair</span>?' data-i18n-it='Pronti per la <span class="orange">Munich Watch Fair</span>?'>Bereit für die <span class="orange">Munich Watch Fair</span>?</h2>
+  <p class="reveal stagger-1" id="ctaDate" data-i18n-dynamic="true"></p>
+  <a href="#tickets" class="btn btn-primary btn-pulse reveal stagger-2" data-i18n-de="Tickets sichern" data-i18n-en="Get Tickets" data-i18n-it="Acquista biglietti">Tickets sichern</a>
 </section>
 
 <footer class="footer-new" role="contentinfo">
   <div class="footer-new-inner">
     <div class="footer-col footer-col-brand">
       <p class="footer-new-logo">Munich <span>W</span>atch Fair</p>
-      <p class="footer-new-desc">Internationale Uhrenbörse seit 1989</p>
-      <p class="footer-new-venue">Ballhausforum Unterschleißheim bei München</p>
+      <p class="footer-new-desc" data-i18n-de="Internationale Uhrenbörse seit 1989" data-i18n-en="International Watch Exchange since 1989" data-i18n-it="Borsa internazionale degli orologi dal 1989">Internationale Uhrenbörse seit 1989</p>
+      <p class="footer-new-venue" data-i18n-de="Ballhausforum Unterschleißheim bei München" data-i18n-en="Ballhausforum Unterschleissheim near Munich" data-i18n-it="Ballhausforum Unterschleissheim presso Monaco">Ballhausforum Unterschleißheim bei München</p>
     </div>
     <div class="footer-col footer-col-links">
-      <h4 class="footer-col-title">Quick Links</h4>
+      <h4 class="footer-col-title" data-i18n-de="Quick Links" data-i18n-en="Quick Links" data-i18n-it="Link rapidi">Quick Links</h4>
       <ul>
-        <li><a href="#termine">Termine</a></li>
-        <li><a href="#tickets">Tickets</a></li>
-        <li><a href="#aussteller">Aussteller</a></li>
+        <li><a href="#termine" data-i18n-de="Termine" data-i18n-en="Dates" data-i18n-it="Date">Termine</a></li>
+        <li><a href="#tickets" data-i18n-de="Tickets" data-i18n-en="Tickets" data-i18n-it="Biglietti">Tickets</a></li>
+        <li><a href="#aussteller" data-i18n-de="Aussteller" data-i18n-en="Exhibitors" data-i18n-it="Espositori">Aussteller</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#location">Location</a></li>
       </ul>
     </div>
     <div class="footer-col footer-col-contact">
-      <h4 class="footer-col-title">Kontakt</h4>
+      <h4 class="footer-col-title" data-i18n-de="Kontakt" data-i18n-en="Contact" data-i18n-it="Contatti">Kontakt</h4>
       <ul>
         <li><a href="mailto:info@munichwatchfair.com">info@munichwatchfair.com</a></li>
         <li class="footer-social-row">
@@ -861,7 +863,7 @@
     </div>
   </div>
   <div class="footer-new-bottom">
-    <span>&copy; 2026 Munich Watch Fair. Alle Rechte vorbehalten.</span>
+    <span data-i18n-html="true" data-i18n-de="&copy; 2026 Munich Watch Fair. Alle Rechte vorbehalten." data-i18n-en="&copy; 2026 Munich Watch Fair. All rights reserved." data-i18n-it="&copy; 2026 Munich Watch Fair. Tutti i diritti riservati.">&copy; 2026 Munich Watch Fair. Alle Rechte vorbehalten.</span>
     <div class="footer-new-legal">
       <a href="impressum.html">Impressum</a>
       <a href="datenschutz.html">Datenschutz</a>

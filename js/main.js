@@ -15,88 +15,112 @@ function getNextTermin() {
   return null;
 }
 
-function formatTerminShort(t) {
-  return t.day + '. ' + t.month.substring(0, 3) + ' ' + t.year;
+/* ===== I18N TRANSLATION TABLES ===== */
+let currentLang = 'de';
+
+const I18N_MONTHS = {
+  de: {Januar:'Januar',Februar:'Februar','März':'März',April:'April',Mai:'Mai',Juni:'Juni',Juli:'Juli',August:'August',September:'September',Oktober:'Oktober',November:'November',Dezember:'Dezember'},
+  en: {Januar:'January',Februar:'February','März':'March',April:'April',Mai:'May',Juni:'June',Juli:'July',August:'August',September:'September',Oktober:'October',November:'November',Dezember:'December'},
+  it: {Januar:'Gennaio',Februar:'Febbraio','März':'Marzo',April:'Aprile',Mai:'Maggio',Juni:'Giugno',Juli:'Luglio',August:'Agosto',September:'Settembre',Oktober:'Ottobre',November:'Novembre',Dezember:'Dicembre'}
+};
+
+const I18N_WEEKDAYS = {
+  de: {Sonntag:'Sonntag',Montag:'Montag',Dienstag:'Dienstag',Mittwoch:'Mittwoch',Donnerstag:'Donnerstag',Freitag:'Freitag',Samstag:'Samstag'},
+  en: {Sonntag:'Sunday',Montag:'Monday',Dienstag:'Tuesday',Mittwoch:'Wednesday',Donnerstag:'Thursday',Freitag:'Friday',Samstag:'Saturday'},
+  it: {Sonntag:'Domenica',Montag:'Lunedì',Dienstag:'Martedì',Mittwoch:'Mercoledì',Donnerstag:'Giovedì',Freitag:'Venerdì',Samstag:'Sabato'}
+};
+
+const I18N_STRINGS = {
+  de: { uhr:'Uhr', noTermin:'Neue Termine folgen in Kürze', tagesWithDate:'Von früh bis spät – so läuft der {d} ab.', tagesGeneric:'Von früh bis spät – so läuft Ihr Messetag ab.' },
+  en: { uhr:'', noTermin:'New dates coming soon', tagesWithDate:'From early to late – here is how {d} unfolds.', tagesGeneric:'From early to late – here is how your fair day unfolds.' },
+  it: { uhr:'', noTermin:'Nuove date in arrivo', tagesWithDate:'Dall\'alba al tramonto – ecco come si svolge il {d}.', tagesGeneric:'Dall\'alba al tramonto – ecco la vostra giornata fieristica.' }
+};
+
+function trMonth(m, lang) { return (I18N_MONTHS[lang] || I18N_MONTHS.de)[m] || m; }
+function trWeekday(w, lang) { return (I18N_WEEKDAYS[lang] || I18N_WEEKDAYS.de)[w] || w; }
+
+function formatTerminShort(t, lang) {
+  lang = lang || currentLang;
+  var ms = t.month.substring(0, 3);
+  var map = {de:{Jan:'Jan',Feb:'Feb','Mär':'Mär',Apr:'Apr',Mai:'Mai',Jun:'Jun',Jul:'Jul',Aug:'Aug',Sep:'Sep',Okt:'Okt',Nov:'Nov',Dez:'Dez'},en:{Jan:'Jan',Feb:'Feb','Mär':'Mar',Apr:'Apr',Mai:'May',Jun:'Jun',Jul:'Jul',Aug:'Aug',Sep:'Sep',Okt:'Oct',Nov:'Nov',Dez:'Dec'},it:{Jan:'Gen',Feb:'Feb','Mär':'Mar',Apr:'Apr',Mai:'Mag',Jun:'Giu',Jul:'Lug',Aug:'Ago',Sep:'Set',Okt:'Ott',Nov:'Nov',Dez:'Dic'}};
+  return t.day + '. ' + ((map[lang] || map.de)[ms] || ms) + ' ' + t.year;
 }
 
-function formatTerminLong(t) {
-  return t.day + '. ' + t.month + ' ' + t.year;
+function formatTerminLong(t, lang) {
+  lang = lang || currentLang;
+  return t.day + '. ' + trMonth(t.month, lang) + ' ' + t.year;
 }
 
-function formatTerminHero(t) {
-  return t.weekday + ', ' + t.day + '. ' + t.month + ' ' + t.year
-    + ' \u2003\u00B7\u2003' + t.start + ' \u2013 ' + t.end + ' Uhr'
+function formatTerminHero(t, lang) {
+  lang = lang || currentLang;
+  var s = I18N_STRINGS[lang] || I18N_STRINGS.de;
+  var timeStr = t.start + ' \u2013 ' + t.end + (s.uhr ? ' ' + s.uhr : '');
+  return trWeekday(t.weekday, lang) + ', ' + t.day + '. ' + trMonth(t.month, lang) + ' ' + t.year
+    + ' \u2003\u00B7\u2003' + timeStr
     + ' \u2003\u00B7\u2003' + t.location;
 }
 
 /* ===== DYNAMISCHE TERMIN-AKTUALISIERUNG ===== */
-(function updateAllTerminElements() {
-  const next = getNextTermin();
+function updateAllTerminElements() {
+  var lang = currentLang;
+  var s = I18N_STRINGS[lang] || I18N_STRINGS.de;
+  var next = getNextTermin();
 
   // Hero-Datum
-  const heroDate = document.querySelector('.hero-date');
+  var heroDate = document.querySelector('.hero-date');
   if (heroDate) {
-    heroDate.textContent = next
-      ? formatTerminHero(next)
-      : 'Neue Termine folgen in Kürze';
+    heroDate.textContent = next ? formatTerminHero(next, lang) : s.noTermin;
   }
 
   // Ticket Badge (Desktop)
-  const badgeDate = document.querySelector('.ticket-badge-date');
+  var badgeDate = document.querySelector('.ticket-badge-date');
   if (badgeDate) {
-    badgeDate.textContent = next ? formatTerminShort(next) : '';
+    badgeDate.textContent = next ? formatTerminShort(next, lang) : '';
   }
-  const ticketBadge = document.getElementById('ticketBadge');
+  var ticketBadge = document.getElementById('ticketBadge');
   if (ticketBadge && !next) ticketBadge.style.display = 'none';
 
   // Ticket Banner (Mobile)
-  const mobileBanner = document.querySelector('.ticket-banner-mobile');
+  var mobileBanner = document.querySelector('.ticket-banner-mobile');
   if (mobileBanner) {
-    const mobileDate = mobileBanner.querySelector('span:first-child');
-    if (mobileDate) mobileDate.textContent = next ? formatTerminShort(next) : '';
+    var mobileDate = mobileBanner.querySelector('span:first-child');
+    if (mobileDate) mobileDate.textContent = next ? formatTerminShort(next, lang) : '';
     if (!next) mobileBanner.style.display = 'none';
   }
 
   // Ticket-Section Daten
-  const ticketDates = document.querySelectorAll('.ticket-date');
+  var ticketDates = document.querySelectorAll('.ticket-date');
   if (next && ticketDates.length) {
-    ticketDates[0].innerHTML = next.weekday + ', ' + next.day + '. ' + next.month + ' ' + next.year
-      + ' &ensp;|&ensp; ' + next.start + ' \u2013 ' + next.end + ' Uhr';
+    var uhrStr = s.uhr ? ' ' + s.uhr : '';
+    ticketDates[0].innerHTML = trWeekday(next.weekday, lang) + ', ' + next.day + '. ' + trMonth(next.month, lang) + ' ' + next.year
+      + ' &ensp;|&ensp; ' + next.start + ' \u2013 ' + next.end + uhrStr;
     if (ticketDates[1]) {
-      ticketDates[1].innerHTML = next.weekday + ', ' + next.day + '. ' + next.month + ' ' + next.year
-        + ' &ensp;|&ensp; 10:30 \u2013 ' + next.end + ' Uhr';
+      ticketDates[1].innerHTML = trWeekday(next.weekday, lang) + ', ' + next.day + '. ' + trMonth(next.month, lang) + ' ' + next.year
+        + ' &ensp;|&ensp; 10:30 \u2013 ' + next.end + uhrStr;
     }
   }
 
-  // Dashboard: Nächste Messe
-  const dashboardEvent = document.getElementById('dashboardNextEvent');
-  if (dashboardEvent) {
-    dashboardEvent.innerHTML = next
-      ? formatTerminLong(next) + ' &middot; ' + next.location
-      : 'Neue Termine folgen in Kürze';
-  }
-
   // CTA-Banner Datum
-  const ctaDate = document.getElementById('ctaDate');
+  var ctaDate = document.getElementById('ctaDate');
   if (ctaDate) {
     ctaDate.textContent = next
-      ? formatTerminLong(next) + ' · ' + next.location
-      : 'Neue Termine folgen in Kürze';
+      ? formatTerminLong(next, lang) + ' \u00B7 ' + next.location
+      : s.noTermin;
   }
 
   // Tagesablauf Subtitle
-  const tagesablaufSub = document.getElementById('tagesablaufSubtitle');
+  var tagesablaufSub = document.getElementById('tagesablaufSubtitle');
   if (tagesablaufSub) {
     tagesablaufSub.textContent = next
-      ? 'Von früh bis spät – so läuft der ' + formatTerminLong(next) + ' ab.'
-      : 'Von früh bis spät – so läuft Ihr Messetag ab.';
+      ? s.tagesWithDate.replace('{d}', formatTerminLong(next, lang))
+      : s.tagesGeneric;
   }
 
   // Schema.org aktualisieren
-  const schemaScript = document.querySelector('script[type="application/ld+json"]');
+  var schemaScript = document.querySelector('script[type="application/ld+json"]');
   if (schemaScript && next) {
     try {
-      const schema = JSON.parse(schemaScript.textContent);
+      var schema = JSON.parse(schemaScript.textContent);
       schema.startDate = next.date + 'T' + next.start + ':00+01:00';
       schema.endDate = next.date + 'T' + next.end + ':00+01:00';
       schemaScript.textContent = JSON.stringify(schema, null, 2);
@@ -104,11 +128,10 @@ function formatTerminHero(t) {
   }
 
   // Termin-Karten: vergangene ausblenden, nächste markieren
-  const cards = document.querySelectorAll('.termin-card[data-date]');
-  const now = new Date();
-  cards.forEach(card => {
-    const endTime = card.dataset.date + 'T17:00:00';
-    const cardEnd = new Date(endTime);
+  var cards = document.querySelectorAll('.termin-card[data-date]');
+  var now = new Date();
+  cards.forEach(function(card) {
+    var cardEnd = new Date(card.dataset.date + 'T17:00:00');
     card.classList.remove('is-past', 'is-next');
     if (cardEnd < now) {
       card.style.display = 'none';
@@ -118,25 +141,26 @@ function formatTerminHero(t) {
   });
 
   // Wenn alle Termine vorbei: Hinweis in Termine-Sektion
-  const termineGrid = document.getElementById('termineGrid');
+  var termineGrid = document.getElementById('termineGrid');
   if (termineGrid && !next) {
-    const visibleCards = termineGrid.querySelectorAll('.termin-card:not([style*="display: none"])');
-    if (visibleCards.length === 0) {
-      const notice = document.createElement('div');
+    var visibleCards = termineGrid.querySelectorAll('.termin-card:not([style*="display: none"])');
+    if (visibleCards.length === 0 && !termineGrid.querySelector('.termin-notice')) {
+      var notice = document.createElement('div');
       notice.className = 'termin-notice reveal';
-      notice.innerHTML = '<p>Neue Termine folgen in Kürze.</p>';
+      notice.innerHTML = '<p>' + s.noTermin + '.</p>';
       notice.style.cssText = 'text-align:center;padding:3rem 1rem;font-family:var(--font-display);font-size:1.3rem;color:var(--text-mid);grid-column:1/-1;';
       termineGrid.appendChild(notice);
     }
   }
 
-  // Meta description aktualisieren
-  const metaDesc = document.querySelector('meta[name="description"]');
+  // Meta description aktualisieren (nur DE fuer SEO)
+  var metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc && next) {
     metaDesc.setAttribute('content',
-      'Europas führende Uhrenbörse seit 1989. Luxusuhren, Sammleruhren, Schmuck & Accessoires. 9× im Jahr im Ballhausforum Unterschleißheim bei München. Nächster Termin: ' + formatTerminLong(next) + '.');
+      'Europas führende Uhrenbörse seit 1989. Luxusuhren, Sammleruhren, Schmuck & Accessoires. 9× im Jahr im Ballhausforum Unterschleißheim bei München. Nächster Termin: ' + formatTerminLong(next, 'de') + '.');
   }
-})();
+}
+updateAllTerminElements();
 
 /* ===== LOADER ===== */
 window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden');animateHero();setTimeout(animateStickyNote,1200)},2200)});
@@ -199,7 +223,7 @@ function animateHero(){
   if (!next) {
     // Alle Termine vorbei: Countdown durch Hinweis ersetzen
     if (countdownWrap) {
-      countdownWrap.innerHTML = '<p style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-mid);text-align:center;opacity:0;" data-hero-anim>Neue Termine folgen in Kürze</p>';
+      countdownWrap.innerHTML = '<p style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-mid);text-align:center;opacity:0;" data-hero-anim data-i18n-de="Neue Termine folgen in Kürze" data-i18n-en="New dates coming soon" data-i18n-it="Nuove date in arrivo">Neue Termine folgen in Kürze</p>';
     }
     return;
   }
@@ -326,14 +350,79 @@ function animateHero(){
 })();
 
 /* ===== LANGUAGE SWITCHER ===== */
-(function(){
-  const btns = document.querySelectorAll('.lang-btn');
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+function reapplyTitleEffects() {
+  // Re-wrap GSAP-manipulated titles after language switch so text stays visible
+  var termineTitle = document.getElementById('termine-title');
+  if (termineTitle) {
+    var html = termineTitle.innerHTML;
+    termineTitle.innerHTML = html.replace(/<[^>]+>|(\S+)/g, function(m, word) {
+      return word ? '<span class="reveal-word" style="opacity:1;transform:none">' + word + '</span>' : m;
     });
+  }
+  var tagesTitle = document.getElementById('tagesablauf-title');
+  if (tagesTitle) {
+    var html2 = tagesTitle.innerHTML;
+    tagesTitle.innerHTML = html2.replace(/<[^>]+>|(\S+)/g, function(m, word) {
+      return word ? '<span class="reveal-word" style="opacity:1;transform:none">' + word + '</span>' : m;
+    });
+  }
+  var anfahrtTitle = document.getElementById('anfahrt-title');
+  if (anfahrtTitle) {
+    var text = anfahrtTitle.innerHTML;
+    var result = '';
+    var inTag = false;
+    for (var i = 0; i < text.length; i++) {
+      if (text[i] === '<') inTag = true;
+      if (inTag) { result += text[i]; if (text[i] === '>') inTag = false; }
+      else if (text[i] === ' ') { result += ' '; }
+      else { result += '<span class="reveal-letter" style="opacity:1;transform:none">' + text[i] + '</span>'; }
+    }
+    anfahrtTitle.innerHTML = result;
+  }
+}
+
+(function(){
+  var btns = document.querySelectorAll('.lang-btn');
+
+  function applyLanguage(lang) {
+    currentLang = lang;
+    // Update button states
+    btns.forEach(function(b) { b.classList.toggle('active', b.dataset.lang === lang); });
+    // Update html lang attribute
+    document.documentElement.lang = lang;
+    // Swap static text via data-i18n attributes
+    document.querySelectorAll('[data-i18n-' + lang + ']').forEach(function(el) {
+      if (el.dataset.i18nDynamic === 'true') return;
+      var val = el.getAttribute('data-i18n-' + lang);
+      if (el.dataset.i18nHtml === 'true') { el.innerHTML = val; } else { el.textContent = val; }
+    });
+    // Update placeholders
+    document.querySelectorAll('[data-i18n-ph-' + lang + ']').forEach(function(el) {
+      el.placeholder = el.getAttribute('data-i18n-ph-' + lang);
+    });
+    // Re-run dynamic date content
+    updateAllTerminElements();
+    // Fix GSAP-wrapped titles
+    reapplyTitleEffects();
+    // Persist
+    try { sessionStorage.setItem('mwf-lang', lang); } catch(e) {}
+  }
+
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() { applyLanguage(btn.dataset.lang); });
   });
+
+  // Restore saved language on load
+  try {
+    var saved = sessionStorage.getItem('mwf-lang');
+    if (saved && saved !== 'de' && (saved === 'en' || saved === 'it')) {
+      window.addEventListener('load', function() {
+        setTimeout(function() { applyLanguage(saved); }, 150);
+      });
+    }
+  } catch(e) {}
+
+  window.applyLanguage = applyLanguage;
 })();
 
 /* ===== SCROLL PROGRESS BAR ===== */
