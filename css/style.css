@@ -282,6 +282,15 @@ a{color:inherit;text-decoration:none}
   .hero-icon-svg{width:clamp(60px,18vw,90px)}
   .hero-deco{display:none}
 }
+/* Mobil: ruhiger Hero — schlichte Goldziffern statt Chronographen-Subdials,
+   die drei Deko-Icons (Schmuck/Uhren/Accessoires) entfallen */
+@media(max-width:600px){
+  .hero-icons{display:none}
+  .cd-dial-svg{display:none}
+  .countdown-dial{width:auto;height:auto}
+  .countdown-dial .countdown-value{position:static;display:block;font-size:1.9rem}
+  .countdown{gap:1.2rem}
+}
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 2.4rem;font-family:var(--font-body);font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:pointer;transition:all .4s var(--ease);position:relative;overflow:hidden}
 .btn::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,.08);border-radius:50%;transition:all .6s var(--ease);transform:translate(-50%,-50%)}
@@ -744,7 +753,8 @@ a{color:inherit;text-decoration:none}
   .cursor-spotlight{display:none!important}
   .watch-draw-wrap{max-width:200px}
 }
-@media(max-width:480px){.section{padding:3.5rem 1.25rem}.nav{padding:1rem 1.25rem}.countdown{gap:.55rem}.countdown-unit{padding:.15rem}.countdown-dial{width:62px;height:62px}.countdown-dial .countdown-value{font-size:.95rem}.ticker-item{padding:0 1.5rem;font-size:.63rem}}
+/* Subdial-Sizing entfaellt hier: ab <=600px zeigt der Hero schlichte Ziffern (kein .cd-dial-svg) */
+@media(max-width:480px){.section{padding:3.5rem 1.25rem}.nav{padding:1rem 1.25rem}.countdown{gap:1rem}.countdown-unit{padding:.15rem}.countdown-dial .countdown-value{font-size:1.7rem}.ticker-item{padding:0 1.5rem;font-size:.63rem}}
 
 /* ===== TICKET POST-IT (top-right) ===== */
 .ticket-badge{
@@ -956,19 +966,12 @@ a{color:inherit;text-decoration:none}
 .glance-title{display:block;font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.2rem}
 .glance-fact{display:block;font-size:.82rem;font-weight:400;color:var(--text-mid);line-height:1.4}
 @media(max-width:1023px) and (min-width:769px){.glance-grid{grid-template-columns:repeat(2,1fr)}}
+/* Mobil: 2x2-Raster — alle vier Fakten ohne horizontales Wischen sichtbar */
 @media(max-width:768px){
-  .section.glance-section{padding-left:0;padding-right:0}
-  .glance-grid{
-    display:flex;gap:.85rem;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
-    scroll-padding-left:1.25rem;
-    padding:.25rem 1.25rem .4rem;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-  }
-  .glance-grid::-webkit-scrollbar{display:none;width:0;height:0}
-  .glance-card{min-width:220px;flex-shrink:0;scroll-snap-align:start}
+  .glance-grid{grid-template-columns:repeat(2,1fr);gap:.7rem}
+  .glance-inner{flex-direction:column;align-items:flex-start;gap:.55rem;padding:.85rem .9rem}
+  .glance-icon{width:28px;height:28px}
+  .glance-fact{font-size:.76rem}
 }
 @media (prefers-reduced-motion: reduce){
   .glance-inner,.glance-icon{transition:none}
