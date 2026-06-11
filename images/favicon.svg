@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Marken-"A" der Munich Watch Fair: zwei Uhrzeiger (Polygone aus .logo-a-svg, index.html) auf Navy -->
+  <rect width="64" height="64" rx="11.5" fill="#1a1a2e"/>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="8.5" fill="none" stroke="#B8860B" stroke-width="1" opacity=".45"/>
+  <g transform="translate(16.4 9.4) scale(0.78)" fill="#e8912d" stroke="#e8912d" stroke-width="2" stroke-linejoin="round">
+    <!-- Linker Zeiger = Minutenzeiger (länger) -->
+    <polygon points="20,0 17.2,12 7,58 5,58 18.5,8"/>
+    <!-- Rechter Zeiger = Stundenzeiger (kürzer) -->
+    <polygon points="20,0 21.5,8 35,46 33,46 22.8,12"/>
+  </g>
+</svg>

@@ -7,7 +7,10 @@
 <meta name="description" content="Europas führende Uhrenbörse seit 1989. Luxusuhren, Sammleruhren, Schmuck & Accessoires. 9× im Jahr im Ballhausforum Unterschleißheim bei München.">
 <meta name="keywords" content="Uhrenbörse, Uhrmesse, Munich Watch Fair, Luxusuhren, Sammleruhren, Vintage Uhren, Rolex, Omega, Patek Philippe, Unterschleißheim, München, Uhrenmesse 2026">
 <link rel="canonical" href="https://www.munichwatchfair.com">
-<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<meta name="theme-color" content="#1a1a2e">
 
 <!-- Open Graph -->
 <meta property="og:title" content="Munich Watch Fair 2026 | Internationale Uhrenbörse">
@@ -15,13 +18,19 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.munichwatchfair.com">
 <meta property="og:image" content="https://www.munichwatchfair.com/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Munich Watch Fair – Internationale Uhrenbörse seit 1989, Ballhausforum München">
 <meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:locale:alternate" content="it_IT">
 <meta property="og:site_name" content="Munich Watch Fair">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Munich Watch Fair 2026 | Internationale Uhrenbörse">
 <meta name="twitter:description" content="Europas führende Uhrenbörse seit 1989. 9× im Jahr in Unterschleißheim bei München.">
+<meta name="twitter:image" content="https://www.munichwatchfair.com/images/og-image.jpg">
 
 <!-- Preconnect -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,56 +48,58 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
-<!-- Structured Data: Event -->
+<!-- Structured Data: Events (alle zukünftigen Termine, Quelle: MESSE_TERMINE in js/main.js — bei neuen Terminen hier mitpflegen!) -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Event",
-  "name": "Munich Watch Fair",
-  "description": "Europas führende Uhrenbörse seit 1989. Luxusuhren, Sammleruhren, Schmuck & Accessoires im Ballhausforum Unterschleißheim bei München.",
-  "startDate": "2026-02-22T07:00:00+01:00",
-  "endDate": "2026-02-22T17:00:00+01:00",
-  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  "eventStatus": "https://schema.org/EventScheduled",
-  "url": "https://www.munichwatchfair.com",
-  "image": "https://www.munichwatchfair.com/images/og-image.jpg",
-  "location": {
-    "@type": "Place",
-    "name": "Ballhausforum Unterschleißheim",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Am Haingraben 33",
-      "addressLocality": "Unterschleißheim",
-      "postalCode": "85716",
-      "addressCountry": "DE"
-    }
-  },
-  "organizer": {
-    "@type": "Organization",
-    "name": "Munich Watch Fair",
-    "url": "https://www.munichwatchfair.com"
-  },
-  "offers": [
-    {
-      "@type": "Offer",
-      "name": "Early Bird Ticket",
-      "price": "50.00",
-      "priceCurrency": "EUR",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2025-01-01",
-      "url": "https://www.munichwatchfair.com/#tickets"
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Munich Watch Fair – 28. Juni 2026",
+    "description": "Europas führende Uhrenbörse seit 1989. Luxusuhren, Sammleruhren, Schmuck & Accessoires im Ballhausforum Unterschleißheim bei München.",
+    "startDate": "2026-06-28T08:00:00+02:00",
+    "endDate": "2026-06-28T17:00:00+02:00",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "url": "https://www.munichwatchfair.com",
+    "image": "https://www.munichwatchfair.com/images/og-image.jpg",
+    "location": {
+      "@type": "Place",
+      "name": "Ballhausforum Unterschleißheim",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Am Haingraben 33",
+        "addressLocality": "Unterschleißheim",
+        "postalCode": "85716",
+        "addressCountry": "DE"
+      }
     },
-    {
-      "@type": "Offer",
-      "name": "Eintrittskarte",
-      "price": "20.00",
-      "priceCurrency": "EUR",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2025-01-01",
-      "url": "https://www.munichwatchfair.com/#tickets"
-    }
-  ]
-}
+    "organizer": {
+      "@type": "Organization",
+      "name": "Munich Watch Fair",
+      "url": "https://www.munichwatchfair.com"
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Early Bird Ticket",
+        "price": "50.00",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2025-01-01",
+        "url": "https://www.munichwatchfair.com/#tickets"
+      },
+      {
+        "@type": "Offer",
+        "name": "Eintrittskarte",
+        "price": "20.00",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2025-01-01",
+        "url": "https://www.munichwatchfair.com/#tickets"
+      }
+    ]
+  }
+]
 </script>
 <!-- Structured Data: Organization -->
 <script type="application/ld+json">
@@ -97,12 +108,93 @@
   "@type": "Organization",
   "name": "Munich Watch Fair",
   "url": "https://www.munichwatchfair.com",
-  "logo": "https://www.munichwatchfair.com/images/logo.png",
+  "logo": "https://www.munichwatchfair.com/images/apple-touch-icon.png",
   "description": "Internationale Uhrenbörse seit 1989 – Europas führende Messe für Luxusuhren, Sammleruhren, Schmuck und Accessoires.",
   "foundingDate": "1989",
   "sameAs": [
     "https://www.instagram.com/munichwatchfair",
     "https://www.facebook.com/munichwatchfair"
+  ]
+}
+</script>
+<!-- Structured Data: FAQPage (Inhalte synchron zur #faq-Sektion halten) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Wie komme ich zur Munich Watch Fair?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Die Messe findet im Ballhausforum Unterschleißheim statt (Am Haingraben 33, 85716 Unterschleißheim). Mit dem Auto: A92 Ausfahrt Unterschleißheim. Mit der S-Bahn: S1 bis Unterschleißheim, dann 10 Min. Fußweg. Kostenlose Parkplätze sind direkt am Veranstaltungsort vorhanden."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was kostet der Eintritt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Early Bird (08:00–17:00): €50 | Normal (10:30–17:00): €20. Tickets gibt es über Eventim."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was wird auf der Messe angeboten?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Schwerpunkt sind Luxus- und Sammleruhren aller Preisklassen – von Vintage bis neu. Zusätzlich Schmuck, Designer-Handtaschen und Accessoires."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Gibt es Tickets an der Tageskasse?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tickets erhalten Sie bequem vorab online über Eventim. Ob am Veranstaltungstag zusätzlich eine Tageskasse geöffnet ist, erfragen Sie am besten kurz vorab unter info@munichwatchfair.com – wir empfehlen den Online-Kauf, damit Sie ohne Wartezeit auf die Messe kommen."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie bezahle ich bei den Händlern?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Der Kauf wird direkt mit dem jeweiligen Händler abgewickelt. Viele Händler akzeptieren neben Bargeld auch Kartenzahlung – im Zweifel fragen Sie einfach direkt am Stand nach den möglichen Zahlungsarten."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kann ich meine eigene Uhr verkaufen oder schätzen lassen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Die Munich Watch Fair ist eine klassische Börse: Viele Händler kaufen auch an oder nehmen Uhren in Zahlung. Bringen Sie Ihre Uhr gerne mit und sprechen Sie die Händler direkt an – ob und zu welchen Konditionen ein Ankauf oder eine Einschätzung erfolgt, liegt im Ermessen des jeweiligen Händlers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ist Wiedereinlass möglich?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ihr Ticket gilt für den gesamten Messetag. Ob ein zwischenzeitliches Verlassen mit Wiedereinlass möglich ist, klären Sie bitte kurz mit dem Einlasspersonal vor Ort – in der Regel findet sich eine unkomplizierte Lösung."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Gibt es Gastronomie vor Ort?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Für eine Stärkung zwischendurch ist in der Regel gesorgt – das genaue gastronomische Angebot kann je nach Messetag variieren. Aktuelle Details erfragen Sie gerne vorab unter info@munichwatchfair.com."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ist die Messe barrierefrei?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Das Ballhausforum ist ein modernes Veranstaltungszentrum. Wenn Sie besondere Anforderungen an die Zugänglichkeit haben (z. B. Rollstuhl oder Rollator), kontaktieren Sie uns gerne vorab unter info@munichwatchfair.com – wir unterstützen Sie bei der Planung Ihres Besuchs."
+      }
+    }
   ]
 }
 </script>
@@ -134,12 +226,15 @@
   <span class="ticket-badge-date"></span>
   <span class="ticket-badge-cta" data-i18n-html="true" data-i18n-de="Tickets ab &euro;20 &rarr;" data-i18n-en="Tickets from &euro;20 &rarr;" data-i18n-it="Biglietti da &euro;20 &rarr;">Tickets ab &euro;20 &rarr;</span>
 </a>
-<!-- Ticket Banner (bottom, mobile) -->
-<a href="#tickets" class="ticket-banner-mobile" aria-label="Tickets kaufen">
-  <span></span>
-  <span>&middot;</span>
-  <span class="mobile-cta" data-i18n-html="true" data-i18n-de="Tickets ab &euro;20 &rarr;" data-i18n-en="Tickets from &euro;20 &rarr;" data-i18n-it="Biglietti da &euro;20 &rarr;">Tickets ab &euro;20 &rarr;</span>
-</a>
+<!-- Mobile App-Bar (bottom, mobile): Countdown-Chip + Tickets-CTA + Route -->
+<div class="ticket-banner-mobile">
+  <span class="mobile-bar-chip" id="mobileBarChip" data-i18n-dynamic="true"></span>
+  <a href="https://eventim-light.com/de/a/61256a72a91dc01b4b932fe4/" target="_blank" rel="noopener" class="mobile-bar-cta" id="mobileBarCta" data-i18n-dynamic="true">Tickets ab &euro;20</a>
+  <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Ballhausforum+Unterschlei%C3%9Fheim%2C+Am+Haingraben+33%2C+85716+Unterschlei%C3%9Fheim" target="_blank" rel="noopener" class="mobile-bar-route" id="mobileBarRoute">
+    <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path class="mbr-line" d="M20,35 C20,35 10,24.5 10,16.5 a10,10 0 0 1 20,0 C30,24.5 20,35 20,35 Z"/><circle class="mbr-gold" cx="20" cy="16.5" r="4"/></svg>
+    <span class="sr-only" data-i18n-de="Route zum Ballhausforum planen" data-i18n-en="Get directions to Ballhausforum" data-i18n-it="Indicazioni per il Ballhausforum">Route zum Ballhausforum planen</span>
+  </a>
+</div>
 
 <nav class="nav" role="navigation" aria-label="Hauptnavigation">
   <a href="#" class="nav-logo">Munich <span>W</span>atch Fair</a>
@@ -202,16 +297,88 @@
     <p class="hero-date" data-hero-anim></p>
   </div>
 
-  <!-- Countdown -->
+  <!-- Countdown: vier Chronographen-Subdials -->
   <div class="hero-countdown-wrap">
+    <!-- Geteiltes Zifferblatt (Rehaut, Minuterie, 12 Indizes) — per <use> in allen 4 Subdials referenziert -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <g id="cd-dial-face" fill="none">
+          <circle cx="50" cy="50" r="48" stroke="var(--navy)" stroke-width="1"/>
+          <circle cx="50" cy="50" r="44" stroke="var(--navy)" stroke-width="0.5" opacity="0.55" stroke-dasharray="0.7 3.908" stroke-dashoffset="0.35"/>
+          <g stroke="var(--navy)" stroke-width="1">
+            <line x1="73.5" y1="9.3" x2="71" y2="13.63"/>
+            <line x1="90.7" y1="26.5" x2="86.37" y2="29"/>
+            <line x1="90.7" y1="73.5" x2="86.37" y2="71"/>
+            <line x1="73.5" y1="90.7" x2="71" y2="86.37"/>
+            <line x1="26.5" y1="90.7" x2="29" y2="86.37"/>
+            <line x1="9.3" y1="73.5" x2="13.63" y2="71"/>
+            <line x1="9.3" y1="26.5" x2="13.63" y2="29"/>
+            <line x1="26.5" y1="9.3" x2="29" y2="13.63"/>
+          </g>
+          <g stroke="var(--gold-light)" stroke-width="1">
+            <line x1="50" y1="3" x2="50" y2="10"/>
+            <line x1="97" y1="50" x2="90" y2="50"/>
+            <line x1="50" y1="97" x2="50" y2="90"/>
+            <line x1="3" y1="50" x2="10" y2="50"/>
+          </g>
+        </g>
+      </defs>
+    </svg>
     <div class="countdown" data-hero-anim role="timer" aria-label="Countdown">
-      <div class="countdown-unit"><span class="countdown-value" id="cd-days">--</span><span class="countdown-label" data-i18n-de="Tage" data-i18n-en="Days" data-i18n-it="Giorni">Tage</span></div>
+      <div class="countdown-unit">
+        <div class="countdown-dial">
+          <svg class="cd-dial-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+            <use href="#cd-dial-face"/>
+            <line class="cd-hand" x1="50" y1="50" x2="50" y2="14" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="2" fill="var(--gold-light)"/>
+          </svg>
+          <span class="countdown-value" id="cd-days">--</span>
+        </div>
+        <span class="countdown-label" data-i18n-de="Tage" data-i18n-en="Days" data-i18n-it="Giorni">Tage</span>
+      </div>
       <span class="countdown-separator" aria-hidden="true">:</span>
-      <div class="countdown-unit"><span class="countdown-value" id="cd-hours">--</span><span class="countdown-label" data-i18n-de="Std" data-i18n-en="Hrs" data-i18n-it="Ore">Std</span></div>
+      <div class="countdown-unit">
+        <div class="countdown-dial">
+          <svg class="cd-dial-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+            <use href="#cd-dial-face"/>
+            <line class="cd-hand" x1="50" y1="50" x2="50" y2="14" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="2" fill="var(--gold-light)"/>
+          </svg>
+          <span class="countdown-value" id="cd-hours">--</span>
+        </div>
+        <span class="countdown-label" data-i18n-de="Std" data-i18n-en="Hrs" data-i18n-it="Ore">Std</span>
+      </div>
       <span class="countdown-separator" aria-hidden="true">:</span>
-      <div class="countdown-unit"><span class="countdown-value" id="cd-mins">--</span><span class="countdown-label" data-i18n-de="Min" data-i18n-en="Min" data-i18n-it="Min">Min</span></div>
+      <div class="countdown-unit">
+        <div class="countdown-dial">
+          <svg class="cd-dial-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+            <use href="#cd-dial-face"/>
+            <line class="cd-hand" x1="50" y1="50" x2="50" y2="14" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="2" fill="var(--gold-light)"/>
+          </svg>
+          <span class="countdown-value" id="cd-mins">--</span>
+        </div>
+        <span class="countdown-label" data-i18n-de="Min" data-i18n-en="Min" data-i18n-it="Min">Min</span>
+      </div>
       <span class="countdown-separator" aria-hidden="true">:</span>
-      <div class="countdown-unit"><span class="countdown-value" id="cd-secs">--</span><span class="countdown-label" data-i18n-de="Sek" data-i18n-en="Sec" data-i18n-it="Sec">Sek</span></div>
+      <div class="countdown-unit">
+        <div class="countdown-dial">
+          <svg class="cd-dial-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+            <use href="#cd-dial-face"/>
+            <line class="cd-hand" x1="50" y1="50" x2="50" y2="14" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="2" fill="var(--gold-light)"/>
+          </svg>
+          <span class="countdown-value" id="cd-secs">--</span>
+        </div>
+        <span class="countdown-label" data-i18n-de="Sek" data-i18n-en="Sec" data-i18n-it="Sec">Sek</span>
+      </div>
+    </div>
+    <!-- ICS-Download des nächsten Termins (wird vom Termine-vorbei-Fallback mit entfernt) -->
+    <div class="hero-ics-wrap" data-hero-anim>
+      <button type="button" class="btn-ghost js-ics-btn" id="icsHeroBtn" data-ics="next">
+        <svg class="ics-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect class="draw" x="8" y="10" width="24" height="22" rx="2"/><line class="draw" x1="8" y1="16.5" x2="32" y2="16.5"/><line class="draw gold" x1="14.5" y1="6.5" x2="14.5" y2="11.5"/><line class="draw gold" x1="25.5" y1="6.5" x2="25.5" y2="11.5"/><line class="draw gold" x1="20" y1="20.5" x2="20" y2="27.5"/><line class="draw gold" x1="16.5" y1="24" x2="23.5" y2="24"/></svg>
+        <span data-i18n-de="In Kalender speichern" data-i18n-en="Add to Calendar" data-i18n-it="Salva nel calendario">In Kalender speichern</span>
+      </button>
     </div>
   </div>
 
@@ -331,6 +498,79 @@
 </div>
 
 <div class="wave-divider" aria-hidden="true"><svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0,20 C200,35 400,5 600,20 C800,35 1000,5 1200,20 L1200,40 L0,40 Z" fill="var(--bg)"/></svg></div>
+
+<!-- ===== AUF EINEN BLICK ===== -->
+<section class="section glance-section" aria-label="Auf einen Blick">
+  <div class="section-inner">
+    <div class="glance-grid">
+      <a href="#tagesablauf" class="glance-card reveal">
+        <span class="glance-inner">
+          <svg class="glance-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true">
+            <circle class="draw" cx="20" cy="20" r="13.5"/>
+            <line class="draw thin d1" x1="20" y1="8" x2="20" y2="10.5"/>
+            <line class="draw thin d1" x1="32" y1="20" x2="29.5" y2="20"/>
+            <line class="draw thin d1" x1="20" y1="32" x2="20" y2="29.5"/>
+            <line class="draw thin d1" x1="8" y1="20" x2="10.5" y2="20"/>
+            <line class="draw gold d2" x1="20" y1="20" x2="14.8" y2="17"/>
+            <line class="draw gold d2" x1="20" y1="20" x2="27.8" y2="15.5"/>
+            <circle class="draw gold d3" cx="20" cy="20" r="1.2"/>
+          </svg>
+          <span class="glance-body">
+            <span class="glance-title" data-i18n-de="Öffnungszeiten" data-i18n-en="Opening Hours" data-i18n-it="Orari">Öffnungszeiten</span>
+            <span class="glance-fact" data-i18n-de="08:00 Early Bird · 10:30–17:00" data-i18n-en="08:00 Early Bird · 10:30–17:00" data-i18n-it="08:00 Early Bird · 10:30–17:00">08:00 Early Bird · 10:30–17:00</span>
+          </span>
+        </span>
+      </a>
+      <a href="#tickets" class="glance-card reveal stagger-1">
+        <span class="glance-inner">
+          <svg class="glance-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true">
+            <path class="draw" d="M5,13 L35,13 L35,18 A3,3 0 0 0 35,24 L35,29 L5,29 L5,24 A3,3 0 0 0 5,18 Z"/>
+            <line class="perf" x1="26" y1="14.5" x2="26" y2="27.5"/>
+            <line class="draw thin d1" x1="9.5" y1="19" x2="21.5" y2="19"/>
+            <line class="draw thin d1" x1="9.5" y1="23" x2="17.5" y2="23"/>
+            <circle class="draw gold d2" cx="30.5" cy="21" r="1.8"/>
+          </svg>
+          <span class="glance-body">
+            <span class="glance-title" data-i18n-de="Eintritt" data-i18n-en="Admission" data-i18n-it="Ingresso">Eintritt</span>
+            <span class="glance-fact" data-i18n-de="ab €20 · Early Bird €50" data-i18n-en="from €20 · Early Bird €50" data-i18n-it="da €20 · Early Bird €50">ab €20 · Early Bird €50</span>
+          </span>
+        </span>
+      </a>
+      <a href="#location" class="glance-card reveal stagger-2">
+        <span class="glance-inner">
+          <svg class="glance-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true">
+            <rect class="draw gold" x="5" y="5" width="30" height="30"/>
+            <rect class="draw d1" x="8" y="8" width="24" height="24"/>
+            <path class="draw d2" d="M16.5,28.5 L16.5,12 L21.5,12 Q26,12 26,16.25 Q26,20.5 21.5,20.5 L16.5,20.5"/>
+          </svg>
+          <span class="glance-body">
+            <span class="glance-title" data-i18n-de="Parken" data-i18n-en="Parking" data-i18n-it="Parcheggio">Parken</span>
+            <span class="glance-fact" data-i18n-de="Kostenlos am Haus" data-i18n-en="Free at the venue" data-i18n-it="Gratuito in loco">Kostenlos am Haus</span>
+          </span>
+        </span>
+      </a>
+      <a href="#location" class="glance-card reveal stagger-3">
+        <span class="glance-inner">
+          <svg class="glance-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true">
+            <path class="draw" d="M10,33 L10,12 Q10,6 20,6 Q30,6 30,12 L30,33 Z"/>
+            <path class="draw thin d1" d="M13,16.5 L13,12 Q13,9 20,9 Q27,9 27,12 L27,16.5 Z"/>
+            <line class="draw thin d1" x1="20" y1="20" x2="20" y2="33"/>
+            <circle class="draw gold d2" cx="14.5" cy="24.5" r="1.5"/>
+            <circle class="draw gold d2" cx="25.5" cy="24.5" r="1.5"/>
+            <line class="draw d2" x1="6" y1="37" x2="34" y2="37"/>
+            <line class="draw thin d3" x1="9" y1="35" x2="31" y2="35"/>
+            <line class="draw thin d3" x1="16.5" y1="6" x2="20" y2="3"/>
+            <line class="draw thin d3" x1="23.5" y1="6" x2="20" y2="3"/>
+          </svg>
+          <span class="glance-body">
+            <span class="glance-title" data-i18n-de="Anreise" data-i18n-en="Getting There" data-i18n-it="Come arrivare">Anreise</span>
+            <span class="glance-fact" data-i18n-de="S1 + 10 Min. Fußweg" data-i18n-en="S1 + 10 min walk" data-i18n-it="S1 + 10 min a piedi">S1 + 10 Min. Fußweg</span>
+          </span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
 
 <section class="section" id="info" aria-labelledby="info-title">
   <div class="section-inner">
@@ -511,7 +751,19 @@
       <div class="timeline-line"><div class="timeline-line-fill" id="timelineFill"></div></div>
       
       <div class="timeline-item" data-time="07:00">
-        <div class="timeline-node"><span class="timeline-clock">🔑</span></div>
+        <div class="timeline-node"><span class="timeline-clock"><svg class="timeline-dial" viewBox="0 0 44 44" fill="none" aria-hidden="true" focusable="false">
+          <circle cx="22" cy="22" r="17.5" stroke="var(--navy)" stroke-width="1"/>
+          <g stroke="var(--navy)" stroke-width="0.5">
+            <line x1="30.25" y1="7.71" x2="29.25" y2="9.44"/><line x1="36.29" y1="13.75" x2="34.56" y2="14.75"/><line x1="36.29" y1="30.25" x2="34.56" y2="29.25"/><line x1="30.25" y1="36.29" x2="29.25" y2="34.56"/>
+            <line x1="13.75" y1="36.29" x2="14.75" y2="34.56"/><line x1="7.71" y1="30.25" x2="9.44" y2="29.25"/><line x1="7.71" y1="13.75" x2="9.44" y2="14.75"/><line x1="13.75" y1="7.71" x2="14.75" y2="9.44"/>
+          </g>
+          <g stroke="var(--gold-light)" stroke-width="1">
+            <line x1="22" y1="5.5" x2="22" y2="8.5"/><line x1="38.5" y1="22" x2="35.5" y2="22"/><line x1="22" y1="38.5" x2="22" y2="35.5"/><line x1="5.5" y1="22" x2="8.5" y2="22"/>
+          </g>
+          <line class="dial-hand dial-hand-h" x1="22" y1="22" x2="22" y2="12.5" stroke="var(--navy)" stroke-width="1.5" stroke-linecap="round"/>
+          <line class="dial-hand dial-hand-m" x1="22" y1="22" x2="22" y2="8" stroke="var(--navy)" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="22" cy="22" r="1.5" fill="var(--gold-light)"/>
+        </svg></span></div>
         <div class="timeline-card-glass">
           <span class="timeline-time" data-i18n-de="07:00 Uhr" data-i18n-en="07:00" data-i18n-it="Ore 07:00">07:00 Uhr</span>
           <h3 data-i18n-html="true" data-i18n-de='Aufbau &amp; <span class="orange">Vorbereitung</span>' data-i18n-en='Setup &amp; <span class="orange">Preparation</span>' data-i18n-it='Allestimento e <span class="orange">preparazione</span>'>Aufbau &amp; <span class="orange">Vorbereitung</span></h3>
@@ -520,7 +772,19 @@
       </div>
 
       <div class="timeline-item" data-time="08:00">
-        <div class="timeline-node"><span class="timeline-clock">🌅</span></div>
+        <div class="timeline-node"><span class="timeline-clock"><svg class="timeline-dial" viewBox="0 0 44 44" fill="none" aria-hidden="true" focusable="false">
+          <circle cx="22" cy="22" r="17.5" stroke="var(--navy)" stroke-width="1"/>
+          <g stroke="var(--navy)" stroke-width="0.5">
+            <line x1="30.25" y1="7.71" x2="29.25" y2="9.44"/><line x1="36.29" y1="13.75" x2="34.56" y2="14.75"/><line x1="36.29" y1="30.25" x2="34.56" y2="29.25"/><line x1="30.25" y1="36.29" x2="29.25" y2="34.56"/>
+            <line x1="13.75" y1="36.29" x2="14.75" y2="34.56"/><line x1="7.71" y1="30.25" x2="9.44" y2="29.25"/><line x1="7.71" y1="13.75" x2="9.44" y2="14.75"/><line x1="13.75" y1="7.71" x2="14.75" y2="9.44"/>
+          </g>
+          <g stroke="var(--gold-light)" stroke-width="1">
+            <line x1="22" y1="5.5" x2="22" y2="8.5"/><line x1="38.5" y1="22" x2="35.5" y2="22"/><line x1="22" y1="38.5" x2="22" y2="35.5"/><line x1="5.5" y1="22" x2="8.5" y2="22"/>
+          </g>
+          <line class="dial-hand dial-hand-h" x1="22" y1="22" x2="22" y2="12.5" stroke="var(--navy)" stroke-width="1.5" stroke-linecap="round"/>
+          <line class="dial-hand dial-hand-m" x1="22" y1="22" x2="22" y2="8" stroke="var(--navy)" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="22" cy="22" r="1.5" fill="var(--gold-light)"/>
+        </svg></span></div>
         <div class="timeline-card-glass">
           <span class="timeline-time" data-i18n-de="08:00 Uhr" data-i18n-en="08:00" data-i18n-it="Ore 08:00">08:00 Uhr</span>
           <h3 data-i18n-html="true" data-i18n-de='Early Bird &amp; <span class="orange">WTA-Mitglieder</span>' data-i18n-en='Early Bird &amp; <span class="orange">WTA Members</span>' data-i18n-it='Early Bird e <span class="orange">membri WTA</span>'>Early Bird &amp; <span class="orange">WTA-Mitglieder</span></h3>
@@ -529,7 +793,19 @@
       </div>
 
       <div class="timeline-item" data-time="10:30">
-        <div class="timeline-node"><span class="timeline-clock">🎟️</span></div>
+        <div class="timeline-node"><span class="timeline-clock"><svg class="timeline-dial" viewBox="0 0 44 44" fill="none" aria-hidden="true" focusable="false">
+          <circle cx="22" cy="22" r="17.5" stroke="var(--navy)" stroke-width="1"/>
+          <g stroke="var(--navy)" stroke-width="0.5">
+            <line x1="30.25" y1="7.71" x2="29.25" y2="9.44"/><line x1="36.29" y1="13.75" x2="34.56" y2="14.75"/><line x1="36.29" y1="30.25" x2="34.56" y2="29.25"/><line x1="30.25" y1="36.29" x2="29.25" y2="34.56"/>
+            <line x1="13.75" y1="36.29" x2="14.75" y2="34.56"/><line x1="7.71" y1="30.25" x2="9.44" y2="29.25"/><line x1="7.71" y1="13.75" x2="9.44" y2="14.75"/><line x1="13.75" y1="7.71" x2="14.75" y2="9.44"/>
+          </g>
+          <g stroke="var(--gold-light)" stroke-width="1">
+            <line x1="22" y1="5.5" x2="22" y2="8.5"/><line x1="38.5" y1="22" x2="35.5" y2="22"/><line x1="22" y1="38.5" x2="22" y2="35.5"/><line x1="5.5" y1="22" x2="8.5" y2="22"/>
+          </g>
+          <line class="dial-hand dial-hand-h" x1="22" y1="22" x2="22" y2="12.5" stroke="var(--navy)" stroke-width="1.5" stroke-linecap="round"/>
+          <line class="dial-hand dial-hand-m" x1="22" y1="22" x2="22" y2="8" stroke="var(--navy)" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="22" cy="22" r="1.5" fill="var(--gold-light)"/>
+        </svg></span></div>
         <div class="timeline-card-glass">
           <span class="timeline-time" data-i18n-de="10:30 Uhr" data-i18n-en="10:30" data-i18n-it="Ore 10:30">10:30 Uhr</span>
           <h3 data-i18n-html="true" data-i18n-de='Einlass <span class="orange">für alle</span>' data-i18n-en='Open to <span class="orange">Everyone</span>' data-i18n-it='Apertura al <span class="orange">pubblico</span>'>Einlass <span class="orange">für alle</span></h3>
@@ -538,7 +814,19 @@
       </div>
 
       <div class="timeline-item" data-time="16:00">
-        <div class="timeline-node"><span class="timeline-clock">⏳</span></div>
+        <div class="timeline-node"><span class="timeline-clock"><svg class="timeline-dial" viewBox="0 0 44 44" fill="none" aria-hidden="true" focusable="false">
+          <circle cx="22" cy="22" r="17.5" stroke="var(--navy)" stroke-width="1"/>
+          <g stroke="var(--navy)" stroke-width="0.5">
+            <line x1="30.25" y1="7.71" x2="29.25" y2="9.44"/><line x1="36.29" y1="13.75" x2="34.56" y2="14.75"/><line x1="36.29" y1="30.25" x2="34.56" y2="29.25"/><line x1="30.25" y1="36.29" x2="29.25" y2="34.56"/>
+            <line x1="13.75" y1="36.29" x2="14.75" y2="34.56"/><line x1="7.71" y1="30.25" x2="9.44" y2="29.25"/><line x1="7.71" y1="13.75" x2="9.44" y2="14.75"/><line x1="13.75" y1="7.71" x2="14.75" y2="9.44"/>
+          </g>
+          <g stroke="var(--gold-light)" stroke-width="1">
+            <line x1="22" y1="5.5" x2="22" y2="8.5"/><line x1="38.5" y1="22" x2="35.5" y2="22"/><line x1="22" y1="38.5" x2="22" y2="35.5"/><line x1="5.5" y1="22" x2="8.5" y2="22"/>
+          </g>
+          <line class="dial-hand dial-hand-h" x1="22" y1="22" x2="22" y2="12.5" stroke="var(--navy)" stroke-width="1.5" stroke-linecap="round"/>
+          <line class="dial-hand dial-hand-m" x1="22" y1="22" x2="22" y2="8" stroke="var(--navy)" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="22" cy="22" r="1.5" fill="var(--gold-light)"/>
+        </svg></span></div>
         <div class="timeline-card-glass">
           <span class="timeline-time" data-i18n-de="16:00 Uhr" data-i18n-en="16:00" data-i18n-it="Ore 16:00">16:00 Uhr</span>
           <h3 data-i18n-html="true" data-i18n-de='Letzter <span class="orange">Eintritt</span>' data-i18n-en='Last <span class="orange">Entry</span>' data-i18n-it='Ultimo <span class="orange">ingresso</span>'>Letzter <span class="orange">Eintritt</span></h3>
@@ -547,7 +835,19 @@
       </div>
 
       <div class="timeline-item" data-time="17:00">
-        <div class="timeline-node"><span class="timeline-clock">🏁</span></div>
+        <div class="timeline-node"><span class="timeline-clock"><svg class="timeline-dial" viewBox="0 0 44 44" fill="none" aria-hidden="true" focusable="false">
+          <circle cx="22" cy="22" r="17.5" stroke="var(--navy)" stroke-width="1"/>
+          <g stroke="var(--navy)" stroke-width="0.5">
+            <line x1="30.25" y1="7.71" x2="29.25" y2="9.44"/><line x1="36.29" y1="13.75" x2="34.56" y2="14.75"/><line x1="36.29" y1="30.25" x2="34.56" y2="29.25"/><line x1="30.25" y1="36.29" x2="29.25" y2="34.56"/>
+            <line x1="13.75" y1="36.29" x2="14.75" y2="34.56"/><line x1="7.71" y1="30.25" x2="9.44" y2="29.25"/><line x1="7.71" y1="13.75" x2="9.44" y2="14.75"/><line x1="13.75" y1="7.71" x2="14.75" y2="9.44"/>
+          </g>
+          <g stroke="var(--gold-light)" stroke-width="1">
+            <line x1="22" y1="5.5" x2="22" y2="8.5"/><line x1="38.5" y1="22" x2="35.5" y2="22"/><line x1="22" y1="38.5" x2="22" y2="35.5"/><line x1="5.5" y1="22" x2="8.5" y2="22"/>
+          </g>
+          <line class="dial-hand dial-hand-h" x1="22" y1="22" x2="22" y2="12.5" stroke="var(--navy)" stroke-width="1.5" stroke-linecap="round"/>
+          <line class="dial-hand dial-hand-m" x1="22" y1="22" x2="22" y2="8" stroke="var(--navy)" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="22" cy="22" r="1.5" fill="var(--gold-light)"/>
+        </svg></span></div>
         <div class="timeline-card-glass">
           <span class="timeline-time" data-i18n-de="17:00 Uhr" data-i18n-en="17:00" data-i18n-it="Ore 17:00">17:00 Uhr</span>
           <h3 data-i18n-html="true" data-i18n-de='Ende &amp; <span class="orange">Ausklang</span>' data-i18n-en='End &amp; <span class="orange">Closing</span>' data-i18n-it='Fine e <span class="orange">chiusura</span>'>Ende &amp; <span class="orange">Ausklang</span></h3>
@@ -576,8 +876,12 @@
           <span class="termin-month" data-i18n-de="Februar 2026" data-i18n-en="February 2026" data-i18n-it="Febbraio 2026">Februar 2026</span>
         </div>
         <div class="termin-details">
-          <p class="termin-time" data-i18n-de="🕐 08:00 – 17:00 Uhr" data-i18n-en="🕐 08:00 – 17:00" data-i18n-it="🕐 08:00 – 17:00">🕐 08:00 – 17:00 Uhr</p>
-          <p class="termin-location">📍 Ballhausforum Unterschleißheim</p>
+          <p class="termin-time"><svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><circle class="draw" cx="20" cy="20" r="14"/><path class="draw gold" d="M20,12 L20,21 L26,24.5"/></svg><span data-i18n-de="08:00 – 17:00 Uhr" data-i18n-en="08:00 – 17:00" data-i18n-it="08:00 – 17:00">08:00 – 17:00 Uhr</span></p>
+          <p class="termin-location"><svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><path class="draw" d="M20,34 C20,34 11,23.5 11,16.5 a9,9 0 0 1 18,0 C29,23.5 20,34 20,34 Z"/><circle class="draw gold" cx="20" cy="16.5" r="3.2"/></svg><span>Ballhausforum Unterschleißheim</span></p>
+          <button type="button" class="btn-ghost btn-ghost-sm js-ics-btn" data-ics="card">
+            <svg class="ics-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect class="draw" x="8" y="10" width="24" height="22" rx="2"/><line class="draw" x1="8" y1="16.5" x2="32" y2="16.5"/><line class="draw gold" x1="14.5" y1="6.5" x2="14.5" y2="11.5"/><line class="draw gold" x1="25.5" y1="6.5" x2="25.5" y2="11.5"/><line class="draw gold" x1="20" y1="20.5" x2="20" y2="27.5"/><line class="draw gold" x1="16.5" y1="24" x2="23.5" y2="24"/></svg>
+            <span data-i18n-de="In Kalender speichern" data-i18n-en="Add to Calendar" data-i18n-it="Salva nel calendario">In Kalender speichern</span>
+          </button>
         </div>
       </div>
       <div class="termin-card reveal stagger-2" data-date="2026-03-29">
@@ -588,8 +892,12 @@
           <span class="termin-month" data-i18n-de="März 2026" data-i18n-en="March 2026" data-i18n-it="Marzo 2026">März 2026</span>
         </div>
         <div class="termin-details">
-          <p class="termin-time" data-i18n-de="🕐 08:00 – 17:00 Uhr" data-i18n-en="🕐 08:00 – 17:00" data-i18n-it="🕐 08:00 – 17:00">🕐 08:00 – 17:00 Uhr</p>
-          <p class="termin-location">📍 Ballhausforum Unterschleißheim</p>
+          <p class="termin-time"><svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><circle class="draw" cx="20" cy="20" r="14"/><path class="draw gold" d="M20,12 L20,21 L26,24.5"/></svg><span data-i18n-de="08:00 – 17:00 Uhr" data-i18n-en="08:00 – 17:00" data-i18n-it="08:00 – 17:00">08:00 – 17:00 Uhr</span></p>
+          <p class="termin-location"><svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><path class="draw" d="M20,34 C20,34 11,23.5 11,16.5 a9,9 0 0 1 18,0 C29,23.5 20,34 20,34 Z"/><circle class="draw gold" cx="20" cy="16.5" r="3.2"/></svg><span>Ballhausforum Unterschleißheim</span></p>
+          <button type="button" class="btn-ghost btn-ghost-sm js-ics-btn" data-ics="card">
+            <svg class="ics-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect class="draw" x="8" y="10" width="24" height="22" rx="2"/><line class="draw" x1="8" y1="16.5" x2="32" y2="16.5"/><line class="draw gold" x1="14.5" y1="6.5" x2="14.5" y2="11.5"/><line class="draw gold" x1="25.5" y1="6.5" x2="25.5" y2="11.5"/><line class="draw gold" x1="20" y1="20.5" x2="20" y2="27.5"/><line class="draw gold" x1="16.5" y1="24" x2="23.5" y2="24"/></svg>
+            <span data-i18n-de="In Kalender speichern" data-i18n-en="Add to Calendar" data-i18n-it="Salva nel calendario">In Kalender speichern</span>
+          </button>
         </div>
       </div>
       <div class="termin-card reveal stagger-3" data-date="2026-05-17">
@@ -600,8 +908,12 @@
           <span class="termin-month" data-i18n-de="Mai 2026" data-i18n-en="May 2026" data-i18n-it="Maggio 2026">Mai 2026</span>
         </div>
         <div class="termin-details">
-          <p class="termin-time" data-i18n-de="🕐 08:00 – 17:00 Uhr" data-i18n-en="🕐 08:00 – 17:00" data-i18n-it="🕐 08:00 – 17:00">🕐 08:00 – 17:00 Uhr</p>
-          <p class="termin-location">📍 Ballhausforum Unterschleißheim</p>
+          <p class="termin-time"><svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><circle class="draw" cx="20" cy="20" r="14"/><path class="draw gold" d="M20,12 L20,21 L26,24.5"/></svg><span data-i18n-de="08:00 – 17:00 Uhr" data-i18n-en="08:00 – 17:00" data-i18n-it="08:00 – 17:00">08:00 – 17:00 Uhr</span></p>
+          <p class="termin-location"><svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><path class="draw" d="M20,34 C20,34 11,23.5 11,16.5 a9,9 0 0 1 18,0 C29,23.5 20,34 20,34 Z"/><circle class="draw gold" cx="20" cy="16.5" r="3.2"/></svg><span>Ballhausforum Unterschleißheim</span></p>
+          <button type="button" class="btn-ghost btn-ghost-sm js-ics-btn" data-ics="card">
+            <svg class="ics-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect class="draw" x="8" y="10" width="24" height="22" rx="2"/><line class="draw" x1="8" y1="16.5" x2="32" y2="16.5"/><line class="draw gold" x1="14.5" y1="6.5" x2="14.5" y2="11.5"/><line class="draw gold" x1="25.5" y1="6.5" x2="25.5" y2="11.5"/><line class="draw gold" x1="20" y1="20.5" x2="20" y2="27.5"/><line class="draw gold" x1="16.5" y1="24" x2="23.5" y2="24"/></svg>
+            <span data-i18n-de="In Kalender speichern" data-i18n-en="Add to Calendar" data-i18n-it="Salva nel calendario">In Kalender speichern</span>
+          </button>
         </div>
       </div>
       <div class="termin-card reveal stagger-2" data-date="2026-06-28">
@@ -612,10 +924,21 @@
           <span class="termin-month" data-i18n-de="Juni 2026" data-i18n-en="June 2026" data-i18n-it="Giugno 2026">Juni 2026</span>
         </div>
         <div class="termin-details">
-          <p class="termin-time" data-i18n-de="🕐 08:00 – 17:00 Uhr" data-i18n-en="🕐 08:00 – 17:00" data-i18n-it="🕐 08:00 – 17:00">🕐 08:00 – 17:00 Uhr</p>
-          <p class="termin-location">📍 Ballhausforum Unterschleißheim</p>
+          <p class="termin-time"><svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><circle class="draw" cx="20" cy="20" r="14"/><path class="draw gold" d="M20,12 L20,21 L26,24.5"/></svg><span data-i18n-de="08:00 – 17:00 Uhr" data-i18n-en="08:00 – 17:00" data-i18n-it="08:00 – 17:00">08:00 – 17:00 Uhr</span></p>
+          <p class="termin-location"><svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><path class="draw" d="M20,34 C20,34 11,23.5 11,16.5 a9,9 0 0 1 18,0 C29,23.5 20,34 20,34 Z"/><circle class="draw gold" cx="20" cy="16.5" r="3.2"/></svg><span>Ballhausforum Unterschleißheim</span></p>
+          <button type="button" class="btn-ghost btn-ghost-sm js-ics-btn" data-ics="card">
+            <svg class="ics-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect class="draw" x="8" y="10" width="24" height="22" rx="2"/><line class="draw" x1="8" y1="16.5" x2="32" y2="16.5"/><line class="draw gold" x1="14.5" y1="6.5" x2="14.5" y2="11.5"/><line class="draw gold" x1="25.5" y1="6.5" x2="25.5" y2="11.5"/><line class="draw gold" x1="20" y1="20.5" x2="20" y2="27.5"/><line class="draw gold" x1="16.5" y1="24" x2="23.5" y2="24"/></svg>
+            <span data-i18n-de="In Kalender speichern" data-i18n-en="Add to Calendar" data-i18n-it="Salva nel calendario">In Kalender speichern</span>
+          </button>
         </div>
       </div>
+    </div>
+    <!-- Sammel-ICS aller zukünftigen Termine -->
+    <div class="termine-ics-all reveal">
+      <button type="button" class="btn-ghost js-ics-btn" id="icsAllBtn" data-ics="all">
+        <svg class="ics-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect class="draw" x="8" y="10" width="24" height="22" rx="2"/><line class="draw" x1="8" y1="16.5" x2="32" y2="16.5"/><line class="draw gold" x1="14.5" y1="6.5" x2="14.5" y2="11.5"/><line class="draw gold" x1="25.5" y1="6.5" x2="25.5" y2="11.5"/><line class="draw gold" x1="20" y1="20.5" x2="20" y2="27.5"/><line class="draw gold" x1="16.5" y1="24" x2="23.5" y2="24"/></svg>
+        <span data-i18n-de="Alle Termine in den Kalender übernehmen" data-i18n-en="Add all dates to your calendar" data-i18n-it="Aggiungi tutte le date al calendario">Alle Termine in den Kalender übernehmen</span>
+      </button>
     </div>
   </div>
 </section>
@@ -627,14 +950,29 @@
     <div class="section-header reveal"><div class="section-tag" data-i18n-de="Eintritt" data-i18n-en="Admission" data-i18n-it="Ingresso">Eintritt</div><h2 class="section-title" id="tickets-title" data-i18n-html="true" data-i18n-de='Tickets <span class="orange">sichern</span>' data-i18n-en='Get Your <span class="orange">Tickets</span>' data-i18n-it='Acquistate i <span class="orange">biglietti</span>'>Tickets <span class="orange">sichern</span></h2><p class="section-subtitle" data-i18n-de="Sichern Sie sich jetzt Ihren Eintritt zur Munich Watch Fair 2026." data-i18n-en="Secure your admission to the Munich Watch Fair 2026 now." data-i18n-it="Assicuratevi ora l'ingresso alla Munich Watch Fair 2026.">Sichern Sie sich jetzt Ihren Eintritt zur Munich Watch Fair 2026.</p></div>
     <div class="ticket-grid">
       <div class="ticket-card reveal-scale">
-        <span class="ticket-badge">Early Bird</span>
-        <span class="ticket-icon">🌅</span><h3 data-i18n-de="Early Bird Ticket" data-i18n-en="Early Bird Ticket" data-i18n-it="Biglietto Early Bird">Early Bird Ticket</h3>
+        <span class="ticket-ribbon">Early Bird</span>
+        <svg class="ticket-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true">
+          <line class="draw" x1="4" y1="27" x2="36" y2="27"/>
+          <path class="draw d1" d="M11,27 A9,9 0 0 1 29,27"/>
+          <path class="draw thin d2" d="M14,27 A6,6 0 0 1 26,27"/>
+          <line class="draw gold d3" x1="20" y1="15" x2="20" y2="10"/>
+          <line class="draw gold d3" x1="11.5" y1="18.5" x2="8" y2="15"/>
+          <line class="draw gold d3" x1="28.5" y1="18.5" x2="32" y2="15"/>
+          <line class="draw gold d4" x1="8.5" y1="23" x2="4" y2="21.5"/>
+          <line class="draw gold d4" x1="31.5" y1="23" x2="36" y2="21.5"/>
+        </svg><h3 data-i18n-de="Early Bird Ticket" data-i18n-en="Early Bird Ticket" data-i18n-it="Biglietto Early Bird">Early Bird Ticket</h3>
         <p class="ticket-date" data-i18n-dynamic="true"></p>
         <p class="ticket-price">€50</p><p class="ticket-price-sub" data-i18n-de="pro Person · inkl. MwSt." data-i18n-en="per person · incl. VAT" data-i18n-it="a persona · IVA inclusa">pro Person · inkl. MwSt.</p>
         <a href="https://eventim-light.com/de/a/61256a72a91dc01b4b932fe4/" target="_blank" rel="noopener" class="btn btn-primary btn-pulse btn-magnet" data-i18n-de="Tickets kaufen" data-i18n-en="Buy Tickets" data-i18n-it="Acquista biglietti">Tickets kaufen</a>
       </div>
       <div class="ticket-card reveal-scale">
-        <span class="ticket-icon">🎟️</span><h3 data-i18n-de="Eintrittskarte" data-i18n-en="Standard Ticket" data-i18n-it="Biglietto d'ingresso">Eintrittskarte</h3>
+        <svg class="ticket-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true">
+          <path class="draw" d="M5,13 L35,13 L35,18 A3,3 0 0 0 35,24 L35,29 L5,29 L5,24 A3,3 0 0 0 5,18 Z"/>
+          <line class="perf" x1="26" y1="14.5" x2="26" y2="27.5"/>
+          <line class="draw thin d1" x1="9.5" y1="19" x2="21.5" y2="19"/>
+          <line class="draw thin d1" x1="9.5" y1="23" x2="17.5" y2="23"/>
+          <circle class="draw gold d2" cx="30.5" cy="21" r="1.8"/>
+        </svg><h3 data-i18n-de="Eintrittskarte" data-i18n-en="Standard Ticket" data-i18n-it="Biglietto d'ingresso">Eintrittskarte</h3>
         <p class="ticket-date" data-i18n-dynamic="true"></p>
         <p class="ticket-price">€20</p><p class="ticket-price-sub" data-i18n-de="pro Person · inkl. MwSt." data-i18n-en="per person · incl. VAT" data-i18n-it="a persona · IVA inclusa">pro Person · inkl. MwSt.</p>
         <a href="https://eventim-light.com/de/a/61256a72a91dc01b4b932fe4/" target="_blank" rel="noopener" class="btn btn-primary btn-pulse btn-magnet" data-i18n-de="Tickets kaufen" data-i18n-en="Buy Tickets" data-i18n-it="Acquista biglietti">Tickets kaufen</a>
@@ -661,9 +999,9 @@
 
     <!-- Benefits (always visible) -->
     <div class="aussteller-benefits reveal">
-      <div class="benefit-item"><span class="benefit-icon">🎯</span><h4 data-i18n-de="Exklusives Publikum" data-i18n-en="Exclusive Audience" data-i18n-it="Pubblico esclusivo">Exklusives Publikum</h4><p data-i18n-de="Erreichen Sie Sammler und Kenner, die gezielt nach Qualität suchen." data-i18n-en="Reach collectors and connoisseurs who are specifically looking for quality." data-i18n-it="Raggiungete collezionisti e intenditori alla ricerca mirata della qualità.">Erreichen Sie Sammler und Kenner, die gezielt nach Qualität suchen.</p></div>
-      <div class="benefit-item"><span class="benefit-icon">📍</span><h4 data-i18n-de="Premium-Standort" data-i18n-en="Premium Location" data-i18n-it="Location premium">Premium-Standort</h4><p data-i18n-de="Modernes Ballhausforum mit exzellenter Anbindung und Infrastruktur." data-i18n-en="Modern Ballhausforum with excellent transport links and infrastructure." data-i18n-it="Moderno Ballhausforum con eccellenti collegamenti e infrastrutture.">Modernes Ballhausforum mit exzellenter Anbindung und Infrastruktur.</p></div>
-      <div class="benefit-item"><span class="benefit-icon">🤝</span><h4 data-i18n-de="Persönliche Betreuung" data-i18n-en="Personal Support" data-i18n-it="Assistenza personalizzata">Persönliche Betreuung</h4><p data-i18n-de="Individuelle Beratung und Unterstützung bei der Planung Ihres Auftritts." data-i18n-en="Individual consultation and support in planning your appearance." data-i18n-it="Consulenza individuale e supporto nella pianificazione della vostra partecipazione.">Individuelle Beratung und Unterstützung bei der Planung Ihres Auftritts.</p></div>
+      <div class="benefit-item"><svg class="benefit-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true"><circle class="draw" cx="20" cy="20" r="14"/><circle class="draw thin d1" cx="20" cy="20" r="9"/><circle class="draw thin d2" cx="20" cy="20" r="4.5"/><circle class="draw gold d3" cx="20" cy="20" r="1.5"/><line class="draw thin d2" x1="20" y1="2.5" x2="20" y2="6.5"/><line class="draw thin d2" x1="20" y1="33.5" x2="20" y2="37.5"/><line class="draw thin d2" x1="2.5" y1="20" x2="6.5" y2="20"/><line class="draw thin d2" x1="33.5" y1="20" x2="37.5" y2="20"/></svg><h4 data-i18n-de="Exklusives Publikum" data-i18n-en="Exclusive Audience" data-i18n-it="Pubblico esclusivo">Exklusives Publikum</h4><p data-i18n-de="Erreichen Sie Sammler und Kenner, die gezielt nach Qualität suchen." data-i18n-en="Reach collectors and connoisseurs who are specifically looking for quality." data-i18n-it="Raggiungete collezionisti e intenditori alla ricerca mirata della qualità.">Erreichen Sie Sammler und Kenner, die gezielt nach Qualität suchen.</p></div>
+      <div class="benefit-item"><svg class="benefit-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true"><path class="draw" d="M20,36 C20,36 9,24.5 9,16 a11,11 0 0 1 22,0 C31,24.5 20,36 20,36 Z"/><circle class="draw gold d1" cx="20" cy="16" r="4"/><ellipse class="draw thin d2" cx="20" cy="37.5" rx="5.5" ry="1.2"/></svg><h4 data-i18n-de="Premium-Standort" data-i18n-en="Premium Location" data-i18n-it="Location premium">Premium-Standort</h4><p data-i18n-de="Modernes Ballhausforum mit exzellenter Anbindung und Infrastruktur." data-i18n-en="Modern Ballhausforum with excellent transport links and infrastructure." data-i18n-it="Moderno Ballhausforum con eccellenti collegamenti e infrastrutture.">Modernes Ballhausforum mit exzellenter Anbindung und Infrastruktur.</p></div>
+      <div class="benefit-item"><svg class="benefit-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true"><circle class="draw" cx="14.5" cy="20" r="9.5"/><circle class="draw d1" cx="25.5" cy="20" r="9.5"/><path class="draw gold d2" d="M20,12.25 A9.5,9.5 0 0 1 20,27.75 A9.5,9.5 0 0 1 20,12.25"/></svg><h4 data-i18n-de="Persönliche Betreuung" data-i18n-en="Personal Support" data-i18n-it="Assistenza personalizzata">Persönliche Betreuung</h4><p data-i18n-de="Individuelle Beratung und Unterstützung bei der Planung Ihres Auftritts." data-i18n-en="Individual consultation and support in planning your appearance." data-i18n-it="Consulenza individuale e supporto nella pianificazione della vostra partecipazione.">Individuelle Beratung und Unterstützung bei der Planung Ihres Auftritts.</p></div>
     </div>
 
     <p class="reveal" style="text-align:center;margin-top:2.5rem;font-size:1.1rem;color:var(--text-mid);" data-i18n-html="true" data-i18n-de='Interesse? Schreiben Sie uns an <a href="mailto:info@munichwatchfair.com" style="color:var(--orange);text-decoration:underline;">info@munichwatchfair.com</a> – wir melden uns baldmöglich.' data-i18n-en='Interested? Write to us at <a href="mailto:info@munichwatchfair.com" style="color:var(--orange);text-decoration:underline;">info@munichwatchfair.com</a> – we will get back to you shortly.' data-i18n-it='Interessati? Scriveteci a <a href="mailto:info@munichwatchfair.com" style="color:var(--orange);text-decoration:underline;">info@munichwatchfair.com</a> – vi ricontatteremo al più presto.'>Interesse? Schreiben Sie uns an <a href="mailto:info@munichwatchfair.com" style="color:var(--orange);text-decoration:underline;">info@munichwatchfair.com</a> – wir melden uns baldmöglich.</p>
@@ -707,12 +1045,148 @@
           <p data-i18n-de="Schwerpunkt sind Luxus- und Sammleruhren aller Preisklassen – von Vintage bis neu. Zusätzlich Schmuck, Designer-Handtaschen und Accessoires." data-i18n-en="The focus is on luxury and collector watches of all price ranges – from vintage to new. Plus jewellery, designer handbags and accessories." data-i18n-it="Il focus è sugli orologi di lusso e da collezione di ogni fascia di prezzo – dal vintage al nuovo. In più gioielli, borse firmate e accessori.">Schwerpunkt sind Luxus- und Sammleruhren aller Preisklassen – von Vintage bis neu. Zusätzlich Schmuck, Designer-Handtaschen und Accessoires.</p>
         </div>
       </div>
+      <!-- TODO: Betreiber bestätigen – gibt es eine Tageskasse vor Ort? -->
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
+          <span data-i18n-de="Gibt es Tickets an der Tageskasse?" data-i18n-en="Are tickets available at the box office?" data-i18n-it="I biglietti sono disponibili alla cassa in loco?">Gibt es Tickets an der Tageskasse?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" id="faq-answer-5">
+          <p data-i18n-de="Tickets erhalten Sie bequem vorab online über Eventim. Ob am Veranstaltungstag zusätzlich eine Tageskasse geöffnet ist, erfragen Sie am besten kurz vorab unter info@munichwatchfair.com – wir empfehlen den Online-Kauf, damit Sie ohne Wartezeit auf die Messe kommen." data-i18n-en="Tickets are conveniently available online in advance via Eventim. To find out whether an on-site box office is also open on the day of the event, it is best to ask briefly in advance at info@munichwatchfair.com – we recommend buying online so you can enter without waiting." data-i18n-it="I biglietti sono comodamente disponibili in anticipo online tramite Eventim. Per sapere se il giorno dell'evento sarà aperta anche una cassa in loco, vi consigliamo di chiedere in anticipo a info@munichwatchfair.com – consigliamo l'acquisto online per entrare senza attese.">Tickets erhalten Sie bequem vorab online über Eventim. Ob am Veranstaltungstag zusätzlich eine Tageskasse geöffnet ist, erfragen Sie am besten kurz vorab unter info@munichwatchfair.com – wir empfehlen den Online-Kauf, damit Sie ohne Wartezeit auf die Messe kommen.</p>
+        </div>
+      </div>
+      <!-- TODO: Betreiber bestätigen – akzeptierte Zahlungsarten der Händler (Bargeld/Karte) -->
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
+          <span data-i18n-de="Wie bezahle ich bei den Händlern?" data-i18n-en="How do I pay the dealers?" data-i18n-it="Come si paga presso i commercianti?">Wie bezahle ich bei den Händlern?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" id="faq-answer-6">
+          <p data-i18n-de="Der Kauf wird direkt mit dem jeweiligen Händler abgewickelt. Viele Händler akzeptieren neben Bargeld auch Kartenzahlung – im Zweifel fragen Sie einfach direkt am Stand nach den möglichen Zahlungsarten." data-i18n-en="Purchases are settled directly with the respective dealer. Many dealers accept card payments in addition to cash – if in doubt, simply ask at the stand which payment methods are accepted." data-i18n-it="L'acquisto si conclude direttamente con il singolo commerciante. Molti commercianti accettano, oltre ai contanti, anche il pagamento con carta – in caso di dubbio, chiedete direttamente allo stand quali metodi di pagamento sono accettati.">Der Kauf wird direkt mit dem jeweiligen Händler abgewickelt. Viele Händler akzeptieren neben Bargeld auch Kartenzahlung – im Zweifel fragen Sie einfach direkt am Stand nach den möglichen Zahlungsarten.</p>
+        </div>
+      </div>
+      <!-- TODO: Betreiber bestätigen – Ankauf/Schätzung privater Uhren durch Händler erlaubt/üblich? -->
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
+          <span data-i18n-de="Kann ich meine eigene Uhr verkaufen oder schätzen lassen?" data-i18n-en="Can I sell my own watch or have it appraised?" data-i18n-it="Posso vendere o far valutare il mio orologio?">Kann ich meine eigene Uhr verkaufen oder schätzen lassen?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" id="faq-answer-7">
+          <p data-i18n-de="Die Munich Watch Fair ist eine klassische Börse: Viele Händler kaufen auch an oder nehmen Uhren in Zahlung. Bringen Sie Ihre Uhr gerne mit und sprechen Sie die Händler direkt an – ob und zu welchen Konditionen ein Ankauf oder eine Einschätzung erfolgt, liegt im Ermessen des jeweiligen Händlers." data-i18n-en="The Munich Watch Fair is a classic exchange: many dealers also buy watches or accept them in part exchange. Feel free to bring your watch and approach the dealers directly – whether and on what terms a purchase or appraisal takes place is at the discretion of each dealer." data-i18n-it="La Munich Watch Fair è una borsa classica: molti commercianti acquistano anche orologi o li accettano in permuta. Portate pure il vostro orologio e rivolgetevi direttamente ai commercianti – se e a quali condizioni avvenga un acquisto o una valutazione è a discrezione del singolo commerciante.">Die Munich Watch Fair ist eine klassische Börse: Viele Händler kaufen auch an oder nehmen Uhren in Zahlung. Bringen Sie Ihre Uhr gerne mit und sprechen Sie die Händler direkt an – ob und zu welchen Konditionen ein Ankauf oder eine Einschätzung erfolgt, liegt im Ermessen des jeweiligen Händlers.</p>
+        </div>
+      </div>
+      <!-- TODO: Betreiber bestätigen – offizielle Wiedereinlass-Regelung -->
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
+          <span data-i18n-de="Ist Wiedereinlass möglich?" data-i18n-en="Is re-entry possible?" data-i18n-it="È possibile rientrare?">Ist Wiedereinlass möglich?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" id="faq-answer-8">
+          <p data-i18n-de="Ihr Ticket gilt für den gesamten Messetag. Ob ein zwischenzeitliches Verlassen mit Wiedereinlass möglich ist, klären Sie bitte kurz mit dem Einlasspersonal vor Ort – in der Regel findet sich eine unkomplizierte Lösung." data-i18n-en="Your ticket is valid for the entire day of the fair. Please check briefly with the admission staff on site whether leaving and re-entering is possible – an uncomplicated solution can usually be found." data-i18n-it="Il vostro biglietto è valido per l'intera giornata di fiera. Vi preghiamo di verificare brevemente con il personale all'ingresso se è possibile uscire e rientrare – di solito si trova una soluzione semplice.">Ihr Ticket gilt für den gesamten Messetag. Ob ein zwischenzeitliches Verlassen mit Wiedereinlass möglich ist, klären Sie bitte kurz mit dem Einlasspersonal vor Ort – in der Regel findet sich eine unkomplizierte Lösung.</p>
+        </div>
+      </div>
+      <!-- TODO: Betreiber bestätigen – gastronomisches Angebot am Messetag -->
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">
+          <span data-i18n-de="Gibt es Gastronomie vor Ort?" data-i18n-en="Is there catering on site?" data-i18n-it="È disponibile un punto di ristoro in loco?">Gibt es Gastronomie vor Ort?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" id="faq-answer-9">
+          <p data-i18n-de="Für eine Stärkung zwischendurch ist in der Regel gesorgt – das genaue gastronomische Angebot kann je nach Messetag variieren. Aktuelle Details erfragen Sie gerne vorab unter info@munichwatchfair.com." data-i18n-en="Refreshments are usually available during the fair – the exact catering offer may vary depending on the day. Feel free to ask for current details in advance at info@munichwatchfair.com." data-i18n-it="Di norma è previsto un punto di ristoro durante la fiera – l'offerta gastronomica esatta può variare a seconda della giornata. Per dettagli aggiornati potete scrivere in anticipo a info@munichwatchfair.com.">Für eine Stärkung zwischendurch ist in der Regel gesorgt – das genaue gastronomische Angebot kann je nach Messetag variieren. Aktuelle Details erfragen Sie gerne vorab unter info@munichwatchfair.com.</p>
+        </div>
+      </div>
+      <!-- TODO: Betreiber bestätigen – Barrierefreiheit des Ballhausforums (Zugänge, WC, Parkplätze) -->
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">
+          <span data-i18n-de="Ist die Messe barrierefrei?" data-i18n-en="Is the fair accessible?" data-i18n-it="La fiera è accessibile?">Ist die Messe barrierefrei?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer" id="faq-answer-10">
+          <p data-i18n-de="Das Ballhausforum ist ein modernes Veranstaltungszentrum. Wenn Sie besondere Anforderungen an die Zugänglichkeit haben (z. B. Rollstuhl oder Rollator), kontaktieren Sie uns gerne vorab unter info@munichwatchfair.com – wir unterstützen Sie bei der Planung Ihres Besuchs." data-i18n-en="The Ballhausforum is a modern event venue. If you have specific accessibility needs (e.g. wheelchair or walker), please contact us in advance at info@munichwatchfair.com – we will be happy to help you plan your visit." data-i18n-it="Il Ballhausforum è un moderno centro eventi. Se avete esigenze particolari di accessibilità (ad es. sedia a rotelle o deambulatore), contattateci in anticipo all'indirizzo info@munichwatchfair.com – vi aiuteremo volentieri a pianificare la vostra visita.">Das Ballhausforum ist ein modernes Veranstaltungszentrum. Wenn Sie besondere Anforderungen an die Zugänglichkeit haben (z. B. Rollstuhl oder Rollator), kontaktieren Sie uns gerne vorab unter info@munichwatchfair.com – wir unterstützen Sie bei der Planung Ihres Besuchs.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===== KONTAKT ===== -->
-<section class="section section-alt" id="kontakt" aria-labelledby="kontakt-title">
+<!-- ===== ANFAHRT & LOCATION ===== -->
+<section class="section section-alt" id="location" aria-labelledby="anfahrt-title">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag" data-i18n-de="Veranstaltungsort" data-i18n-en="Venue" data-i18n-it="Sede">Veranstaltungsort</div>
+      <h2 class="section-title" id="anfahrt-title" data-i18n-html="true" data-i18n-de='Anfahrt & <span class="orange">Location</span>' data-i18n-en='Directions & <span class="orange">Location</span>' data-i18n-it='Come arrivare & <span class="orange">Location</span>'>Anfahrt & <span class="orange">Location</span></h2>
+      <p class="section-subtitle" data-i18n-de="So finden Sie uns im Ballhausforum Unterschleißheim." data-i18n-en="How to find us at the Ballhausforum Unterschleissheim." data-i18n-it="Come trovarci al Ballhausforum Unterschleissheim.">So finden Sie uns im Ballhausforum Unterschleißheim.</p>
+    </div>
+    <div class="anfahrt-grid">
+      <div class="anfahrt-info reveal-left">
+        <div class="anfahrt-venue">
+          <h3>Ballhausforum Unterschleißheim</h3>
+          <p class="anfahrt-address">Am Haingraben 33, 85716 Unterschleißheim</p>
+        </div>
+        <div class="anfahrt-block">
+          <svg class="anfahrt-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true">
+            <path class="draw" d="M3.5,27 L3.5,24 Q3.5,22.3 5.5,21.8 L11,20.8 L15.5,15.8 Q16.4,14.8 17.9,14.8 L26.4,14.8 Q27.9,14.8 28.8,16 L32.3,20.8 L35,21.9 Q36.5,22.5 36.5,24 L36.5,27"/>
+            <line class="draw" x1="3.5" y1="27" x2="8.3" y2="27"/>
+            <line class="draw" x1="15.7" y1="27" x2="24.8" y2="27"/>
+            <line class="draw" x1="32.2" y1="27" x2="36.5" y2="27"/>
+            <circle class="draw d1" cx="12" cy="27" r="3.5"/>
+            <circle class="draw d1" cx="28.5" cy="27" r="3.5"/>
+            <circle class="draw gold d2" cx="12" cy="27" r="1.2"/>
+            <circle class="draw gold d2" cx="28.5" cy="27" r="1.2"/>
+            <line class="draw thin d2" x1="13.8" y1="20.3" x2="30.8" y2="20.3"/>
+            <line class="draw thin d2" x1="21.5" y1="15" x2="21.5" y2="20.3"/>
+            <line class="draw thin d2" x1="17" y1="15.3" x2="14" y2="20"/>
+            <line class="draw gold d3" x1="23" y1="22.6" x2="25.6" y2="22.6"/>
+          </svg>
+          <div>
+            <h4 data-i18n-de="Mit dem Auto" data-i18n-en="By Car" data-i18n-it="In auto">Mit dem Auto</h4>
+            <p data-i18n-de="A92 Ausfahrt Unterschleißheim, dann Beschilderung folgen. Kostenlose Parkplätze direkt am Veranstaltungsort." data-i18n-en="A92, exit Unterschleissheim, then follow signs. Free parking directly at the venue." data-i18n-it="A92, uscita Unterschleissheim, poi seguire le indicazioni. Parcheggio gratuito direttamente presso la sede.">A92 Ausfahrt Unterschleißheim, dann Beschilderung folgen. Kostenlose Parkplätze direkt am Veranstaltungsort.</p>
+          </div>
+        </div>
+        <div class="anfahrt-block">
+          <svg class="anfahrt-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true">
+            <path class="draw" d="M10,33 L10,12 Q10,6 20,6 Q30,6 30,12 L30,33 Z"/>
+            <path class="draw thin d1" d="M13,16.5 L13,12 Q13,9 20,9 Q27,9 27,12 L27,16.5 Z"/>
+            <line class="draw thin d1" x1="20" y1="20" x2="20" y2="33"/>
+            <circle class="draw gold d2" cx="14.5" cy="24.5" r="1.5"/>
+            <circle class="draw gold d2" cx="25.5" cy="24.5" r="1.5"/>
+            <line class="draw d2" x1="6" y1="37" x2="34" y2="37"/>
+            <line class="draw thin d3" x1="9" y1="35" x2="31" y2="35"/>
+            <line class="draw thin d3" x1="16.5" y1="6" x2="20" y2="3"/>
+            <line class="draw thin d3" x1="23.5" y1="6" x2="20" y2="3"/>
+          </svg>
+          <div>
+            <h4 data-i18n-de="Mit der S-Bahn" data-i18n-en="By S-Bahn" data-i18n-it="Con la S-Bahn">Mit der S-Bahn</h4>
+            <p data-i18n-de="S1 bis Unterschleißheim, dann ca. 10 Minuten Fußweg. Alternativ Bus 219 bis Haltestelle Haingraben." data-i18n-en="S1 to Unterschleissheim, then approx. 10 minutes on foot. Alternatively Bus 219 to Haingraben stop." data-i18n-it="S1 fino a Unterschleissheim, poi circa 10 minuti a piedi. In alternativa Bus 219 fino alla fermata Haingraben.">S1 bis Unterschleißheim, dann ca. 10 Minuten Fußweg. Alternativ Bus 219 bis Haltestelle Haingraben.</p>
+          </div>
+        </div>
+        <div class="anfahrt-block">
+          <svg class="anfahrt-icon icon-engrave icon-draw" viewBox="0 0 40 40" aria-hidden="true">
+            <rect class="draw gold" x="5" y="5" width="30" height="30"/>
+            <rect class="draw d1" x="8" y="8" width="24" height="24"/>
+            <path class="draw d2" d="M16.5,28.5 L16.5,12 L21.5,12 Q26,12 26,16.25 Q26,20.5 21.5,20.5 L16.5,20.5"/>
+          </svg>
+          <div>
+            <h4 data-i18n-de="Parken" data-i18n-en="Parking" data-i18n-it="Parcheggio">Parken</h4>
+            <p data-i18n-de="Ausreichend kostenlose Parkplätze direkt vor dem Ballhausforum vorhanden." data-i18n-en="Ample free parking directly in front of the Ballhausforum." data-i18n-it="Ampio parcheggio gratuito direttamente davanti al Ballhausforum.">Ausreichend kostenlose Parkplätze direkt vor dem Ballhausforum vorhanden.</p>
+          </div>
+        </div>
+      </div>
+      <div class="anfahrt-map reveal-right">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2659.5!2d11.5747!3d48.2842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479e7315b1e7a3af%3A0x4545e06a4c7c4c0!2sBallhausforum!5e0!3m2!1sde!2sde!4v1" width="100%" height="100%" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Maps – Ballhausforum Unterschleißheim"></iframe>
+      </div>
+    </div>
+    <!-- Routen-Deeplinks (Google / Apple / ÖPNV) -->
+    <div class="anfahrt-routes reveal">
+      <a class="btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Ballhausforum+Unterschlei%C3%9Fheim%2C+Am+Haingraben+33%2C+85716+Unterschlei%C3%9Fheim" target="_blank" rel="noopener" data-i18n-de="Route (Google Maps)" data-i18n-en="Directions (Google Maps)" data-i18n-it="Percorso (Google Maps)">Route (Google Maps)</a>
+      <a class="btn-ghost" href="https://maps.apple.com/?daddr=Am+Haingraben+33,+85716+Unterschlei%C3%9Fheim" target="_blank" rel="noopener" data-i18n-de="Route (Apple Karten)" data-i18n-en="Directions (Apple Maps)" data-i18n-it="Percorso (Mappe Apple)">Route (Apple Karten)</a>
+      <a class="btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Ballhausforum+Unterschlei%C3%9Fheim%2C+Am+Haingraben+33%2C+85716+Unterschlei%C3%9Fheim&amp;travelmode=transit" target="_blank" rel="noopener" data-i18n-de="ÖPNV-Verbindung" data-i18n-en="Public Transport Route" data-i18n-it="Mezzi pubblici">ÖPNV-Verbindung</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KONTAKT (im DOM nach #location – Anfahrt ist Top-Besucherfrage, Kontakt gehört ans Ende) ===== -->
+<section class="section" id="kontakt" aria-labelledby="kontakt-title">
   <div class="section-inner">
     <div class="section-header reveal">
       <div class="section-tag" data-i18n-de="Kontakt" data-i18n-en="Contact" data-i18n-it="Contatti">Kontakt</div>
@@ -771,49 +1245,6 @@
           </div>
           <button type="submit" class="btn btn-primary" data-i18n-de="Absenden" data-i18n-en="Send" data-i18n-it="Invia">Absenden</button>
         </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== ANFAHRT & LOCATION ===== -->
-<section class="section section-alt" id="location" aria-labelledby="anfahrt-title">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-tag" data-i18n-de="Veranstaltungsort" data-i18n-en="Venue" data-i18n-it="Sede">Veranstaltungsort</div>
-      <h2 class="section-title" id="anfahrt-title" data-i18n-html="true" data-i18n-de='Anfahrt & <span class="orange">Location</span>' data-i18n-en='Directions & <span class="orange">Location</span>' data-i18n-it='Come arrivare & <span class="orange">Location</span>'>Anfahrt & <span class="orange">Location</span></h2>
-      <p class="section-subtitle" data-i18n-de="So finden Sie uns im Ballhausforum Unterschleißheim." data-i18n-en="How to find us at the Ballhausforum Unterschleissheim." data-i18n-it="Come trovarci al Ballhausforum Unterschleissheim.">So finden Sie uns im Ballhausforum Unterschleißheim.</p>
-    </div>
-    <div class="anfahrt-grid">
-      <div class="anfahrt-info reveal-left">
-        <div class="anfahrt-venue">
-          <h3>Ballhausforum Unterschleißheim</h3>
-          <p class="anfahrt-address">Am Haingraben 33, 85716 Unterschleißheim</p>
-        </div>
-        <div class="anfahrt-block">
-          <span class="anfahrt-icon">🚗</span>
-          <div>
-            <h4 data-i18n-de="Mit dem Auto" data-i18n-en="By Car" data-i18n-it="In auto">Mit dem Auto</h4>
-            <p data-i18n-de="A92 Ausfahrt Unterschleißheim, dann Beschilderung folgen. Kostenlose Parkplätze direkt am Veranstaltungsort." data-i18n-en="A92, exit Unterschleissheim, then follow signs. Free parking directly at the venue." data-i18n-it="A92, uscita Unterschleissheim, poi seguire le indicazioni. Parcheggio gratuito direttamente presso la sede.">A92 Ausfahrt Unterschleißheim, dann Beschilderung folgen. Kostenlose Parkplätze direkt am Veranstaltungsort.</p>
-          </div>
-        </div>
-        <div class="anfahrt-block">
-          <span class="anfahrt-icon">🚆</span>
-          <div>
-            <h4 data-i18n-de="Mit der S-Bahn" data-i18n-en="By S-Bahn" data-i18n-it="Con la S-Bahn">Mit der S-Bahn</h4>
-            <p data-i18n-de="S1 bis Unterschleißheim, dann ca. 10 Minuten Fußweg. Alternativ Bus 219 bis Haltestelle Haingraben." data-i18n-en="S1 to Unterschleissheim, then approx. 10 minutes on foot. Alternatively Bus 219 to Haingraben stop." data-i18n-it="S1 fino a Unterschleissheim, poi circa 10 minuti a piedi. In alternativa Bus 219 fino alla fermata Haingraben.">S1 bis Unterschleißheim, dann ca. 10 Minuten Fußweg. Alternativ Bus 219 bis Haltestelle Haingraben.</p>
-          </div>
-        </div>
-        <div class="anfahrt-block">
-          <span class="anfahrt-icon">🅿️</span>
-          <div>
-            <h4 data-i18n-de="Parken" data-i18n-en="Parking" data-i18n-it="Parcheggio">Parken</h4>
-            <p data-i18n-de="Ausreichend kostenlose Parkplätze direkt vor dem Ballhausforum vorhanden." data-i18n-en="Ample free parking directly in front of the Ballhausforum." data-i18n-it="Ampio parcheggio gratuito direttamente davanti al Ballhausforum.">Ausreichend kostenlose Parkplätze direkt vor dem Ballhausforum vorhanden.</p>
-          </div>
-        </div>
-      </div>
-      <div class="anfahrt-map reveal-right">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2659.5!2d11.5747!3d48.2842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479e7315b1e7a3af%3A0x4545e06a4c7c4c0!2sBallhausforum!5e0!3m2!1sde!2sde!4v1" width="100%" height="100%" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Maps – Ballhausforum Unterschleißheim"></iframe>
       </div>
     </div>
   </div>

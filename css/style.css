@@ -184,14 +184,23 @@ a{color:inherit;text-decoration:none}
   opacity:0;transform:translateY(15px);
 }
 
-/* Countdown - elegant, no boxes */
+/* Countdown - vier Chronographen-Subdials */
 .hero-countdown-wrap{position:relative;z-index:3;text-align:center;margin-bottom:clamp(1rem,2vw,1.5rem)}
-.countdown{display:flex;justify-content:center;gap:clamp(.2rem,.6vw,.4rem);opacity:0;transform:translateY(15px)}
-.countdown-unit{display:flex;flex-direction:column;align-items:center;min-width:clamp(48px,8vw,72px);padding:.3rem}
+.countdown{display:flex;justify-content:center;gap:clamp(.8rem,2.2vw,1.5rem);opacity:0;transform:translateY(15px)}
+.countdown-unit{display:flex;flex-direction:column;align-items:center;padding:.3rem}
+.countdown-dial{position:relative;width:clamp(72px,9vw,104px);height:clamp(72px,9vw,104px)}
+.cd-dial-svg{display:block;width:100%;height:100%}
 .countdown-value{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--orange);line-height:1;transition:transform .3s var(--ease-spring)}
+/* Ziffer mittig im Subdial, kleiner als freistehend */
+.countdown-dial .countdown-value{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(1.05rem,2.2vw,1.55rem)}
 .countdown-value.tick{transform:scale(1.12)}
-.countdown-label{font-size:.52rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-top:.2rem}
-.countdown-separator{font-family:var(--font-display);font-size:clamp(1.4rem,3vw,2.4rem);color:rgba(184,134,11,.4);align-self:center;margin-top:-.2rem;animation:sepPulse 1.5s ease infinite}
+/* Goldener Zeiger: Deadbeat-Tick mit Überschwinger (Rotation setzt JS kumulativ) */
+.cd-hand{transform-box:view-box;transform-origin:50px 50px;transition:transform .25s var(--ease-spring)}
+@media (prefers-reduced-motion: reduce){
+  .cd-hand{transition:none}
+}
+.countdown-label{font-size:.52rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-top:.35rem}
+.countdown-separator{display:none;font-family:var(--font-display);font-size:clamp(1.4rem,3vw,2.4rem);color:rgba(184,134,11,.4);align-self:center;margin-top:-.2rem;animation:sepPulse 1.5s ease infinite}
 @keyframes sepPulse{0%,100%{opacity:1}50%{opacity:.25}}
 
 /* THREE LUXURY SVG ICONS */
@@ -489,7 +498,19 @@ a{color:inherit;text-decoration:none}
   border-color:var(--orange);
   box-shadow:0 1px 4px rgba(194,119,34,.15);
 }
-.timeline-clock{font-size:1rem;line-height:1}
+.timeline-clock{
+  display:flex;align-items:center;justify-content:center;
+  width:38px;height:38px;flex-shrink:0;line-height:0;
+}
+.timeline-dial{display:block;width:100%;height:100%}
+/* Zeiger rotieren um das Zifferblatt-Zentrum (22,22 im viewBox) */
+.dial-hand{
+  transform-box:view-box;
+  transform-origin:22px 22px;
+}
+@media (prefers-reduced-motion: reduce){
+  .dial-hand{transition:none !important}
+}
 /* Vertical connector from node to card */
 .timeline-item::before{
   content:'';position:absolute;top:38px;left:50%;
@@ -576,13 +597,13 @@ a{color:inherit;text-decoration:none}
 .ticket-card{max-width:460px;margin:0 auto;background:var(--bg-card);border:1px solid var(--gold-border);padding:clamp(2.5rem,4vw,3.5rem);text-align:center;position:relative;overflow:hidden;transition:all .5s var(--ease);box-shadow:0 1px 2px rgba(0,0,0,.03),inset 0 1px 2px rgba(0,0,0,.015)}
 .ticket-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;max-width:960px;margin:0 auto}
 .ticket-grid .ticket-card{max-width:none}
-.ticket-badge{position:absolute;top:16px;right:-32px;background:var(--orange);color:#fff;font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.3rem 2.5rem;transform:rotate(45deg)}
+.ticket-ribbon{position:absolute;top:16px;right:-32px;background:var(--orange);color:#fff;font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.3rem 2.5rem;transform:rotate(45deg)}
 .ticket-card:hover{transform:translateY(-2px);box-shadow:0 3px 8px rgba(0,0,0,.06);border-color:var(--orange-border)}
 .ticket-card::before,.ticket-card::after{content:'';position:absolute;width:40px;height:40px;border-color:var(--navy);border-style:solid;opacity:.3;transition:all .5s var(--ease)}
 .ticket-card::before{top:12px;left:12px;border-width:1.5px 0 0 1.5px}
 .ticket-card::after{bottom:12px;right:12px;border-width:0 1.5px 1.5px 0}
 .ticket-card:hover::before,.ticket-card:hover::after{width:60px;height:60px;opacity:.6}
-.ticket-icon{font-size:2.5rem;margin-bottom:1.2rem;display:inline-block;animation:ticketFloat 3s ease-in-out infinite}
+.ticket-icon{width:40px;height:40px;margin-bottom:1.2rem;display:inline-block;animation:ticketFloat 3s ease-in-out infinite}
 @keyframes ticketFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .ticket-card h3{font-family:var(--font-display);font-size:1.7rem;font-weight:600;margin-bottom:.5rem}
 .ticket-date{font-size:.85rem;color:var(--text-light);margin-bottom:2rem;font-weight:300}
@@ -592,7 +613,7 @@ a{color:inherit;text-decoration:none}
 /* ===== AUSSTELLER TEASER (PUBLIC) ===== */
 .aussteller-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem}
 .benefit-item{text-align:center;padding:1.5rem 1rem}
-.benefit-icon{font-size:1.8rem;margin-bottom:.8rem;display:inline-block}
+.benefit-icon{width:30px;height:30px;margin-bottom:.8rem;display:inline-block}
 .benefit-item h4{font-family:var(--font-display);font-size:1.1rem;font-weight:600;margin-bottom:.4rem}
 .benefit-item p{font-size:.82rem;color:var(--text-mid);font-weight:300;line-height:1.5}
 
@@ -708,11 +729,12 @@ a{color:inherit;text-decoration:none}
   .form-row{grid-template-columns:1fr}
   .gate-box .btn{display:block;width:100%;margin:.4rem 0}
   .ticket-badge{display:none!important}
-  .ticket-banner-mobile{display:flex!important}
+  .ticket-banner-mobile{display:grid!important}
+  .ticket-banner-mobile~.footer-new{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
   .cursor-spotlight{display:none!important}
   .watch-draw-wrap{max-width:200px}
 }
-@media(max-width:480px){.section{padding:3.5rem 1.25rem}.nav{padding:1rem 1.25rem}.countdown-unit{min-width:52px}.ticker-item{padding:0 1.5rem;font-size:.63rem}}
+@media(max-width:480px){.section{padding:3.5rem 1.25rem}.nav{padding:1rem 1.25rem}.countdown{gap:.55rem}.countdown-unit{padding:.15rem}.countdown-dial{width:62px;height:62px}.countdown-dial .countdown-value{font-size:.95rem}.ticker-item{padding:0 1.5rem;font-size:.63rem}}
 
 /* ===== TICKET POST-IT (top-right) ===== */
 .ticket-badge{
@@ -765,24 +787,72 @@ a{color:inherit;text-decoration:none}
   margin-top:.25rem;
 }
 
-/* ===== MOBILE TICKET BANNER ===== */
+/* ===== MOBILE APP-BAR (Countdown-Chip + Tickets + Route) ===== */
 .ticket-banner-mobile{
   display:none;
   position:fixed;bottom:0;left:0;right:0;
   z-index:9999;
-  height:46px;
-  align-items:center;justify-content:center;gap:.5rem;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;gap:.6rem;
+  min-height:56px;
+  padding:.45rem .75rem;
+  padding-bottom:calc(.45rem + env(safe-area-inset-bottom));
   background:var(--navy);
-  text-decoration:none;
+  border-top:1px solid var(--gold-border);
   box-shadow:0 -2px 8px rgba(0,0,0,.15);
 }
-.ticket-banner-mobile span{
-  font-size:.65rem;font-weight:600;
-  letter-spacing:.12em;text-transform:uppercase;
+/* Kein zukuenftiger Termin: nur CTA + Route, kein Chip */
+.ticket-banner-mobile.no-chip{grid-template-columns:1fr auto}
+/* Messetag: Route wird zum Mittel-CTA, Icon-Slot entfaellt */
+.ticket-banner-mobile.is-eventday{grid-template-columns:auto 1fr}
+.mobile-bar-chip{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.6rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
   color:rgba(255,255,255,.85);
+  white-space:nowrap;
 }
-.ticket-banner-mobile .mobile-cta{
-  color:var(--gold-light);
+.mobile-bar-chip:empty{display:none}
+.mobile-bar-chip::before{
+  content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0;
+  background:var(--gold-light);
+  animation:mwfBarPulse 2.4s var(--ease) infinite;
+}
+@keyframes mwfBarPulse{
+  0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(184,134,11,.45)}
+  50%{opacity:.55;box-shadow:0 0 0 5px rgba(184,134,11,0)}
+}
+.mobile-bar-cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:40px;padding:.3rem 1rem;
+  background:var(--orange);color:var(--white);
+  font-family:var(--font-body);font-size:.68rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;
+  text-decoration:none;text-align:center;
+  transition:background .4s var(--ease),transform .4s var(--ease);
+}
+.mobile-bar-cta:active{transform:scale(.97)}
+.mobile-bar-route{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:42px;height:42px;flex-shrink:0;
+  border:1px solid rgba(184,134,11,.4);
+  text-decoration:none;
+  transition:background .4s var(--ease);
+}
+.mobile-bar-route:active{background:rgba(184,134,11,.15)}
+/* Heller Fokusring fuer den Navy-Grund der Bar (Muster wie .btn-ghost:focus-visible) */
+.mobile-bar-cta:focus-visible,
+.mobile-bar-route:focus-visible{outline:2px solid var(--gold-light);outline-offset:2px}
+.mobile-bar-route svg{width:22px;height:22px;display:block}
+.mobile-bar-route .mbr-line{fill:none;stroke:rgba(255,255,255,.9);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mobile-bar-route .mbr-gold{fill:none;stroke:var(--gold-light);stroke-width:1.5}
+/* Messetag-Modus: Route-CTA in Gold */
+.ticket-banner-mobile.is-eventday .mobile-bar-route{display:none}
+.ticket-banner-mobile.is-eventday .mobile-bar-cta{background:var(--gold-light);color:var(--navy);font-weight:700}
+@media (prefers-reduced-motion:reduce){
+  .mobile-bar-chip::before{animation:none}
+  .mobile-bar-cta,.mobile-bar-route{transition:none}
+  .mobile-bar-cta:active{transform:none}
 }
 
 /* ===== CURSOR SPOTLIGHT ===== */
@@ -824,6 +894,77 @@ a{color:inherit;text-decoration:none}
 .watch-draw .draw-path.delay-4{transition-delay:1.2s}
 .watch-draw .draw-path.delay-5{transition-delay:1.5s}
 .watch-draw.drawn .draw-path{stroke-dashoffset:0}
+
+/* ===== GRAVUR-ICONS (Inline-SVG statt Emoji) ===== */
+.icon-engrave .draw{fill:none;stroke:var(--navy);stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+.icon-engrave .draw.thin{stroke-width:.5;stroke:rgba(26,26,46,.35)}
+.icon-engrave .draw.gold{stroke:var(--gold-light);stroke-width:.8}
+.icon-engrave .perf{fill:none;stroke:rgba(26,26,46,.35);stroke-width:.5;stroke-dasharray:2 2}
+/* Strichstaerken-Ausgleich fuer kleinere Darstellungsgroessen */
+.benefit-icon .draw{stroke-width:1.3}
+.benefit-icon .draw.thin{stroke-width:.7}
+.benefit-icon .draw.gold{stroke-width:1.1}
+.anfahrt-icon .draw{stroke-width:1.6}
+.anfahrt-icon .draw.thin{stroke-width:.9}
+.anfahrt-icon .draw.gold{stroke-width:1.3}
+/* Selbstzeichnung beim Einscrollen (wie .watch-draw) */
+.icon-engrave.icon-draw .draw{stroke-dasharray:140;stroke-dashoffset:140;transition:stroke-dashoffset 1.6s var(--ease-out)}
+.icon-engrave.icon-draw .draw.d1{transition-delay:.25s}
+.icon-engrave.icon-draw .draw.d2{transition-delay:.5s}
+.icon-engrave.icon-draw .draw.d3{transition-delay:.75s}
+.icon-engrave.icon-draw .draw.d4{transition-delay:1s}
+.icon-engrave.icon-draw .perf{opacity:0;transition:opacity .6s ease .9s}
+.icon-engrave.icon-draw.drawn .draw{stroke-dashoffset:0}
+.icon-engrave.icon-draw.drawn .perf{opacity:1}
+@media (prefers-reduced-motion: reduce){
+  .icon-engrave.icon-draw .draw{stroke-dasharray:none;stroke-dashoffset:0;transition:none}
+  .icon-engrave.icon-draw .perf{opacity:1;transition:none}
+  .ticket-icon{animation:none}
+}
+
+/* ===== AUF EINEN BLICK (Glance-Bar) ===== */
+.section.glance-section{padding:clamp(2.25rem,5vw,3rem) clamp(1.5rem,5vw,3rem) clamp(.5rem,1.5vw,1rem)}
+.glance-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.glance-card{display:block;text-decoration:none;color:inherit}
+.glance-card:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
+.glance-inner{
+  display:flex;align-items:center;gap:.85rem;height:100%;
+  background:var(--bg-card);
+  border:1px solid var(--gold-border);
+  padding:.95rem 1.1rem;
+  box-shadow:0 1px 2px rgba(0,0,0,.02);
+  transition:border-color .35s var(--ease),box-shadow .35s var(--ease),transform .35s var(--ease);
+}
+.glance-card:hover .glance-inner{border-color:var(--gold-light);box-shadow:0 3px 8px rgba(0,0,0,.05);transform:translateY(-3px)}
+.glance-icon{width:34px;height:34px;flex-shrink:0;transition:transform .35s var(--ease)}
+.glance-icon .draw{stroke-width:1.2}
+.glance-icon .draw.thin{stroke-width:.6}
+.glance-icon .draw.gold{stroke-width:1}
+.glance-card:hover .glance-icon{transform:scale(1.08)}
+.glance-card:hover .glance-icon .draw.gold{stroke:var(--orange)}
+.glance-body{min-width:0}
+.glance-title{display:block;font-size:.6rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.2rem}
+.glance-fact{display:block;font-size:.82rem;font-weight:400;color:var(--text-mid);line-height:1.4}
+@media(max-width:1023px) and (min-width:769px){.glance-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){
+  .section.glance-section{padding-left:0;padding-right:0}
+  .glance-grid{
+    display:flex;gap:.85rem;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-padding-left:1.25rem;
+    padding:.25rem 1.25rem .4rem;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .glance-grid::-webkit-scrollbar{display:none;width:0;height:0}
+  .glance-card{min-width:220px;flex-shrink:0;scroll-snap-align:start}
+}
+@media (prefers-reduced-motion: reduce){
+  .glance-inner,.glance-icon{transition:none}
+  .glance-card:hover .glance-inner{transform:none}
+  .glance-card:hover .glance-icon{transform:none}
+}
 
 /* ===== FILM GRAIN ===== */
 .film-grain{
@@ -927,6 +1068,9 @@ a{color:inherit;text-decoration:none}
 .termin-time,.termin-location{
   font-size:.82rem;color:var(--text-mid);font-weight:300;line-height:1.6;
 }
+.termin-icon{width:14px;height:14px;display:inline-block;vertical-align:-2px;margin-right:.35rem}
+.termin-icon .draw{stroke-width:2.4}
+.termin-icon .draw.gold{stroke-width:2}
 
 @media(max-width:768px){
   .termine-grid{grid-template-columns:repeat(2,1fr);gap:.75rem}
@@ -936,6 +1080,7 @@ a{color:inherit;text-decoration:none}
   .termin-day{font-size:2.2rem}
   .termin-month{font-size:.85rem}
   .termin-time,.termin-location{font-size:.7rem;line-height:1.4}
+  .termin-icon{width:12px;height:12px;vertical-align:-1.5px;margin-right:.25rem}
   .termin-location{display:none!important}
   .termin-badge{font-size:.45rem;padding:.2rem 1.8rem;top:8px;right:-30px}
 }
@@ -943,6 +1088,73 @@ a{color:inherit;text-decoration:none}
   .termine-grid{gap:.5rem}
   .termin-card{padding:.8rem .6rem}
   .termin-day{font-size:1.8rem}
+}
+
+/* ===== ICS-KALENDER-EXPORT (Ghost-Buttons) ===== */
+.btn-ghost{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.65rem 1.6rem;
+  font-family:var(--font-body);font-size:.68rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--gold-border);
+  color:var(--navy);cursor:pointer;
+  transition:all .4s var(--ease);
+}
+.btn-ghost:hover{
+  border-color:var(--gold-light);
+  background:var(--orange-dim);
+  transform:translateY(-2px);
+  box-shadow:0 2px 6px rgba(26,26,46,.08);
+}
+.btn-ghost:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
+/* Kompakte Variante auf den Termin-Karten */
+.btn-ghost-sm{padding:.4rem .9rem;font-size:.55rem;letter-spacing:.14em;gap:.4rem;margin-top:.9rem;position:relative;z-index:1}
+/* Kalender-Icon im Gravur-Stil (stroke-width-Kompensation: 40er viewBox auf ~15px) */
+.ics-icon{width:15px;height:15px;flex:none}
+.ics-icon .draw{stroke-width:2.2}
+.ics-icon .draw.gold{stroke-width:1.8}
+.btn-ghost-sm .ics-icon{width:13px;height:13px}
+/* Hero: Wrapper trägt die Choreografie (data-hero-anim), damit der Hover-Lift des Buttons nicht mit dem Inline-Transform von animateHero kollidiert */
+.hero-ics-wrap{margin-top:1.1rem;opacity:0;transform:translateY(15px)}
+.termine-ics-all{text-align:center;margin-top:2.2rem}
+@media(max-width:768px){
+  .btn-ghost-sm{padding:.35rem .6rem;font-size:.48rem;letter-spacing:.1em;margin-top:.6rem}
+  .btn-ghost-sm .ics-icon{width:11px;height:11px}
+  .termine-ics-all{margin-top:1.4rem}
+}
+@media (prefers-reduced-motion: reduce){
+  .btn-ghost{transition:none}
+  .btn-ghost:hover{transform:none}
+}
+
+/* ===== GOLDFOLIEN-VERLAUFSTEXT ===== */
+/* Metallische Goldfolie auf den grossen Akzent-Texten. Der wandernde Lichtreflex
+   (Sheen-Sweep: background-position 0% -> 100%) kommt aus js/main.js (GSAP, once:true);
+   ohne JS/GSAP bzw. bei prefers-reduced-motion bleibt die Folie statisch auf 100% 0.
+   Ruhefenster (60-100% des Verlaufs) bleibt bewusst im dunklen Gold (>=3:1 auf --bg,
+   WCAG AA fuer grossen Text) — der helle Reflex #F4E5B8 ist nur waehrend des Sweeps sichtbar.
+   WICHTIG: Nur .section-title .orange — die kleineren .orange-Spans in h3-Karten
+   und im CTA-Banner-H2 behalten ihr flaches Orange (Lesbarkeit). */
+.section-title .orange,
+.ticket-price,
+.countdown-value,
+.termin-day,
+.termin-card.is-next .termin-day{
+  background:linear-gradient(105deg,#B8860B 0%,#F4E5B8 18%,#D4AF37 30%,#B8860B 50%,#8B6914 80%,#8B6914 100%);
+  background-size:250% 100%;
+  background-position:100% 0;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+/* Fallback ohne background-clip:text: flache Originalfarben */
+@supports not (-webkit-background-clip: text){
+  .section-title .orange,
+  .ticket-price,
+  .countdown-value,
+  .termin-day,
+  .termin-card.is-next .termin-day{background:none;color:var(--orange)}
+  .termin-day{color:var(--navy)}
 }
 
 /* ===== FAQ ACCORDION ===== */
@@ -1106,7 +1318,7 @@ a{color:inherit;text-decoration:none}
 }
 .anfahrt-block:last-child{margin-bottom:0}
 .anfahrt-icon{
-  font-size:1.4rem;flex-shrink:0;margin-top:.1rem;
+  width:24px;height:24px;flex-shrink:0;margin-top:.1rem;display:block;
 }
 .anfahrt-block h4{
   font-family:var(--font-display);font-size:1.05rem;font-weight:600;
@@ -1125,9 +1337,16 @@ a{color:inherit;text-decoration:none}
 .anfahrt-map iframe{
   display:block;width:100%;height:100%;border-radius:8px;
 }
+/* Routen-Deeplinks unter der Karte (Google / Apple / ÖPNV) */
+.anfahrt-routes{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;
+  margin-top:clamp(1.6rem,3vw,2.2rem);
+}
 @media(max-width:768px){
   .anfahrt-grid{grid-template-columns:1fr}
   .anfahrt-map{aspect-ratio:16/10}
+  .anfahrt-routes{gap:.6rem;margin-top:1.4rem}
+  .anfahrt-routes .btn-ghost{padding:.55rem 1rem;font-size:.6rem;letter-spacing:.12em}
 }
 
 /* ===== LANGUAGE SWITCHER ===== */
@@ -1186,6 +1405,7 @@ a{color:inherit;text-decoration:none}
 .loader{will-change:opacity,visibility}
 .ticker-track{will-change:transform}
 .countdown-value{will-change:transform}
+.cd-hand{will-change:transform}
 .hero-icon-item.floating .hero-icon-svg{will-change:transform}
 .timeline-line-fill{will-change:width}
 

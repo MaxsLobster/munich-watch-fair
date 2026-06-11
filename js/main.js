@@ -15,6 +15,10 @@ function getNextTermin() {
   return null;
 }
 
+/* Zentrale Ziel-URLs (Mobile App-Bar) */
+const TICKETS_URL = 'https://eventim-light.com/de/a/61256a72a91dc01b4b932fe4/';
+const MAPS_ROUTE_URL = 'https://www.google.com/maps/dir/?api=1&destination=Ballhausforum+Unterschlei%C3%9Fheim%2C+Am+Haingraben+33%2C+85716+Unterschlei%C3%9Fheim';
+
 /* ===== I18N TRANSLATION TABLES ===== */
 let currentLang = 'de';
 
@@ -31,9 +35,9 @@ const I18N_WEEKDAYS = {
 };
 
 const I18N_STRINGS = {
-  de: { uhr:'Uhr', noTermin:'Neue Termine folgen in Kürze', tagesWithDate:'Von früh bis spät – so läuft der {d} ab.', tagesGeneric:'Von früh bis spät – so läuft Ihr Messetag ab.' },
-  en: { uhr:'', noTermin:'New dates coming soon', tagesWithDate:'From early to late – here is how {d} unfolds.', tagesGeneric:'From early to late – here is how your fair day unfolds.' },
-  it: { uhr:'', noTermin:'Nuove date in arrivo', tagesWithDate:'Dall\'alba al tramonto – ecco come si svolge il {d}.', tagesGeneric:'Dall\'alba al tramonto – ecco la vostra giornata fieristica.' }
+  de: { uhr:'Uhr', noTermin:'Neue Termine folgen in Kürze', tagesWithDate:'Von früh bis spät – so läuft der {d} ab.', tagesGeneric:'Von früh bis spät – so läuft Ihr Messetag ab.', barDays:'Noch {n} Tage', barDay:'Noch 1 Tag', barToday:'Heute geöffnet bis {t}', barTickets:'Tickets ab €20', barRoute:'Route starten' },
+  en: { uhr:'', noTermin:'New dates coming soon', tagesWithDate:'From early to late – here is how {d} unfolds.', tagesGeneric:'From early to late – here is how your fair day unfolds.', barDays:'{n} days to go', barDay:'1 day to go', barToday:'Open today until {t}', barTickets:'Tickets from €20', barRoute:'Start route' },
+  it: { uhr:'', noTermin:'Nuove date in arrivo', tagesWithDate:'Dall\'alba al tramonto – ecco come si svolge il {d}.', tagesGeneric:'Dall\'alba al tramonto – ecco la vostra giornata fieristica.', barDays:'Mancano {n} giorni', barDay:'Manca 1 giorno', barToday:'Aperto oggi fino alle {t}', barTickets:'Biglietti da €20', barRoute:'Avvia il percorso' }
 };
 
 function trMonth(m, lang) { return (I18N_MONTHS[lang] || I18N_MONTHS.de)[m] || m; }
@@ -80,12 +84,35 @@ function updateAllTerminElements() {
   var ticketBadge = document.getElementById('ticketBadge');
   if (ticketBadge && !next) ticketBadge.style.display = 'none';
 
-  // Ticket Banner (Mobile)
-  var mobileBanner = document.querySelector('.ticket-banner-mobile');
-  if (mobileBanner) {
-    var mobileDate = mobileBanner.querySelector('span:first-child');
-    if (mobileDate) mobileDate.textContent = next ? formatTerminShort(next, lang) : '';
-    if (!next) mobileBanner.style.display = 'none';
+  // Mobile App-Bar (Chip + CTA + Route, kontextsensitiv)
+  var mobileBar = document.querySelector('.ticket-banner-mobile');
+  if (mobileBar) {
+    var barChip = document.getElementById('mobileBarChip');
+    var barCta = document.getElementById('mobileBarCta');
+    var barNow = new Date();
+    var todayStr = barNow.getFullYear() + '-' + ('0' + (barNow.getMonth() + 1)).slice(-2) + '-' + ('0' + barNow.getDate()).slice(-2);
+    var isMesseTag = !!next && next.date === todayStr;
+    mobileBar.classList.toggle('is-eventday', isMesseTag);
+    mobileBar.classList.toggle('no-chip', !next);
+    if (barChip) {
+      if (!next) {
+        barChip.textContent = '';
+      } else if (isMesseTag) {
+        barChip.textContent = s.barToday.replace('{t}', next.end);
+      } else {
+        var restTage = Math.ceil((new Date(next.date + 'T00:00:00') - barNow) / 86400000);
+        barChip.textContent = restTage === 1 ? s.barDay : s.barDays.replace('{n}', restTage);
+      }
+    }
+    if (barCta) {
+      if (isMesseTag) {
+        barCta.textContent = s.barRoute;
+        barCta.href = MAPS_ROUTE_URL;
+      } else {
+        barCta.textContent = s.barTickets;
+        barCta.href = TICKETS_URL;
+      }
+    }
   }
 
   // Ticket-Section Daten
@@ -114,17 +141,6 @@ function updateAllTerminElements() {
     tagesablaufSub.textContent = next
       ? s.tagesWithDate.replace('{d}', formatTerminLong(next, lang))
       : s.tagesGeneric;
-  }
-
-  // Schema.org aktualisieren
-  var schemaScript = document.querySelector('script[type="application/ld+json"]');
-  if (schemaScript && next) {
-    try {
-      var schema = JSON.parse(schemaScript.textContent);
-      schema.startDate = next.date + 'T' + next.start + ':00+01:00';
-      schema.endDate = next.date + 'T' + next.end + ':00+01:00';
-      schemaScript.textContent = JSON.stringify(schema, null, 2);
-    } catch(e) {}
   }
 
   // Termin-Karten: vergangene ausblenden, nächste markieren
@@ -227,16 +243,49 @@ function animateHero(){
     }
     return;
   }
-  const t = new Date(next.date + 'T' + next.start + ':00+01:00').getTime();
+  const t = new Date(next.date + 'T' + next.start + ':00').getTime();
   const e={d:document.getElementById('cd-days'),h:document.getElementById('cd-hours'),m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};
   let p={};
+
+  // Chronographen-Zeiger der vier Subdials (Null-Guards: Fallback-HTML hat keine .cd-hand)
+  function handOf(el){
+    if(!el) return null;
+    const dial = el.closest('.countdown-dial');
+    return dial ? dial.querySelector('.cd-hand') : null;
+  }
+  const hands={d:handOf(e.d),h:handOf(e.h),m:handOf(e.m),s:handOf(e.s)};
+  // Kumulative Rotation pro Zeiger: der Zähler wächst nur, damit der Zeiger beim
+  // Wrap (z.B. Sek 0 -> 59) vorwärts über 360° weiterdreht statt rückwärts zu springen.
+  const rot={d:0,h:0,m:0,s:0};
+  let handsInit=false;
+  function setHands(target){
+    Object.keys(hands).forEach(k=>{
+      const hand=hands[k];
+      if(!hand) return;
+      const cur=((rot[k]%360)+360)%360;
+      rot[k]+=((target[k]-cur)%360+360)%360; // nur vorwärts drehen
+      if(!handsInit){hand.style.transition='none'}
+      hand.style.transform='rotate('+rot[k]+'deg)';
+      if(!handsInit){hand.getBoundingClientRect();hand.style.transition=''} // Startstellung ohne Anfahr-Animation
+    });
+    handsInit=true;
+  }
+
   function pad(n){return String(n).padStart(2,'0')}
   function tick(el){el.classList.add('tick');setTimeout(()=>el.classList.remove('tick'),300)}
   function u(){
     const d=t-Date.now();
-    if(d<=0){Object.values(e).forEach(x=>x.textContent='00');return}
+    if(d<=0){Object.values(e).forEach(x=>x.textContent='00');setHands({d:0,h:0,m:0,s:0});return}
     const v={d:Math.floor(d/864e5),h:Math.floor(d%864e5/36e5),m:Math.floor(d%36e5/6e4),s:Math.floor(d%6e4/1e3)};
     Object.keys(v).forEach(k=>{const s=pad(v[k]);if(p[k]!==s){e[k].textContent=s;tick(e[k]);p[k]=s}});
+    // Deadbeat-Tick: Sek/Min 6° pro Schritt, Std 15° (24h-Skala), Tage 12° (30-Tage-Skala).
+    // Zeiger laufen vorwärts und stehen bei 0 ihrer Einheit exakt auf 12 Uhr.
+    setHands({
+      d:(v.d%30)*12,
+      h:((24-v.h)%24)*15,
+      m:((60-v.m)%60)*6,
+      s:((60-v.s)%60)*6
+    });
   }
   u();setInterval(u,1e3);
 })();
@@ -251,12 +300,54 @@ function animateHero(){
   const timeline = document.getElementById('timeline');
   if(!items.length || !fill || !timeline) return;
 
+  // Mini-Zifferblätter: Zeiger schwenken von der Uhrzeit der vorherigen Station zur eigenen
+  const itemArr = Array.from(items);
+  const dialReduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function dialAngles(timeStr){
+    const parts = (timeStr || '').split(':');
+    const h = parseInt(parts[0], 10) || 0;
+    const m = parseInt(parts[1], 10) || 0;
+    return { h: (h % 12) * 30 + m * 0.5, m: m * 6 };
+  }
+
+  function setHands(node, hDeg, mDeg, withTransition){
+    const handH = node.querySelector('.dial-hand-h');
+    const handM = node.querySelector('.dial-hand-m');
+    if(!handH || !handM) return;
+    const t = withTransition ? 'transform .9s var(--ease-spring)' : 'none';
+    handH.style.transition = t;
+    handM.style.transition = t;
+    handH.style.transform = 'rotate(' + hDeg + 'deg)';
+    handM.style.transform = 'rotate(' + mDeg + 'deg)';
+  }
+
+  function swingDial(item, idx){
+    const node = item.querySelector('.timeline-node');
+    if(!node || node.dataset.dialSwung) return;
+    node.dataset.dialSwung = '1';
+    const target = dialAngles(item.dataset.time);
+    if(dialReduceMotion){
+      setHands(node, target.h, target.m, false);
+      return;
+    }
+    // Startposition: Uhrzeit der vorherigen Station (erster Node: 12:00)
+    const start = idx > 0 ? dialAngles(itemArr[idx - 1].dataset.time) : { h: 0, m: 0 };
+    // Immer vorwärts drehen: Zielwinkel kumulativ über den Startwinkel heben
+    let endH = target.h, endM = target.m;
+    while(endH <= start.h) endH += 360;
+    while(endM <= start.m) endM += 360;
+    setHands(node, start.h, start.m, false);
+    node.getBoundingClientRect(); // Reflow erzwingen, damit die Transition vom Startwinkel aus greift
+    requestAnimationFrame(() => setHands(node, endH, endM, true));
+  }
+
   // Staggered reveal of items
   const tObs = new IntersectionObserver(es => {
     es.forEach(e => {
       if(e.isIntersecting){
-        const idx = Array.from(items).indexOf(e.target);
-        setTimeout(() => e.target.classList.add('visible'), idx * 180);
+        const idx = itemArr.indexOf(e.target);
+        setTimeout(() => { e.target.classList.add('visible'); swingDial(e.target, idx); }, idx * 180);
         tObs.unobserve(e.target);
       }
     });
@@ -310,6 +401,23 @@ function animateHero(){
   obs.observe(wrap);
 })();
 
+/* ===== GRAVUR-ICONS SELBSTZEICHNUNG ===== */
+(function(){
+  const icons = document.querySelectorAll('.icon-engrave.icon-draw');
+  if(!icons.length) return;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    icons.forEach(svg => svg.classList.add('drawn'));
+    return;
+  }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('drawn'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.4 });
+  icons.forEach(svg => obs.observe(svg));
+})();
+
 /* ===== MAGNET BUTTONS ===== */
 (function(){
   if(window.innerWidth < 769) return;
@@ -327,6 +435,104 @@ function animateHero(){
 })();
 
 /* ===== MESSETERMINE – AUTO DATE LOGIC (now handled by central MESSE_TERMINE) ===== */
+
+/* ===== ICS-KALENDER-EXPORT ===== */
+(function(){
+  var ICS_LOCATION = 'Ballhausforum Unterschleißheim, Am Haingraben 33, 85716 Unterschleißheim';
+  var ICS_URL = 'https://www.munichwatchfair.com';
+  var ICS_DESC = {
+    de: 'Munich Watch Fair – Europas führende Uhrenbörse seit 1989. Einlass: 08:00 Uhr (Early Bird) / 10:30 Uhr (regulär). Infos & Tickets: ' + ICS_URL,
+    en: 'Munich Watch Fair – Europe\'s leading watch fair since 1989. Doors open: 08:00 (Early Bird) / 10:30 (regular). Info & tickets: ' + ICS_URL,
+    it: 'Munich Watch Fair – la principale borsa di orologi d\'Europa dal 1989. Apertura: ore 08:00 (Early Bird) / ore 10:30 (regolare). Info e biglietti: ' + ICS_URL
+  };
+
+  // Sonderzeichen nach RFC 5545 escapen (Backslash zuerst!)
+  function icsEscape(s){
+    return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+  }
+  // Zeilen falten (max. 75 Oktette; 60 Zeichen lassen Puffer für UTF-8-Umlaute)
+  function icsFold(line){
+    var out = '';
+    while(line.length > 60){ out += line.slice(0, 60) + '\r\n '; line = line.slice(60); }
+    return out + line;
+  }
+  function compact(t){ return t.date.replace(/-/g, ''); }
+  function compactTime(hm){ return hm.replace(':', '') + '00'; }
+
+  // Ein VEVENT pro Termin: floating local time (ohne Z/TZID) – korrekt für das deutsche Publikum
+  function buildEvent(t){
+    return [
+      'BEGIN:VEVENT',
+      'UID:' + t.date + '@munichwatchfair.com',
+      'DTSTAMP:' + compact(t) + 'T000000Z',
+      'DTSTART:' + compact(t) + 'T' + compactTime(t.start),
+      'DTEND:' + compact(t) + 'T' + compactTime(t.end),
+      'SUMMARY:Munich Watch Fair',
+      'LOCATION:' + icsEscape(ICS_LOCATION),
+      'DESCRIPTION:' + icsEscape(ICS_DESC[currentLang] || ICS_DESC.de),
+      'URL:' + ICS_URL,
+      'BEGIN:VALARM',
+      'ACTION:DISPLAY',
+      'DESCRIPTION:Munich Watch Fair',
+      'TRIGGER:-P1D',
+      'END:VALARM',
+      'END:VEVENT'
+    ];
+  }
+
+  function buildCalendar(termine){
+    var lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Munich Watch Fair//DE', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'];
+    termine.forEach(function(t){ lines = lines.concat(buildEvent(t)); });
+    lines.push('END:VCALENDAR');
+    return lines.map(icsFold).join('\r\n') + '\r\n';
+  }
+
+  function downloadICS(filename, content){
+    var blob = new Blob([content], { type: 'text/calendar;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+
+  function futureTermine(){
+    var now = new Date();
+    return MESSE_TERMINE.filter(function(t){ return new Date(t.date + 'T' + t.end + ':00') > now; });
+  }
+
+  // Event-Delegation für alle ICS-Buttons (Hero, Termin-Karten, Sammel-Button)
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest ? e.target.closest('.js-ics-btn') : null;
+    if(!btn) return;
+    var kind = btn.dataset.ics;
+    if(kind === 'all'){
+      var list = futureTermine();
+      if(list.length) downloadICS('munich-watch-fair-termine.ics', buildCalendar(list));
+      return;
+    }
+    var t = null;
+    if(kind === 'next'){
+      t = getNextTermin();
+    } else if(kind === 'card'){
+      var card = btn.closest('.termin-card');
+      var date = card ? card.dataset.date : null;
+      t = MESSE_TERMINE.filter(function(x){ return x.date === date; })[0] || null;
+    }
+    if(t) downloadICS('munich-watch-fair-' + t.date + '.ics', buildCalendar([t]));
+  });
+
+  // Keine zukünftigen Termine: Sammel-Button ausblenden
+  // (den Hero-Button entfernt der Countdown-Fallback per innerHTML bereits selbst)
+  if(!getNextTermin()){
+    var allWrap = document.querySelector('.termine-ics-all');
+    if(allWrap) allWrap.style.display = 'none';
+  }
+})();
 
 /* ===== FAQ ACCORDION ===== */
 (function(){
@@ -606,6 +812,27 @@ function reapplyTitleEffects() {
     });
   }
 
+  // Goldfolien-Sheen: wandernder Lichtreflex beim ersten Einscrollen.
+  // Verlauf + Endzustand "100% 0" kommen aus CSS (GOLDFOLIEN-VERLAUFSTEXT) —
+  // ohne Tween (kein GSAP / reduced motion) bleibt die Folie statisch auf 100% 0.
+  // Der Sweep 0% -> 100% schiebt den hellen Reflex (#F4E5B8 bei 18%) einmal durchs
+  // Sichtfenster; Ruhezustand ist immer das dunkle Gold-Fenster (Kontrast >=3:1).
+  // immediateRender:false: Elemente warten im Ruhezustand (100% 0) und springen
+  // erst beim Trigger auf 0% — nichts haengt dauerhaft im hellen Fenster (Hero-
+  // Countdown ist beim Load bereits im Viewport, dort feuert der Trigger sofort).
+  const foilReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!foilReduce){
+    gsap.utils.toArray('.section-title .orange, .ticket-price, .countdown-value, .termin-day').forEach(el => {
+      gsap.fromTo(el,
+        { backgroundPosition: '0% 0%' },
+        { backgroundPosition: '100% 0%', duration: 1.4, ease: 'power2.out',
+          immediateRender: false,
+          scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+        }
+      );
+    });
+  }
+
   // Section header parallax (subtle offset on scroll)
   if(window.innerWidth >= 768){
     gsap.utils.toArray('#termine .section-header, #faq .section-header, #location .section-header').forEach(header => {
@@ -659,6 +886,16 @@ function reapplyTitleEffects() {
   if(logoMunich) splitIntoLetters(logoMunich);
   if(logoFair) splitIntoLetters(logoFair);
 
+  // Logo-"A": die zwei Uhrzeiger-Polygone (Pivot/Treffpunkt oben bei 20,0).
+  // A_FOLD = Winkel, die beide Zeiger deckungsgleich auf die Senkrechte legen
+  // (aus der Polygon-Geometrie gemessen: linker Fusspunkt (6,58) -> -13.57°,
+  //  rechter Fusspunkt (34,46) -> +16.93°).
+  const aHands = banner.querySelectorAll('.logo-a-svg polygon');
+  const A_FOLD = [-13.57, 16.93];
+  const reduceHeroMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let aSwingDone = false; // Load-Geste abgeschlossen -> Hover-Mini-Swing freigeben
+  let aSwingBusy = false; // Guard gegen Mehrfach-Trigger bei Hover
+
   // Typewriter for date
   const heroDate = document.querySelector('.hero-date');
   let dateText = '';
@@ -695,6 +932,11 @@ function reapplyTitleEffects() {
       );
     }
 
+    // Position für den "A"-Zeiger-Schwenk merken: während WATCH sichtbar wird,
+    // kurz bevor "Fair" einsetzt (Tween selbst wird weiter unten mit absoluter
+    // Position eingefügt, damit keine bestehenden Tweens verschoben werden).
+    const aSwingPos = Math.max(tl.duration() - 0.5, 0);
+
     tl.to(fairLetters, {
       opacity: 1, y: 0, rotateX: 0,
       duration: 0.5, stagger: 0.04, ease: 'back.out(1.5)'
@@ -730,6 +972,21 @@ function reapplyTitleEffects() {
     if(scrollInd){
       tl.to(scrollInd, { opacity: 1, duration: 0.8, ease: 'power2.out' }, '+=0.2');
     }
+
+    // Logo-"A": Beide Uhrzeiger starten deckungsgleich senkrecht (12-Uhr-Stellung)
+    // und schwingen in ihre A-Position auseinander — wie Zeiger auf "10 nach 10".
+    // Absolute Position (aSwingPos), nach allen relativen Tweens eingefügt.
+    if(aHands.length === 2 && !reduceHeroMotion){
+      tl.from(aHands[0], { rotation: A_FOLD[0], svgOrigin: '20 0', duration: 0.8, ease: 'back.out(2)' }, aSwingPos);
+      tl.from(aHands[1], {
+        rotation: A_FOLD[1], svgOrigin: '20 0', duration: 0.8, ease: 'back.out(2)',
+        onComplete: () => { aSwingDone = true; }
+      }, aSwingPos);
+    } else {
+      // prefers-reduced-motion oder unerwartetes Markup: Endzustand steht bereits
+      // statisch korrekt im HTML, keine Animation.
+      aSwingDone = true;
+    }
   }
 
   // Hook into loader completion
@@ -740,6 +997,23 @@ function reapplyTitleEffects() {
       setTimeout(startCinematic, 200);
     }
   }, 100);
+
+  // Bonus: Hover auf das Logo wiederholt die Zeiger-Geste als 0.5s-Mini-Swing
+  // (erst nach abgeschlossener Load-Animation, mit Busy-Flag + Cooldown).
+  const heroLogo = banner.querySelector('.hero-logo');
+  if(heroLogo && aHands.length === 2 && !reduceHeroMotion){
+    heroLogo.addEventListener('mouseenter', () => {
+      if(!aSwingDone || aSwingBusy) return;
+      aSwingBusy = true;
+      const mini = gsap.timeline({
+        onComplete: () => { setTimeout(() => { aSwingBusy = false; }, 400); }
+      });
+      aHands.forEach((hand, i) => {
+        mini.to(hand, { rotation: A_FOLD[i] * 0.45, svgOrigin: '20 0', duration: 0.18, ease: 'power2.in' }, 0)
+            .to(hand, { rotation: 0, svgOrigin: '20 0', duration: 0.32, ease: 'back.out(2)' }, 0.18);
+      });
+    });
+  }
 
   // Hero fade-out on scroll
   if(typeof ScrollTrigger !== 'undefined'){
