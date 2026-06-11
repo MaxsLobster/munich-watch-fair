@@ -354,18 +354,27 @@ function animateHero(){
   }, {threshold:.15, rootMargin:'0px 0px -30px 0px'});
   items.forEach(i => tObs.observe(i));
 
-  // Animated fill line on scroll
+  // Animated fill line on scroll.
+  // Mobile (<=600px) ist die Zeitleiste vertikal — dort waechst die HOEHE statt der Breite.
+  const verticalMq = window.matchMedia('(max-width: 600px)');
   function updateFill(){
     const rect = timeline.getBoundingClientRect();
     const vh = window.innerHeight;
     if(rect.top > vh || rect.bottom < 0) return;
     const progress = Math.min(1, Math.max(0, (vh - rect.top) / (rect.height + vh * 0.3)));
-    fill.style.width = (progress * 100) + '%';
+    if(verticalMq.matches){
+      fill.style.height = (progress * 100) + '%';
+      fill.style.width = '';
+    } else {
+      fill.style.width = (progress * 100) + '%';
+      fill.style.height = '';
+    }
   }
   let ticking = false;
   window.addEventListener('scroll', () => {
     if(!ticking){ requestAnimationFrame(() => { updateFill(); ticking = false; }); ticking = true; }
   });
+  window.addEventListener('resize', updateFill);
   updateFill();
 })();
 

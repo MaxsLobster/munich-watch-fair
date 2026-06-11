@@ -566,31 +566,41 @@ a{color:inherit;text-decoration:none}
   }
   .timeline-item{scroll-snap-align:center;min-width:200px}
 }
-/* Mobile: horizontal swipe */
+/* Mobile: vertikale Zeitleiste — der Tag laeuft als Strahl von oben nach unten,
+   Zifferblatt-Nodes auf dem Strahl, Karten rechts daneben in voller Breite.
+   Die Fuell-Linie animiert hier die HOEHE (statt Breite) — siehe updateFill() in js/main.js. */
 @media(max-width:600px){
   .timeline{
-    display:flex;
-    overflow-x:auto;-webkit-overflow-scrolling:touch;
-    scroll-snap-type:x mandatory;
-    gap:.75rem;
-    padding:0 1rem 1rem;
-    scrollbar-width:none;
+    display:flex;flex-direction:column;
+    gap:1.4rem;
+    padding:.5rem 0;
   }
-  .timeline::-webkit-scrollbar{display:none}
-  .timeline-line{display:none}
+  .timeline-line{
+    top:10px;bottom:10px;left:18px;right:auto;
+    width:2px;height:auto;
+  }
+  .timeline-line-fill{
+    width:100%;height:0;
+    background:linear-gradient(180deg,var(--orange),var(--navy));
+    transition:height .1s linear;
+  }
   .timeline-item{
-    flex:0 0 70vw;max-width:260px;
-    scroll-snap-align:start;
-    padding-top:0;min-width:0;
+    flex-direction:row;align-items:flex-start;text-align:left;
+    padding-top:0;padding-left:56px;
   }
-  .timeline-node{display:none}
-  .timeline-item::before{display:none}
-  .timeline-card-glass{padding:.9rem .8rem}
-  .timeline-card-glass h3{font-size:.85rem;margin-bottom:.2rem}
-  .timeline-card-glass p{
-    font-size:.72rem;line-height:1.4;
-    display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;
+  .timeline-node{top:0;left:0;transform:none}
+  /* nodePop/Hover arbeiten mit translateX(-50%) (horizontales Layout) — hier neutralisieren */
+  .timeline-item.visible .timeline-node{animation:none;opacity:1}
+  .timeline-item:hover .timeline-node{transform:scale(1.05)}
+  /* Verbindungslinie Node -> Karte horizontal statt vertikal */
+  .timeline-item::before{
+    top:19px;left:42px;
+    width:12px;height:1.5px;
+    background:linear-gradient(90deg,var(--orange-border),transparent);
   }
+  .timeline-card-glass{padding:1rem .9rem;width:100%}
+  .timeline-card-glass h3{font-size:.95rem;margin-bottom:.3rem}
+  .timeline-card-glass p{font-size:.78rem;line-height:1.5}
 }
 
 /* ===== TICKETS ===== */
