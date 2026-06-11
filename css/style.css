@@ -1568,6 +1568,17 @@ body.gsap-ready .reveal-scale.visible{
   display:inline-block;
   clip-path:inset(0 100% 0 0);
 }
+/* BUGFIX: Wort-/Buchstaben-Wrapper INNERHALB der Goldfolie (.orange) brauchen eine
+   EIGENE Clip-Maske: transformierte inline-block-Kinder fallen aus der
+   background-clip:text-Maske des Elternelements heraus und waeren sonst unsichtbar
+   (color:transparent wird vererbt — betraf "Messe", "2026", "Location"). */
+.section-title .orange .reveal-word,
+.section-title .orange .reveal-letter,
+.section-title .orange .reveal-wipe{
+  background:inherit;
+  -webkit-background-clip:text;
+  background-clip:text;
+}
 
 /* ===== LENIS SMOOTH SCROLL ===== */
 html.lenis,html.lenis body{

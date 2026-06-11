@@ -590,6 +590,13 @@ function reapplyTitleEffects() {
       if (text[i] === '<') inTag = true;
       if (inTag) { result += text[i]; if (text[i] === '>') inTag = false; }
       else if (text[i] === ' ') { result += ' '; }
+      else if (text[i] === '&') {
+        // HTML-Entity (z.B. &amp;) als EIN Zeichen wrappen, sonst zerfaellt es zu "&amp;"
+        var end = text.indexOf(';', i);
+        var ent = end > -1 ? text.slice(i, end + 1) : text[i];
+        result += '<span class="reveal-letter" style="opacity:1;transform:none">' + ent + '</span>';
+        if (end > -1) i = end;
+      }
       else { result += '<span class="reveal-letter" style="opacity:1;transform:none">' + text[i] + '</span>'; }
     }
     anfahrtTitle.innerHTML = result;
@@ -1099,6 +1106,12 @@ function reapplyTitleEffects() {
         if(text[i] === '>') inTag = false;
       } else if(text[i] === ' '){
         result += ' ';
+      } else if(text[i] === '&'){
+        // HTML-Entity (z.B. &amp;) als EIN Zeichen wrappen, sonst zerfaellt es zu "&amp;"
+        const end = text.indexOf(';', i);
+        const ent = end > -1 ? text.slice(i, end + 1) : text[i];
+        result += '<span class="reveal-letter">' + ent + '</span>';
+        if(end > -1) i = end;
       } else {
         result += '<span class="reveal-letter">' + text[i] + '</span>';
       }
