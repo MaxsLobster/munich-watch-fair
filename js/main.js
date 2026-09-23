@@ -76,49 +76,79 @@ function formatTerminHero(t, lang) {
     + ' \u2003\u00B7\u2003' + t.location;
 }
 
-/* ===== TERMIN-KARTEN AUS MESSE_TERMINE ERZEUGEN ===== */
+/* ===== TERMINLISTE AUS MESSE_TERMINE ERZEUGEN ===== */
 // Einzige Quelle ist MESSE_TERMINE – neue Termine nur oben eintragen (plus JSON-LD in index.html).
-function renderTerminCards() {
-  var grid = document.getElementById('termineGrid');
-  if (!grid) return;
+// Eine Zeile pro Termin, gruppiert nach Jahr. Offen ist nur das erste Jahr mit kommenden Terminen,
+// jedes weitere Jahr bekommt einen eigenen Aufklapp-Button ("Termine 2027 anzeigen").
+var TERMIN_TOGGLE_TEXT = {
+  de: { show: 'Termine {y} anzeigen', hide: 'Termine {y} ausblenden' },
+  en: { show: 'Show {y} dates', hide: 'Hide {y} dates' },
+  it: { show: 'Mostra le date {y}', hide: 'Nascondi le date {y}' }
+};
+
+function renderTerminList() {
+  var list = document.getElementById('termineGrid');
+  if (!list) return;
   var now = new Date();
   var future = MESSE_TERMINE.filter(function(t) { return new Date(t.date + 'T' + t.end + ':00') > now; });
   var icsSvg = '<svg class="ics-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect class="draw" x="8" y="10" width="24" height="22" rx="2"/><line class="draw" x1="8" y1="16.5" x2="32" y2="16.5"/><line class="draw gold" x1="14.5" y1="6.5" x2="14.5" y2="11.5"/><line class="draw gold" x1="25.5" y1="6.5" x2="25.5" y2="11.5"/><line class="draw gold" x1="20" y1="20.5" x2="20" y2="27.5"/><line class="draw gold" x1="16.5" y1="24" x2="23.5" y2="24"/></svg>';
-  var clockSvg = '<svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><circle class="draw" cx="20" cy="20" r="14"/><path class="draw gold" d="M20,12 L20,21 L26,24.5"/></svg>';
-  var pinSvg = '<svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><path class="draw" d="M20,34 C20,34 11,23.5 11,16.5 a9,9 0 0 1 18,0 C29,23.5 20,34 20,34 Z"/><circle class="draw gold" cx="20" cy="16.5" r="3.2"/></svg>';
   function i18nAttrs(fn) {
     return ['de', 'en', 'it'].map(function(l) { return ' data-i18n-' + l + '="' + fn(l) + '"'; }).join('');
   }
-  grid.innerHTML = future.map(function(t, i) {
+  function row(t) {
     var time = t.start + ' – ' + t.end;
-    return '<div class="termin-card reveal stagger-' + (i % 3 + 1) + '" data-date="' + t.date + '">'
-      + '<div class="termin-badge"' + i18nAttrs(function(l) { return {de:'Nächster Termin',en:'Next Date',it:'Prossima data'}[l]; }) + '>Nächster Termin</div>'
-      + '<div class="termin-date-wrap">'
-      +   '<span class="termin-weekday"' + i18nAttrs(function(l) { return trWeekday(t.weekday, l); }) + '>' + t.weekday + '</span>'
-      +   '<span class="termin-day">' + t.day + '</span>'
-      +   '<span class="termin-month"' + i18nAttrs(function(l) { return trMonth(t.month, l) + ' ' + t.year; }) + '>' + t.month + ' ' + t.year + '</span>'
-      + '</div>'
-      + '<div class="termin-details">'
-      +   '<p class="termin-time">' + clockSvg + '<span' + i18nAttrs(function(l) { return l === 'de' ? time + ' Uhr' : time; }) + '>' + time + ' Uhr</span></p>'
-      +   '<p class="termin-location">' + pinSvg + '<span>' + t.location + '</span></p>'
-      +   '<button type="button" class="btn-ghost btn-ghost-sm js-ics-btn" data-ics="card">' + icsSvg
-      +     '<span' + i18nAttrs(function(l) { return {de:'In Kalender speichern',en:'Add to Calendar',it:'Salva nel calendario'}[l]; }) + '>In Kalender speichern</span>'
-      +   '</button>'
-      + '</div>'
-      + '</div>';
+    return '<li class="termin-row" data-date="' + t.date + '">'
+      + '<span class="termin-row-date"' + i18nAttrs(function(l) { return formatTerminLong(t, l); }) + '>' + formatTerminLong(t, 'de') + '</span>'
+      + '<span class="termin-row-meta">'
+      +   '<span class="termin-row-weekday"' + i18nAttrs(function(l) { return trWeekday(t.weekday, l); }) + '>' + t.weekday + '</span>'
+      +   '<span class="termin-row-time"' + i18nAttrs(function(l) { return l === 'de' ? time + ' Uhr' : time; }) + '>' + time + ' Uhr</span>'
+      + '</span>'
+      + '<span class="termin-row-badge"' + i18nAttrs(function(l) { return {de:'Nächster Termin',en:'Next date',it:'Prossima data'}[l]; }) + '>Nächster Termin</span>'
+      + '<button type="button" class="termin-row-ics js-ics-btn" data-ics="card"'
+      +   ' aria-label="' + formatTerminLong(t, 'de') + ' – In Kalender speichern"'
+      +   ' title="In Kalender speichern">' + icsSvg + '</button>'
+      + '</li>';
+  }
+
+  var years = future.map(function(t) { return t.year; }).filter(function(y, i, a) { return a.indexOf(y) === i; });
+  list.innerHTML = years.map(function(y, i) {
+    var rows = future.filter(function(t) { return t.year === y; }).map(row).join('');
+    var ul = '<ul class="termin-rows" id="termine-' + y + '"' + (i > 0 ? ' hidden' : '') + '>' + rows + '</ul>';
+    if (i === 0) return '<div class="termin-year">' + ul + '</div>';
+    return '<div class="termin-year termin-year-more">'
+      + '<button type="button" class="btn-ghost termin-year-toggle" aria-expanded="false" aria-controls="termine-' + y + '" data-year="' + y + '"></button>'
+      + ul + '</div>';
   }).join('');
 
-  // Jahreszahl im Sektionstitel aus den angezeigten Terminen ableiten (z. B. "2026 / 2027")
+  list.addEventListener('click', function(e) {
+    var btn = e.target.closest ? e.target.closest('.termin-year-toggle') : null;
+    if (!btn) return;
+    var ul = document.getElementById(btn.getAttribute('aria-controls'));
+    var open = btn.getAttribute('aria-expanded') !== 'true';
+    btn.setAttribute('aria-expanded', open);
+    ul.hidden = !open;
+    updateTerminToggles();
+  });
+  updateTerminToggles();
+
+  // Jahreszahl im Sektionstitel aus den kommenden Terminen ableiten (z. B. "2026 / 2027")
   var title = document.getElementById('termine-title');
-  if (title && future.length) {
-    var years = future.map(function(t) { return t.year; }).filter(function(y, i, a) { return a.indexOf(y) === i; });
+  if (title && years.length) {
     var yearHtml = '<span class="orange">' + years.join(' / ') + '</span>';
     var prefix = {de:'Alle Termine ', en:'All Dates ', it:'Tutte le date '};
     ['de', 'en', 'it'].forEach(function(l) { title.setAttribute('data-i18n-' + l, prefix[l] + yearHtml); });
     title.innerHTML = prefix[currentLang] + yearHtml;
   }
 }
-renderTerminCards();
+
+function updateTerminToggles() {
+  var tx = TERMIN_TOGGLE_TEXT[currentLang] || TERMIN_TOGGLE_TEXT.de;
+  document.querySelectorAll('.termin-year-toggle').forEach(function(btn) {
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    btn.textContent = (open ? tx.hide : tx.show).replace('{y}', btn.dataset.year);
+  });
+}
+renderTerminList();
 
 /* ===== DYNAMISCHE TERMIN-AKTUALISIERUNG ===== */
 function updateAllTerminElements() {
@@ -199,30 +229,26 @@ function updateAllTerminElements() {
       : s.tagesGeneric;
   }
 
-  // Termin-Karten: vergangene ausblenden, nächste markieren
-  var cards = document.querySelectorAll('.termin-card[data-date]');
+  // Terminliste: vergangene ausblenden, nächsten markieren, Aufklapp-Buttons übersetzen
+  var rows = document.querySelectorAll('.termin-row[data-date]');
   var now = new Date();
-  cards.forEach(function(card) {
-    var cardEnd = new Date(card.dataset.date + 'T17:00:00');
-    card.classList.remove('is-past', 'is-next');
-    if (cardEnd < now) {
-      card.style.display = 'none';
-    } else if (next && card.dataset.date === next.date) {
-      card.classList.add('is-next');
+  rows.forEach(function(row) {
+    row.classList.remove('is-next');
+    if (new Date(row.dataset.date + 'T17:00:00') < now) {
+      row.style.display = 'none';
+    } else if (next && row.dataset.date === next.date) {
+      row.classList.add('is-next');
     }
   });
+  updateTerminToggles();
 
   // Wenn alle Termine vorbei: Hinweis in Termine-Sektion
-  var termineGrid = document.getElementById('termineGrid');
-  if (termineGrid && !next) {
-    var visibleCards = termineGrid.querySelectorAll('.termin-card:not([style*="display: none"])');
-    if (visibleCards.length === 0 && !termineGrid.querySelector('.termin-notice')) {
-      var notice = document.createElement('div');
-      notice.className = 'termin-notice reveal';
-      notice.innerHTML = '<p>' + s.noTermin + '.</p>';
-      notice.style.cssText = 'text-align:center;padding:3rem 1rem;font-family:var(--font-display);font-size:1.3rem;color:var(--text-mid);grid-column:1/-1;';
-      termineGrid.appendChild(notice);
-    }
+  var termineList = document.getElementById('termineGrid');
+  if (termineList && !next && !termineList.querySelector('.termin-notice')) {
+    var notice = document.createElement('p');
+    notice.className = 'termin-notice';
+    notice.textContent = s.noTermin + '.';
+    termineList.appendChild(notice);
   }
 
   // Meta description aktualisieren (nur DE fuer SEO)
@@ -235,7 +261,12 @@ function updateAllTerminElements() {
 updateAllTerminElements();
 
 /* ===== LOADER ===== */
-window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden');animateHero();setTimeout(animateStickyNote,1200)},2200)});
+window.addEventListener('load',()=>{
+  const loader=document.getElementById('loader');
+  // Unterseiten (z. B. aussteller.html) haben keinen Loader und keinen Hero
+  if(!loader){setTimeout(animateStickyNote,600);return}
+  setTimeout(()=>{loader.classList.add('hidden');animateHero();setTimeout(animateStickyNote,1200)},2200)
+});
 
 /* ===== TICKET BADGE ===== */
 function animateStickyNote(){
@@ -301,6 +332,7 @@ function animateHero(){
   }
   const t = new Date(next.date + 'T' + next.start + ':00').getTime();
   const e={d:document.getElementById('cd-days'),h:document.getElementById('cd-hours'),m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};
+  if(!e.d) return; // Seite ohne Countdown
   let p={};
 
   // Chronographen-Zeiger der vier Subdials (Null-Guards: Fallback-HTML hat keine .cd-hand)
@@ -584,7 +616,7 @@ function animateHero(){
     if(kind === 'next'){
       t = getNextTermin();
     } else if(kind === 'card'){
-      var card = btn.closest('.termin-card');
+      var card = btn.closest('.termin-row');
       var date = card ? card.dataset.date : null;
       t = MESSE_TERMINE.filter(function(x){ return x.date === date; })[0] || null;
     }
@@ -796,7 +828,7 @@ function reapplyTitleEffects() {
 /* ===== 3D TILT ON CARDS (Desktop only) ===== */
 (function(){
   if(window.innerWidth < 1024) return;
-  document.querySelectorAll('.info-card-glass, .termin-card').forEach(card => {
+  document.querySelectorAll('.info-card-glass').forEach(card => {
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -881,13 +913,13 @@ function reapplyTitleEffects() {
     );
   }
 
-  // Termin cards – staggered
-  const terminCards = gsap.utils.toArray('.termin-card');
-  if(terminCards.length){
-    gsap.fromTo(terminCards,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.15,
-        scrollTrigger: { trigger: '.termine-grid', start: 'top 82%', once: true }
+  // Terminzeilen (erstes Jahr) – staggered
+  const terminRows = gsap.utils.toArray('.termin-rows:not([hidden]) .termin-row');
+  if(terminRows.length){
+    gsap.fromTo(terminRows,
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.08,
+        scrollTrigger: { trigger: '.termine-list', start: 'top 82%', once: true }
       }
     );
   }

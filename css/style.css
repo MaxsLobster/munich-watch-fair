@@ -633,6 +633,35 @@ a{color:inherit;text-decoration:none}
 .aussteller-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem}
 .benefit-item{text-align:center;padding:1.5rem 1rem}
 .benefit-icon{width:30px;height:30px;margin-bottom:.8rem;display:inline-block}
+.aussteller-cta{text-align:center;margin-top:.5rem}
+
+/* ===== AUSSTELLER-SEITE ===== */
+.subpage-hero{padding-top:calc(clamp(5rem,10vw,8rem) + 3rem)}
+.subpage-hero .section-header{margin-bottom:0}
+.price-grid .ticket-card{margin:0}
+.price-note{font-size:.88rem;color:var(--text-mid);line-height:1.6;max-width:22rem;margin:0 auto}
+.price-discount{text-align:center;margin-top:2rem;font-size:.9rem;color:var(--text-muted)}
+.steps{
+  list-style:none;margin:0 auto;padding:0;max-width:1000px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;counter-reset:none;
+}
+.step{text-align:center;padding:0 .5rem}
+.step-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:2.8rem;height:2.8rem;margin-bottom:1rem;
+  border:1px solid var(--gold-border);border-radius:50%;
+  font-family:var(--font-display);font-size:1.3rem;font-weight:600;color:var(--gold);
+}
+.step h3{font-family:var(--font-display);font-size:1.15rem;font-weight:600;margin-bottom:.4rem;color:var(--navy)}
+.step p{font-size:.88rem;color:var(--text-mid);line-height:1.6}
+@media(max-width:900px){
+  .steps{grid-template-columns:repeat(2,1fr);gap:2rem 1.25rem}
+}
+@media(max-width:560px){
+  .steps{grid-template-columns:1fr;gap:1.25rem;max-width:26rem}
+  .step{display:grid;grid-template-columns:2.8rem 1fr;column-gap:1rem;text-align:left;padding:0}
+  .step-num{grid-row:1 / span 2;margin-bottom:0}
+}
 .aussteller-form{
   max-width:760px;margin:0 auto;
   background:var(--bg-card);
@@ -1012,108 +1041,75 @@ a{color:inherit;text-decoration:none}
 /* ===== MAGNET BUTTONS ===== */
 .btn-magnet{transition:transform .25s var(--ease)}
 
-/* ===== MESSETERMINE 2026 ===== */
-.termine-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:1.5rem;
-}
-.termin-card{
+/* ===== MESSETERMINE (kompakte Liste) ===== */
+.termine-list{max-width:760px;margin:0 auto}
+.termin-rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--border)}
+.termin-rows[hidden]{display:none}
+.termin-row{
   position:relative;overflow:hidden;
-  background:var(--bg-card);
-  border:1px solid rgba(0,0,0,.06);
-  box-shadow:0 1px 2px rgba(0,0,0,.03),inset 0 1px 2px rgba(0,0,0,.015);
-  padding:clamp(1.8rem,3vw,2.5rem);
-  text-align:center;
-  transition:all .5s var(--ease);
+  display:grid;grid-template-columns:7.5rem 1fr auto auto;align-items:center;gap:1.25rem;
+  padding:1rem 2.9rem 1rem 1.25rem;
+  border-bottom:1px solid var(--border);
+  transition:background .4s var(--ease);
 }
-.termin-card::before{
-  content:'';position:absolute;inset:0;
-  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
+.termin-row:hover{background:var(--bg-card-hover)}
+.termin-row-meta{display:contents}
+.termin-row-weekday{grid-column:1;grid-row:1}
+.termin-row-date{grid-column:2;grid-row:1}
+.termin-row-time{grid-column:3;grid-row:1}
+.termin-row-ics{grid-column:4;grid-row:1}
+.termin-row-weekday{
+  font-size:.65rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);
+}
+.termin-row-date{
+  font-family:var(--font-display);font-size:1.35rem;font-weight:600;color:var(--navy);line-height:1.2;
+}
+.termin-row-time{font-size:.82rem;font-weight:300;color:var(--text-mid);white-space:nowrap}
+.termin-row-badge{display:none}
+.termin-row-ics{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:2.4rem;height:2.4rem;padding:0;
+  background:transparent;border:1px solid var(--gold-border);color:var(--navy);cursor:pointer;
+  transition:all .4s var(--ease);
+}
+.termin-row-ics .ics-icon{width:16px;height:16px}
+.termin-row-ics:hover{border-color:var(--gold-light);background:var(--orange-dim)}
+.termin-row-ics:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
+
+/* Nächster Termin: diagonales Band wie bisher + goldene Kante */
+.termin-row.is-next{
+  background:var(--bg-card);
+  box-shadow:inset 3px 0 0 var(--orange);
+}
+.termin-row.is-next .termin-row-date{color:var(--orange)}
+.termin-row.is-next .termin-row-badge{
+  display:block;
+  position:absolute;top:10px;right:-34px;
+  background:var(--orange);color:var(--white);
+  font-size:.5rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  padding:.2rem 2.4rem;
+  transform:rotate(45deg);
   pointer-events:none;
 }
-.termin-card::after{
-  content:'';position:absolute;bottom:0;left:15%;right:15%;height:1.5px;
-  background:linear-gradient(90deg,transparent,var(--orange),transparent);
-  opacity:0;transition:opacity .5s var(--ease);
-}
-.termin-card:hover{
-  transform:translateY(-2px);
-  box-shadow:0 2px 6px rgba(0,0,0,.05);
-  border-color:var(--gold-border);
-}
-.termin-card:hover::after{opacity:.5}
 
-/* Badge */
-.termin-badge{
-  display:none;
-  position:absolute;top:12px;right:-28px;
-  background:var(--orange);color:var(--white);
-  font-size:.55rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
-  padding:.25rem 2.2rem;
-  transform:rotate(45deg);
-  z-index:2;
-}
-.termin-card.is-next .termin-badge{display:block}
-
-/* Next termin highlight */
-.termin-card.is-next{
-  border-color:rgba(232,145,45,.25);
-  box-shadow:0 1px 3px rgba(0,0,0,.04),inset 0 1px 2px rgba(0,0,0,.015);
-}
-.termin-card.is-next::after{opacity:.4}
-
-/* Past termin */
-.termin-card.is-past{
-  opacity:.45;
-  filter:grayscale(.3);
-}
-.termin-card.is-past:hover{
-  opacity:.6;
-  transform:translateY(-3px);
-}
-
-.termin-date-wrap{
-  display:flex;flex-direction:column;align-items:center;
-  margin-bottom:1.2rem;position:relative;z-index:1;
-}
-.termin-weekday{
-  font-size:.65rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--text-muted);margin-bottom:.2rem;
-}
-.termin-day{
-  font-family:var(--font-display);font-size:3.2rem;font-weight:700;
-  color:var(--navy);line-height:1;
-}
-.termin-card.is-next .termin-day{color:var(--orange)}
-.termin-month{
-  font-family:var(--font-display);font-size:1.1rem;font-weight:600;
-  color:var(--text-mid);margin-top:.15rem;
-}
-.termin-details{position:relative;z-index:1}
-.termin-time,.termin-location{
-  font-size:.82rem;color:var(--text-mid);font-weight:300;line-height:1.6;
-}
-.termin-icon{width:14px;height:14px;display:inline-block;vertical-align:-2px;margin-right:.35rem}
-.termin-icon .draw{stroke-width:2.4}
-.termin-icon .draw.gold{stroke-width:2}
+/* Weitere Jahre aufklappen */
+.termin-year-more{margin-top:1.6rem;text-align:center}
+.termin-year-more .termin-rows{margin-top:1.2rem;text-align:left}
+.termin-year-toggle::after{content:'';width:.4rem;height:.4rem;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .3s var(--ease)}
+.termin-year-toggle[aria-expanded="true"]::after{transform:translateY(1px) rotate(-135deg)}
+.termin-notice{text-align:center;padding:3rem 1rem;font-family:var(--font-display);font-size:1.3rem;color:var(--text-mid)}
 
 @media(max-width:768px){
-  .termine-grid{grid-template-columns:repeat(2,1fr);gap:.75rem}
-  .termin-card{padding:1rem .8rem}
-  .termin-date-wrap{margin-bottom:.6rem}
-  .termin-weekday{font-size:.55rem;margin-bottom:.1rem}
-  .termin-day{font-size:2.2rem}
-  .termin-month{font-size:.85rem}
-  .termin-time,.termin-location{font-size:.7rem;line-height:1.4}
-  .termin-icon{width:12px;height:12px;vertical-align:-1.5px;margin-right:.25rem}
-  .termin-location{display:none!important}
-  .termin-badge{font-size:.45rem;padding:.2rem 1.8rem;top:8px;right:-30px}
+  .termin-row{grid-template-columns:1fr auto;gap:.2rem .75rem;padding:.8rem 2.4rem .8rem .75rem}
+  .termin-row-date{grid-column:1;grid-row:1;font-size:1.15rem}
+  .termin-row-meta{grid-column:1;grid-row:2;display:flex;align-items:baseline;gap:.6rem}
+  .termin-row-weekday{letter-spacing:.12em}
+  .termin-row-time{font-size:.72rem}
+  .termin-row-ics{grid-column:2;grid-row:1 / span 2}
+  .termin-row.is-next .termin-row-badge{font-size:.42rem;top:8px;right:-38px}
 }
-@media(max-width:360px){
-  .termine-grid{gap:.5rem}
-  .termin-card{padding:.8rem .6rem}
-  .termin-day{font-size:1.8rem}
+@media (prefers-reduced-motion: reduce){
+  .termin-row,.termin-row-ics,.termin-year-toggle::after{transition:none}
 }
 
 /* ===== ICS-KALENDER-EXPORT (Ghost-Buttons) ===== */

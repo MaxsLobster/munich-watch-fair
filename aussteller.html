@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aussteller werden | Munich Watch Fair</title>
+<meta name="description" content="Aussteller auf der Munich Watch Fair: Tisch 250 € netto, Vitrine 100 € netto. Anmeldung online – Internationale Uhrenbörse seit 1989 im Ballhausforum Unterschleißheim.">
+<link rel="canonical" href="https://www.munichwatchfair.com/aussteller">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<meta name="theme-color" content="#1a1a2e">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Aussteller werden | Munich Watch Fair">
+<meta property="og:description" content="Aussteller auf der Munich Watch Fair: Tisch 250 € netto, Vitrine 100 € netto. Anmeldung online – Internationale Uhrenbörse seit 1989 im Ballhausforum Unterschleißheim.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.munichwatchfair.com/aussteller">
+<meta property="og:image" content="https://www.munichwatchfair.com/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Munich Watch Fair – Internationale Uhrenbörse seit 1989, Ballhausforum München">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:locale:alternate" content="it_IT">
+<meta property="og:site_name" content="Munich Watch Fair">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aussteller werden | Munich Watch Fair">
+<meta name="twitter:description" content="Aussteller auf der Munich Watch Fair: Tisch 250 € netto, Vitrine 100 € netto. Anmeldung online – Internationale Uhrenbörse seit 1989 im Ballhausforum Unterschleißheim.">
+<meta name="twitter:image" content="https://www.munichwatchfair.com/images/og-image.jpg">
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Lenis Smooth Scroll -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+</head>
+<body>
+
+<a href="#main" class="skip-to-content" data-i18n-de="Zum Inhalt springen" data-i18n-en="Skip to content" data-i18n-it="Vai al contenuto">Zum Inhalt springen</a>
+
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- Custom Cursor (Desktop only) -->
+<div class="custom-cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<!-- Film Grain Overlay -->
+<div class="film-grain" aria-hidden="true"></div>
+
+<!-- Cursor Spotlight -->
+<div class="cursor-spotlight" id="cursorSpotlight" aria-hidden="true"></div>
+
+<!-- Ticket Badge (top-right, desktop) -->
+<a href="index.html#tickets" class="ticket-badge" id="ticketBadge" aria-label="Tickets kaufen">
+  <span class="ticket-badge-date"></span>
+  <span class="ticket-badge-cta" data-i18n-html="true" data-i18n-de="Tickets ab &euro;20 &rarr;" data-i18n-en="Tickets from &euro;20 &rarr;" data-i18n-it="Biglietti da &euro;20 &rarr;">Tickets ab &euro;20 &rarr;</span>
+</a>
+<!-- Mobile App-Bar (bottom, mobile): Countdown-Chip + Tickets-CTA + Route -->
+<div class="ticket-banner-mobile">
+  <span class="mobile-bar-chip" id="mobileBarChip" data-i18n-dynamic="true"></span>
+  <a href="https://eventim-light.com/de/a/61256a72a91dc01b4b932fe4/" target="_blank" rel="noopener" class="mobile-bar-cta" id="mobileBarCta" data-i18n-dynamic="true">Tickets ab &euro;20</a>
+  <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Ballhausforum+Unterschlei%C3%9Fheim%2C+Am+Haingraben+33%2C+85716+Unterschlei%C3%9Fheim" target="_blank" rel="noopener" class="mobile-bar-route" id="mobileBarRoute">
+    <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path class="mbr-line" d="M20,35 C20,35 10,24.5 10,16.5 a10,10 0 0 1 20,0 C30,24.5 20,35 20,35 Z"/><circle class="mbr-gold" cx="20" cy="16.5" r="4"/></svg>
+    <span class="sr-only" data-i18n-de="Route zum Ballhausforum planen" data-i18n-en="Get directions to Ballhausforum" data-i18n-it="Indicazioni per il Ballhausforum">Route zum Ballhausforum planen</span>
+  </a>
+</div>
+
+<nav class="nav" role="navigation" aria-label="Hauptnavigation">
+  <a href="index.html" class="nav-logo">Munich <span>W</span>atch Fair</a>
+  <ul class="nav-links" role="menubar">
+    <li role="none"><a href="index.html#info" role="menuitem" data-i18n-de="Die Börse" data-i18n-en="The Fair" data-i18n-it="La Fiera">Die Börse</a></li>
+    <li role="none"><a href="index.html#tagesablauf" role="menuitem" data-i18n-de="Tagesablauf" data-i18n-en="Schedule" data-i18n-it="Programma">Tagesablauf</a></li>
+    <li role="none"><a href="index.html#tickets" role="menuitem" data-i18n-de="Tickets" data-i18n-en="Tickets" data-i18n-it="Biglietti">Tickets</a></li>
+    <li role="none"><a href="aussteller.html" role="menuitem" aria-current="page" data-i18n-de="Aussteller" data-i18n-en="Exhibitors" data-i18n-it="Espositori">Aussteller</a></li>
+    <li role="none"><a href="index.html#termine" role="menuitem" data-i18n-de="Termine" data-i18n-en="Dates" data-i18n-it="Date">Termine</a></li>
+    <li role="none"><a href="index.html#location" role="menuitem">Location</a></li>
+    <li role="none"><a href="index.html#faq" role="menuitem">FAQ</a></li>
+    <li role="none"><a href="index.html#kontakt" role="menuitem" data-i18n-de="Kontakt" data-i18n-en="Contact" data-i18n-it="Contatti">Kontakt</a></li>
+  </ul>
+  <div class="lang-switch" aria-label="Sprache wechseln">
+    <button class="lang-btn active" data-lang="de">DE</button>
+    <span class="lang-divider">|</span>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <span class="lang-divider">|</span>
+    <button class="lang-btn" data-lang="it">IT</button>
+  </div>
+  <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<main id="main" class="subpage">
+
+<!-- ===== EINLEITUNG ===== -->
+<section class="section subpage-hero" aria-labelledby="aussteller-title">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag" data-i18n-de="Für Händler" data-i18n-en="For Dealers" data-i18n-it="Per commercianti">Für Händler</div>
+      <h1 class="section-title" id="aussteller-title" data-i18n-html="true" data-i18n-de='Aussteller <span class="orange">werden</span>' data-i18n-en='Become an <span class="orange">Exhibitor</span>' data-i18n-it='Diventate <span class="orange">espositore</span>'>Aussteller <span class="orange">werden</span></h1>
+      <p class="section-subtitle" data-i18n-de="Seit 1989 ist die Munich Watch Fair ein Treffpunkt für Händler, Sammler und Kenner. Als Aussteller präsentieren Sie Ihre Uhren einem Publikum, das Qualität zu schätzen weiß – in ruhiger, professioneller Atmosphäre im Ballhausforum Unterschleißheim." data-i18n-en="Since 1989, the Munich Watch Fair has been a meeting place for dealers, collectors and connoisseurs. As an exhibitor, you present your watches to an audience that appreciates quality – in a calm, professional setting at the Ballhausforum Unterschleissheim." data-i18n-it="Dal 1989 la Munich Watch Fair è un punto d&apos;incontro per commercianti, collezionisti e intenditori. Come espositori presentate i vostri orologi a un pubblico che sa apprezzare la qualità – in un&apos;atmosfera tranquilla e professionale al Ballhausforum di Unterschleissheim.">Seit 1989 ist die Munich Watch Fair ein Treffpunkt für Händler, Sammler und Kenner. Als Aussteller präsentieren Sie Ihre Uhren einem Publikum, das Qualität zu schätzen weiß – in ruhiger, professioneller Atmosphäre im Ballhausforum Unterschleißheim.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PREISE ===== -->
+<section class="section section-alt" id="preise" aria-labelledby="preise-title">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag" data-i18n-de="Konditionen" data-i18n-en="Terms" data-i18n-it="Condizioni">Konditionen</div>
+      <h2 class="section-title" id="preise-title" data-i18n-html="true" data-i18n-de='Die <span class="orange">Preise</span>' data-i18n-en='The <span class="orange">Prices</span>' data-i18n-it='I <span class="orange">prezzi</span>'>Die <span class="orange">Preise</span></h2>
+    </div>
+    <div class="ticket-grid price-grid">
+      <div class="ticket-card reveal-scale">
+        <h3 data-i18n-de="Tisch" data-i18n-en="Table" data-i18n-it="Tavolo">Tisch</h3>
+        <p class="ticket-price">€250</p>
+        <p class="ticket-price-sub" data-i18n-de="netto · zzgl. MwSt." data-i18n-en="net · plus VAT" data-i18n-it="netto · IVA esclusa">netto · zzgl. MwSt.</p>
+        <p class="price-note" data-i18n-de="Inklusive Eintritt für zwei Personen – Aussteller und Helfer." data-i18n-en="Includes admission for two – exhibitor and assistant." data-i18n-it="Ingresso incluso per due persone – espositore e assistente.">Inklusive Eintritt für zwei Personen – Aussteller und Helfer.</p>
+      </div>
+      <div class="ticket-card reveal-scale">
+        <h3 data-i18n-de="Vitrine" data-i18n-en="Display Case" data-i18n-it="Vetrina">Vitrine</h3>
+        <p class="ticket-price">€100</p>
+        <p class="ticket-price-sub" data-i18n-de="netto · zzgl. MwSt." data-i18n-en="net · plus VAT" data-i18n-it="netto · IVA esclusa">netto · zzgl. MwSt.</p>
+      </div>
+    </div>
+    <p class="price-discount reveal" data-i18n-de="Rabatte für Stammaussteller sowie Halbjahres- und Jahresbuchung auf Anfrage." data-i18n-en="Discounts for regular exhibitors and for half-year and annual bookings on request." data-i18n-it="Sconti per espositori abituali e per prenotazioni semestrali e annuali su richiesta.">Rabatte für Stammaussteller sowie Halbjahres- und Jahresbuchung auf Anfrage.</p>
+  </div>
+</section>
+
+<!-- ===== ABLAUF ===== -->
+<section class="section" id="ablauf" aria-labelledby="ablauf-title">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag" data-i18n-de="Ablauf" data-i18n-en="Process" data-i18n-it="Procedura">Ablauf</div>
+      <h2 class="section-title" id="ablauf-title" data-i18n-html="true" data-i18n-de='So <span class="orange">läuft&apos;s</span>' data-i18n-en='How it <span class="orange">works</span>' data-i18n-it='Come <span class="orange">funziona</span>'>So <span class="orange">läuft&apos;s</span></h2>
+    </div>
+    <ol class="steps">
+      <li class="step reveal stagger-1">
+        <span class="step-num">1</span>
+        <h3 data-i18n-de="Anmeldung" data-i18n-en="Registration" data-i18n-it="Iscrizione">Anmeldung</h3>
+        <p data-i18n-de="Sie melden sich über das Formular auf dieser Seite an." data-i18n-en="Register using the form on this page." data-i18n-it="Iscrivetevi tramite il modulo su questa pagina.">Sie melden sich über das Formular auf dieser Seite an.</p>
+      </li>
+      <li class="step reveal stagger-2">
+        <span class="step-num">2</span>
+        <h3 data-i18n-de="Persönliche Bestätigung" data-i18n-en="Personal confirmation" data-i18n-it="Conferma personale">Persönliche Bestätigung</h3>
+        <p data-i18n-de="Wir prüfen Ihre Anmeldung und bestätigen persönlich." data-i18n-en="We review your registration and confirm it personally." data-i18n-it="Esaminiamo la vostra iscrizione e la confermiamo personalmente.">Wir prüfen Ihre Anmeldung und bestätigen persönlich.</p>
+      </li>
+      <li class="step reveal stagger-3">
+        <span class="step-num">3</span>
+        <h3 data-i18n-de="Rechnung" data-i18n-en="Invoice" data-i18n-it="Fattura">Rechnung</h3>
+        <p data-i18n-de="Sie erhalten die Rechnung." data-i18n-en="You receive the invoice." data-i18n-it="Ricevete la fattura.">Sie erhalten die Rechnung.</p>
+      </li>
+      <li class="step reveal stagger-1">
+        <span class="step-num">4</span>
+        <h3 data-i18n-de="Messetag" data-i18n-en="Fair day" data-i18n-it="Giorno della fiera">Messetag</h3>
+        <p data-i18n-de="Einlass für Aussteller ab 07:00 Uhr." data-i18n-en="Exhibitor admission from 07:00." data-i18n-it="Ingresso espositori dalle ore 07:00.">Einlass für Aussteller ab 07:00 Uhr.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== ANMELDUNG ===== -->
+<section class="section section-alt" id="anmeldung" aria-labelledby="anmeldung-title">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag" data-i18n-de="Anmeldung" data-i18n-en="Registration" data-i18n-it="Iscrizione">Anmeldung</div>
+      <h2 class="section-title" id="anmeldung-title" data-i18n-html="true" data-i18n-de='Ihre <span class="orange">Anmeldung</span>' data-i18n-en='Your <span class="orange">Registration</span>' data-i18n-it='La vostra <span class="orange">iscrizione</span>'>Ihre <span class="orange">Anmeldung</span></h2>
+    </div>
+
+    <!-- Anmeldeformular (Fillout) – wird in js/main.js mit passender Sprache (?lang=) eingebunden -->
+    <div class="aussteller-form reveal">
+      <div class="aussteller-form-embed" id="filloutEmbed" data-fillout-form="mojBgmKGjGus">
+        <noscript><a href="https://forms.fillout.com/t/mojBgmKGjGus" target="_blank" rel="noopener">Zum Anmeldeformular</a></noscript>
+      </div>
+    </div>
+
+    <p class="aussteller-mail-alt reveal" data-i18n-html="true" data-i18n-de='Lieber per E-Mail? <a href="mailto:info@munichwatchfair.com">info@munichwatchfair.com</a>' data-i18n-en='Prefer email? <a href="mailto:info@munichwatchfair.com">info@munichwatchfair.com</a>' data-i18n-it='Preferite scriverci via e-mail? <a href="mailto:info@munichwatchfair.com">info@munichwatchfair.com</a>'>Lieber per E-Mail? <a href="mailto:info@munichwatchfair.com">info@munichwatchfair.com</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer-new" role="contentinfo">
+  <div class="footer-new-inner">
+    <div class="footer-col footer-col-brand">
+      <p class="footer-new-logo">Munich <span>W</span>atch Fair</p>
+      <p class="footer-new-desc" data-i18n-de="Internationale Uhrenbörse seit 1989" data-i18n-en="International Watch Exchange since 1989" data-i18n-it="Borsa internazionale degli orologi dal 1989">Internationale Uhrenbörse seit 1989</p>
+      <p class="footer-new-venue" data-i18n-de="Ballhausforum Unterschleißheim bei München" data-i18n-en="Ballhausforum Unterschleissheim near Munich" data-i18n-it="Ballhausforum Unterschleissheim presso Monaco">Ballhausforum Unterschleißheim bei München</p>
+    </div>
+    <div class="footer-col footer-col-links">
+      <h4 class="footer-col-title" data-i18n-de="Quick Links" data-i18n-en="Quick Links" data-i18n-it="Link rapidi">Quick Links</h4>
+      <ul>
+        <li><a href="index.html#termine" data-i18n-de="Termine" data-i18n-en="Dates" data-i18n-it="Date">Termine</a></li>
+        <li><a href="index.html#tickets" data-i18n-de="Tickets" data-i18n-en="Tickets" data-i18n-it="Biglietti">Tickets</a></li>
+        <li><a href="aussteller.html" data-i18n-de="Aussteller" data-i18n-en="Exhibitors" data-i18n-it="Espositori">Aussteller</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+        <li><a href="index.html#location">Location</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-col-contact">
+      <h4 class="footer-col-title" data-i18n-de="Kontakt" data-i18n-en="Contact" data-i18n-it="Contatti">Kontakt</h4>
+      <ul>
+        <li><a href="mailto:info@munichwatchfair.com">info@munichwatchfair.com</a></li>
+        <li class="footer-social-row">
+          <a href="#" aria-label="Instagram" class="footer-social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            <span>@munichwatchfair</span>
+          </a>
+        </li>
+        <li class="footer-social-row">
+          <a href="#" aria-label="Facebook" class="footer-social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            <span>Munich Watch Fair</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-new-bottom">
+    <span data-i18n-html="true" data-i18n-de="&copy; 2026 Munich Watch Fair. Alle Rechte vorbehalten." data-i18n-en="&copy; 2026 Munich Watch Fair. All rights reserved." data-i18n-it="&copy; 2026 Munich Watch Fair. Tutti i diritti riservati.">&copy; 2026 Munich Watch Fair. Alle Rechte vorbehalten.</span>
+    <div class="footer-new-legal">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="js/main.js" defer></script>
+</body>
+</html>
