@@ -633,6 +633,18 @@ a{color:inherit;text-decoration:none}
 .aussteller-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem}
 .benefit-item{text-align:center;padding:1.5rem 1rem}
 .benefit-icon{width:30px;height:30px;margin-bottom:.8rem;display:inline-block}
+.aussteller-form{
+  max-width:760px;margin:0 auto;
+  background:var(--bg-card);
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow:0 1px 2px rgba(0,0,0,.03),inset 0 1px 2px rgba(0,0,0,.015);
+  padding:clamp(.5rem,2vw,1.5rem);
+}
+.aussteller-form-embed{width:100%;min-height:600px}
+.aussteller-form-embed iframe{display:block;width:100%;border:0}
+.aussteller-form-embed noscript a{display:block;padding:2rem;text-align:center;color:var(--orange)}
+.aussteller-mail-alt{text-align:center;margin-top:1.5rem;font-size:.9rem;color:var(--text-muted)}
+.aussteller-mail-alt a{color:var(--orange);text-decoration:underline;text-underline-offset:2px}
 .benefit-item h4{font-family:var(--font-display);font-size:1.1rem;font-weight:600;margin-bottom:.4rem}
 .benefit-item p{font-size:.82rem;color:var(--text-mid);font-weight:300;line-height:1.5}
 
@@ -742,6 +754,7 @@ a{color:inherit;text-decoration:none}
   .info-grid{grid-template-columns:1fr;grid-template-rows:auto;gap:1rem}
   .info-card-featured{grid-row:auto}
   .aussteller-benefits{grid-template-columns:1fr;gap:1rem}
+  .aussteller-form{padding:0;border-left:0;border-right:0;box-shadow:none;margin:0 -.25rem}
   .pricing-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}
   .pricing-card.featured{transform:none}.pricing-card.featured:hover{transform:translateY(-10px)}
   .countdown-separator{display:none}

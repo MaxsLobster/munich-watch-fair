@@ -4,6 +4,18 @@ const MESSE_TERMINE = [
   { date: '2026-03-29', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '29', month: 'März', year: '2026', location: 'Ballhausforum Unterschleißheim' },
   { date: '2026-05-17', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '17', month: 'Mai', year: '2026', location: 'Ballhausforum Unterschleißheim' },
   { date: '2026-06-28', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '28', month: 'Juni', year: '2026', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2026-10-04', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '4', month: 'Oktober', year: '2026', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2026-11-08', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '8', month: 'November', year: '2026', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2026-12-06', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '6', month: 'Dezember', year: '2026', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2027-01-17', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '17', month: 'Januar', year: '2027', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2027-02-21', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '21', month: 'Februar', year: '2027', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2027-04-04', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '4', month: 'April', year: '2027', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2027-05-16', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '16', month: 'Mai', year: '2027', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2027-06-27', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '27', month: 'Juni', year: '2027', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2027-09-05', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '5', month: 'September', year: '2027', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2027-10-17', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '17', month: 'Oktober', year: '2027', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2027-11-14', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '14', month: 'November', year: '2027', location: 'Ballhausforum Unterschleißheim' },
+  { date: '2027-12-12', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '12', month: 'Dezember', year: '2027', location: 'Ballhausforum Unterschleißheim' },
 ];
 
 function getNextTermin() {
@@ -63,6 +75,50 @@ function formatTerminHero(t, lang) {
     + ' \u2003\u00B7\u2003' + timeStr
     + ' \u2003\u00B7\u2003' + t.location;
 }
+
+/* ===== TERMIN-KARTEN AUS MESSE_TERMINE ERZEUGEN ===== */
+// Einzige Quelle ist MESSE_TERMINE – neue Termine nur oben eintragen (plus JSON-LD in index.html).
+function renderTerminCards() {
+  var grid = document.getElementById('termineGrid');
+  if (!grid) return;
+  var now = new Date();
+  var future = MESSE_TERMINE.filter(function(t) { return new Date(t.date + 'T' + t.end + ':00') > now; });
+  var icsSvg = '<svg class="ics-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect class="draw" x="8" y="10" width="24" height="22" rx="2"/><line class="draw" x1="8" y1="16.5" x2="32" y2="16.5"/><line class="draw gold" x1="14.5" y1="6.5" x2="14.5" y2="11.5"/><line class="draw gold" x1="25.5" y1="6.5" x2="25.5" y2="11.5"/><line class="draw gold" x1="20" y1="20.5" x2="20" y2="27.5"/><line class="draw gold" x1="16.5" y1="24" x2="23.5" y2="24"/></svg>';
+  var clockSvg = '<svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><circle class="draw" cx="20" cy="20" r="14"/><path class="draw gold" d="M20,12 L20,21 L26,24.5"/></svg>';
+  var pinSvg = '<svg class="termin-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true"><path class="draw" d="M20,34 C20,34 11,23.5 11,16.5 a9,9 0 0 1 18,0 C29,23.5 20,34 20,34 Z"/><circle class="draw gold" cx="20" cy="16.5" r="3.2"/></svg>';
+  function i18nAttrs(fn) {
+    return ['de', 'en', 'it'].map(function(l) { return ' data-i18n-' + l + '="' + fn(l) + '"'; }).join('');
+  }
+  grid.innerHTML = future.map(function(t, i) {
+    var time = t.start + ' – ' + t.end;
+    return '<div class="termin-card reveal stagger-' + (i % 3 + 1) + '" data-date="' + t.date + '">'
+      + '<div class="termin-badge"' + i18nAttrs(function(l) { return {de:'Nächster Termin',en:'Next Date',it:'Prossima data'}[l]; }) + '>Nächster Termin</div>'
+      + '<div class="termin-date-wrap">'
+      +   '<span class="termin-weekday"' + i18nAttrs(function(l) { return trWeekday(t.weekday, l); }) + '>' + t.weekday + '</span>'
+      +   '<span class="termin-day">' + t.day + '</span>'
+      +   '<span class="termin-month"' + i18nAttrs(function(l) { return trMonth(t.month, l) + ' ' + t.year; }) + '>' + t.month + ' ' + t.year + '</span>'
+      + '</div>'
+      + '<div class="termin-details">'
+      +   '<p class="termin-time">' + clockSvg + '<span' + i18nAttrs(function(l) { return l === 'de' ? time + ' Uhr' : time; }) + '>' + time + ' Uhr</span></p>'
+      +   '<p class="termin-location">' + pinSvg + '<span>' + t.location + '</span></p>'
+      +   '<button type="button" class="btn-ghost btn-ghost-sm js-ics-btn" data-ics="card">' + icsSvg
+      +     '<span' + i18nAttrs(function(l) { return {de:'In Kalender speichern',en:'Add to Calendar',it:'Salva nel calendario'}[l]; }) + '>In Kalender speichern</span>'
+      +   '</button>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+
+  // Jahreszahl im Sektionstitel aus den angezeigten Terminen ableiten (z. B. "2026 / 2027")
+  var title = document.getElementById('termine-title');
+  if (title && future.length) {
+    var years = future.map(function(t) { return t.year; }).filter(function(y, i, a) { return a.indexOf(y) === i; });
+    var yearHtml = '<span class="orange">' + years.join(' / ') + '</span>';
+    var prefix = {de:'Alle Termine ', en:'All Dates ', it:'Tutte le date '};
+    ['de', 'en', 'it'].forEach(function(l) { title.setAttribute('data-i18n-' + l, prefix[l] + yearHtml); });
+    title.innerHTML = prefix[currentLang] + yearHtml;
+  }
+}
+renderTerminCards();
 
 /* ===== DYNAMISCHE TERMIN-AKTUALISIERUNG ===== */
 function updateAllTerminElements() {
@@ -628,6 +684,8 @@ function reapplyTitleEffects() {
     reapplyTitleEffects();
     // Persist
     try { sessionStorage.setItem('mwf-lang', lang); } catch(e) {}
+    // Sprachabhängige Einbettungen (z. B. Fillout-Formular) informieren
+    window.dispatchEvent(new CustomEvent('mwf:langchange', { detail: { lang: lang } }));
   }
 
   btns.forEach(function(btn) {
@@ -645,6 +703,49 @@ function reapplyTitleEffects() {
   } catch(e) {}
 
   window.applyLanguage = applyLanguage;
+})();
+
+/* ===== AUSSTELLER-ANMELDEFORMULAR (FILLOUT) ===== */
+// Standard-Embed mit Auto-Höhe. Sprache per ?lang= (Fillout-Doku: fillout.com/help/url-parameters),
+// im Embed als data-lang. Das Embed-Skript hat keine JS-API und initialisiert jeden Container nur
+// einmal – beim Sprachwechsel wird daher ein frischer Container eingesetzt und das Skript neu geladen.
+// Geladen wird erst, wenn der Bereich in die Nähe des Viewports kommt.
+(function(){
+  var host = document.getElementById('filloutEmbed');
+  if (!host) return;
+  var formId = host.dataset.filloutForm;
+  var mountedLang = null;
+
+  function mount(lang) {
+    if (lang === mountedLang) return;
+    mountedLang = lang;
+    host.innerHTML = '';
+    var div = document.createElement('div');
+    div.setAttribute('data-fillout-id', formId);
+    div.setAttribute('data-fillout-embed-type', 'standard');
+    div.setAttribute('data-fillout-dynamic-resize', '');
+    div.setAttribute('data-lang', lang);
+    div.style.width = '100%';
+    div.style.height = '600px';
+    host.appendChild(div);
+    var s = document.createElement('script');
+    s.src = 'https://server.fillout.com/embed/v1/';
+    host.appendChild(s);
+  }
+
+  var visible = false;
+  function onLangChange() { if (visible) mount(currentLang); }
+  window.addEventListener('mwf:langchange', onLangChange);
+
+  if (!('IntersectionObserver' in window)) { visible = true; mount(currentLang); return; }
+  var io = new IntersectionObserver(function(entries) {
+    if (entries.some(function(e) { return e.isIntersecting; })) {
+      io.disconnect();
+      visible = true;
+      mount(currentLang);
+    }
+  }, { rootMargin: '800px 0px' });
+  io.observe(host);
 })();
 
 /* ===== SCROLL PROGRESS BAR ===== */
