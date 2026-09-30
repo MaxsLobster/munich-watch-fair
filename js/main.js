@@ -1225,6 +1225,12 @@ function reapplyTitleEffects() {
   // Hero fade-out on scroll
   if(typeof ScrollTrigger !== 'undefined'){
     gsap.registerPlugin(ScrollTrigger);
+    // html{scroll-behavior:smooth} verfälscht die Positionsmessung von ScrollTrigger, wenn beim
+    // Neuberechnen (Laden, Fenstergröße, mobile Adressleiste) nicht ganz oben gescrollt ist –
+    // dann blendete der Hero beim Hochscrollen zu früh aus. Während der Messung daher kurz abschalten.
+    // (offsetHeight lesen zwingt Chrome, die Änderung sofort zu übernehmen – sonst bleibt der Mess-Sprung aus)
+    ScrollTrigger.addEventListener('refreshInit', () => { const h = document.documentElement; h.style.scrollBehavior = 'auto'; void h.offsetHeight; });
+    ScrollTrigger.addEventListener('refresh', () => { document.documentElement.style.scrollBehavior = ''; });
     ScrollTrigger.create({
       trigger: hero,
       start: 'top top',
@@ -1237,11 +1243,15 @@ function reapplyTitleEffects() {
         const heroInfo = hero.querySelector('.hero-info');
         const heroCW = hero.querySelector('.hero-countdown-wrap');
         const scrollInd = document.getElementById('heroScrollIndicator');
-        const fade = Math.max(0, 1 - p * 2.5);
         const ty = p * 80;
+        const vh = window.innerHeight;
+        // Jedes Element blendet erst aus, wenn es selbst oben aus dem Bild läuft
+        // (unteres Viertel des Headers bleibt sichtbar, solange es im Bild ist –
+        // sonst wirken Countdown-Linie und Icons beim Hochscrollen "verschwunden").
         [heroContent, heroIcons, heroInfo, heroCW].forEach(el => {
           if(el){
-            el.style.opacity = fade;
+            const bottom = hero.offsetTop + el.offsetTop + el.offsetHeight - window.scrollY - ty;
+            el.style.opacity = Math.max(0, Math.min(1, bottom / (vh * 0.35)));
             el.style.transform = 'translateY(-' + ty + 'px)';
           }
         });
