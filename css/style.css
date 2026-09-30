@@ -486,7 +486,7 @@ a{color:inherit;text-decoration:none}
 .timeline{
   position:relative;
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+  grid-template-columns:repeat(7,1fr);
   gap:1.2rem;
   margin:0 auto;
   padding:2rem 0;
@@ -562,8 +562,10 @@ a{color:inherit;text-decoration:none}
   background:var(--bg-card);
   border:1px solid rgba(0,0,0,.06);
   box-shadow:0 1px 2px rgba(0,0,0,.03),inset 0 1px 2px rgba(0,0,0,.015);
-  padding:1.2rem 1rem;
+  padding:1.1rem .7rem 1rem;
   transition:all .5s var(--ease);
+  flex:1;align-self:stretch;
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
 }
 .timeline-card-glass::before{
   content:'';position:absolute;inset:0;
@@ -592,39 +594,40 @@ a{color:inherit;text-decoration:none}
 .timeline-card-glass p{
   font-size:.78rem;color:var(--text-mid);line-height:1.5;font-weight:300;
 }
-/* Station 07:00: zwei Karten übereinander */
-.timeline-item-double{gap:.7rem}
-.timeline-time-row{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.3rem}
-.timeline-time-row .timeline-time{margin-bottom:0}
+/* Stationen mit zwei Kacheln (07:00, 10:30): nebeneinander unter einer gemeinsamen Uhr */
+.timeline-item-double{grid-column:span 2}
+.timeline-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;align-self:stretch;flex:1}
+.timeline-time-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.3rem .45rem;min-height:1.1rem}
+.timeline-time-row .timeline-time{margin-bottom:0;white-space:nowrap}
 .timeline-new{
-  font-size:.55rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-  background:var(--navy);color:var(--orange-light);padding:.18rem .45rem .18rem .55rem;border-radius:2px;
+  font-size:.52rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--navy);color:var(--orange-light);padding:.15rem .4rem .15rem .5rem;border-radius:2px;
 }
+.timeline-card-glass h3{margin:0;line-height:1.2}
 /* Preis + Armband-Etikett */
-.timeline-meta{display:flex;flex-direction:column;align-items:center;gap:.45rem;margin-top:.8rem;padding-top:.7rem;border-top:1px solid var(--border)}
-.timeline-card-glass .timeline-price{font-size:.72rem;color:var(--text-muted);line-height:1.2}
-.timeline-price-amount{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--navy);margin-right:.15rem}
-.timeline-card-glass .timeline-price-note{font-size:.72rem;font-style:italic}
+.timeline-card-glass .timeline-price{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--navy);line-height:1.1}
+.timeline-card-glass .timeline-price-note{font-family:var(--font-body);font-size:.72rem;font-weight:300;font-style:italic;color:var(--text-muted);line-height:1.5}
 .timeline-band{
-  display:inline-flex;align-items:center;gap:.35rem;
-  font-size:.56rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
-  padding:.28rem .6rem .28rem .5rem;border-radius:999px;border:1px solid;
+  margin-top:auto;
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-size:.64rem;font-weight:500;letter-spacing:.02em;line-height:1.25;text-align:left;
+  max-width:100%;padding:.22rem .55rem .22rem .45rem;border-radius:.8rem;border:1px solid;
 }
-.timeline-band::before{content:'';width:.45rem;height:.45rem;border-radius:50%;background:currentColor}
+.timeline-band::before{content:'';width:.4rem;height:.4rem;border-radius:50%;flex:none}
 .timeline-band.is-dealer{color:#7A5A10;background:rgba(194,119,34,.12);border-color:var(--orange-border)}
 .timeline-band.is-dealer::before{background:var(--orange)}
-.timeline-band.is-visitor{color:var(--text-muted);background:rgba(107,100,92,.08);border-color:var(--border)}
+.timeline-band.is-visitor{color:var(--text-muted);background:rgba(107,100,92,.07);border-color:var(--border)}
 .timeline-band.is-visitor::before{background:#a39c91}
 
 /* Tablet: scroll horizontally */
 @media(max-width:1024px){
   .timeline{
-    grid-template-columns:repeat(5,minmax(200px,1fr));
+    grid-template-columns:repeat(7,minmax(150px,1fr));
     overflow-x:auto;-webkit-overflow-scrolling:touch;
     scroll-snap-type:x mandatory;
     gap:1rem;padding-bottom:1rem;
   }
-  .timeline-item{scroll-snap-align:center;min-width:200px}
+  .timeline-item{scroll-snap-align:center}
 }
 /* Mobile: vertikale Zeitleiste — der Tag laeuft als Strahl von oben nach unten,
    Zifferblatt-Nodes auf dem Strahl, Karten rechts daneben in voller Breite.
@@ -658,10 +661,9 @@ a{color:inherit;text-decoration:none}
     width:12px;height:1.5px;
     background:linear-gradient(90deg,var(--orange-border),transparent);
   }
-  .timeline-card-glass{padding:1rem .9rem;width:100%}
-  .timeline-item-double{flex-direction:column}
-  .timeline-time-row{justify-content:flex-start}
-  .timeline-meta{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between}
+  .timeline-card-glass{padding:.9rem .6rem}
+  .timeline-cards{gap:.6rem}
+  .timeline-item-double .timeline-card-glass{min-width:0}
   .timeline-card-glass h3{font-size:.95rem;margin-bottom:.3rem}
   .timeline-card-glass p{font-size:.78rem;line-height:1.5}
 }
