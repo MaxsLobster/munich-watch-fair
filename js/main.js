@@ -1018,29 +1018,13 @@ function reapplyTitleEffects() {
 
   hero.classList.add('hero-cinematic');
 
-  // Split logo text into letters
-  function splitIntoLetters(el){
-    const text = el.textContent;
-    el.textContent = '';
-    text.split('').forEach(ch => {
-      const span = document.createElement('span');
-      span.className = 'hero-letter';
-      span.textContent = ch === ' ' ? '\u00A0' : ch;
-      el.appendChild(span);
-    });
-  }
-
-  const logoMunich = banner.querySelector('.logo-munich');
-  const logoFair = banner.querySelector('.logo-fair');
-  if(logoMunich) splitIntoLetters(logoMunich);
-  if(logoFair) splitIntoLetters(logoFair);
-
-  // Logo-"A": die zwei Uhrzeiger-Polygone (Pivot/Treffpunkt oben bei 20,0).
+  // Offizielles Logo: die zwei Uhrzeiger bilden das "A" (Drehpunkt 666/356 im viewBox).
   // A_FOLD = Winkel, die beide Zeiger deckungsgleich auf die Senkrechte legen
-  // (aus der Polygon-Geometrie gemessen: linker Fusspunkt (6,58) -> -13.57°,
-  //  rechter Fusspunkt (34,46) -> +16.93°).
-  const aHands = banner.querySelectorAll('.logo-a-svg polygon');
-  const A_FOLD = [-13.57, 16.93];
+  // (aus der Pfad-Geometrie gemessen: Spitze kurzer Zeiger (520,629) -> -28.14°,
+  //  Spitze langer Zeiger (888,867) -> +23.48°).
+  const aHands = [banner.querySelector('#hand-short'), banner.querySelector('#hand-long')].filter(Boolean);
+  const A_FOLD = [-28.14, 23.48];
+  const A_ORIGIN = '666 356';
   const reduceHeroMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let aSwingDone = false; // Load-Geste abgeschlossen -> Hover-Mini-Swing freigeben
   let aSwingBusy = false; // Guard gegen Mehrfach-Trigger bei Hover
@@ -1062,34 +1046,19 @@ function reapplyTitleEffects() {
     // Banner fades in
     tl.to(banner, { opacity: 1, duration: 0.6, ease: 'power2.out' });
 
-    // Logo letters reveal
-    const munichLetters = banner.querySelectorAll('.logo-munich .hero-letter');
-    const fairLetters = banner.querySelectorAll('.logo-fair .hero-letter');
-
-    tl.to(munichLetters, {
-      opacity: 1, y: 0, rotateX: 0,
-      duration: 0.5, stagger: 0.04, ease: 'back.out(1.5)'
-    }, '-=0.2');
-
-    // W + A SVG area handled by existing code, just show it
-    const logoWatch = banner.querySelector('.logo-watch');
-    if(logoWatch){
-      tl.fromTo(logoWatch,
-        { opacity: 0, scale: 0.8 },
+    // Logo einblenden (Schriftzug ist ein SVG-Pfad, daher als Ganzes statt Buchstabe für Buchstabe)
+    const logoSvg = banner.querySelector('.hero-logo-svg');
+    if(logoSvg){
+      tl.fromTo(logoSvg,
+        { opacity: 0, scale: 0.9 },
         { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' },
-        '-=0.3'
+        '-=0.2'
       );
     }
 
-    // Position für den "A"-Zeiger-Schwenk merken: während WATCH sichtbar wird,
-    // kurz bevor "Fair" einsetzt (Tween selbst wird weiter unten mit absoluter
-    // Position eingefügt, damit keine bestehenden Tweens verschoben werden).
+    // Position für den "A"-Zeiger-Schwenk merken: gegen Ende des Einblendens
+    // (Tween selbst wird weiter unten mit absoluter Position eingefügt).
     const aSwingPos = Math.max(tl.duration() - 0.5, 0);
-
-    tl.to(fairLetters, {
-      opacity: 1, y: 0, rotateX: 0,
-      duration: 0.5, stagger: 0.04, ease: 'back.out(1.5)'
-    }, '-=0.4');
 
     // Banner line + badge
     const line = banner.querySelector('.hero-banner-line');
@@ -1126,9 +1095,9 @@ function reapplyTitleEffects() {
     // und schwingen in ihre A-Position auseinander — wie Zeiger auf "10 nach 10".
     // Absolute Position (aSwingPos), nach allen relativen Tweens eingefügt.
     if(aHands.length === 2 && !reduceHeroMotion){
-      tl.from(aHands[0], { rotation: A_FOLD[0], svgOrigin: '20 0', duration: 0.8, ease: 'back.out(2)' }, aSwingPos);
+      tl.from(aHands[0], { rotation: A_FOLD[0], svgOrigin: A_ORIGIN, duration: 0.8, ease: 'back.out(2)' }, aSwingPos);
       tl.from(aHands[1], {
-        rotation: A_FOLD[1], svgOrigin: '20 0', duration: 0.8, ease: 'back.out(2)',
+        rotation: A_FOLD[1], svgOrigin: A_ORIGIN, duration: 0.8, ease: 'back.out(2)',
         onComplete: () => { aSwingDone = true; }
       }, aSwingPos);
     } else {
@@ -1158,8 +1127,8 @@ function reapplyTitleEffects() {
         onComplete: () => { setTimeout(() => { aSwingBusy = false; }, 400); }
       });
       aHands.forEach((hand, i) => {
-        mini.to(hand, { rotation: A_FOLD[i] * 0.45, svgOrigin: '20 0', duration: 0.18, ease: 'power2.in' }, 0)
-            .to(hand, { rotation: 0, svgOrigin: '20 0', duration: 0.32, ease: 'back.out(2)' }, 0.18);
+        mini.to(hand, { rotation: A_FOLD[i] * 0.45, svgOrigin: A_ORIGIN, duration: 0.18, ease: 'power2.in' }, 0)
+            .to(hand, { rotation: 0, svgOrigin: A_ORIGIN, duration: 0.32, ease: 'back.out(2)' }, 0.18);
       });
     });
   }
