@@ -691,6 +691,7 @@ a{color:inherit;text-decoration:none}
 .benefit-item{text-align:center;padding:1.5rem 1rem}
 .benefit-icon{width:30px;height:30px;margin-bottom:.8rem;display:inline-block}
 .aussteller-cta{text-align:center;margin-top:.5rem}
+.aussteller-binding{margin-top:.9rem;font-size:.82rem;color:var(--text-muted)}
 
 /* ===== AUSSTELLER-SEITE ===== */
 .subpage-hero{padding-top:calc(clamp(5rem,10vw,8rem) + 3rem)}
