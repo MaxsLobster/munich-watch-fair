@@ -184,24 +184,58 @@ a{color:inherit;text-decoration:none}
   opacity:0;transform:translateY(15px);
 }
 
-/* Countdown - vier Chronographen-Subdials */
-.hero-countdown-wrap{position:relative;z-index:3;text-align:center;margin-bottom:clamp(1rem,2vw,1.5rem)}
-.countdown{display:flex;justify-content:center;gap:clamp(.8rem,2.2vw,1.5rem);opacity:0;transform:translateY(15px)}
-.countdown-unit{display:flex;flex-direction:column;align-items:center;padding:.3rem}
-.countdown-dial{position:relative;width:clamp(72px,9vw,104px);height:clamp(72px,9vw,104px)}
-.cd-dial-svg{display:block;width:100%;height:100%}
-.countdown-value{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--orange);line-height:1;transition:transform .3s var(--ease-spring)}
-/* Ziffer mittig im Subdial, kleiner als freistehend */
-.countdown-dial .countdown-value{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(1.05rem,2.2vw,1.55rem)}
-.countdown-value.tick{transform:scale(1.12)}
-/* Goldener Zeiger: Deadbeat-Tick mit Überschwinger (Rotation setzt JS kumulativ) */
-.cd-hand{transform-box:view-box;transform-origin:50px 50px;transition:transform .25s var(--ease-spring)}
-@media (prefers-reduced-motion: reduce){
-  .cd-hand{transition:none}
+/* Countdown als feine Zeitlinie (Heute · nächster Termin · zwei folgende) */
+.hero-countdown-wrap{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;width:100%;margin-bottom:clamp(1rem,2vw,1.5rem)}
+.hero-countdown-wrap[hidden]{display:none}
+.cd-line{
+  --w:140px;--n:4;
+  position:relative;width:min(880px,100%);
+  margin-top:clamp(1.4rem,3vw,2.2rem);
+  opacity:0;transform:translateY(15px);
 }
-.countdown-label{font-size:.52rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-top:.35rem}
-.countdown-separator{display:none;font-family:var(--font-display);font-size:clamp(1.4rem,3vw,2.4rem);color:rgba(184,134,11,.4);align-self:center;margin-top:-.2rem;animation:sepPulse 1.5s ease infinite}
-@keyframes sepPulse{0%,100%{opacity:1}50%{opacity:.25}}
+.cd-line[data-count="3"]{--n:3}
+/* Grundlinie von Mitte erster bis Mitte letzter Punkt; Goldstrecke = ein Punktabstand */
+.cd-line-track{position:absolute;left:calc(var(--w) / 2);right:calc(var(--w) / 2);top:32px;height:1px;background:var(--border-strong)}
+.cd-line-progress{position:absolute;left:calc(var(--w) / 2);top:31px;height:2px;width:calc((100% - var(--w)) / (var(--n) - 1));background:var(--gold-light)}
+.cd-line.is-eventday .cd-line-progress{display:none}
+.cd-line-points{list-style:none;margin:0;padding:0;display:flex;justify-content:space-between;position:relative}
+.cd-line-point{width:var(--w);display:flex;flex-direction:column;align-items:center;gap:10px}
+.cd-line-above{position:relative;width:100%;height:16px}
+.cd-line-above span{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  white-space:nowrap;
+  font-size:11px;letter-spacing:.22em;font-weight:600;line-height:16px;text-transform:uppercase;color:#7A5A10;
+}
+/* Messetag: Live-Text steht über dem ersten Punkt -> linksbündig, damit er nicht über den Rand ragt */
+.cd-line-point:first-child .cd-line-above span{left:0;transform:none}
+.cd-line-dot{width:8px;height:8px;margin:3px 0;border-radius:50%;background:#a39c91}
+.cd-line-point.is-today .cd-line-dot{background:var(--navy)}
+.cd-line-point.is-next .cd-line-dot{width:12px;height:12px;margin:1px 0;background:var(--orange)}
+.cd-line-date{font-size:15px;color:var(--text-mid);white-space:nowrap}
+.cd-line-point.is-next .cd-line-date{font-weight:500}
+/* Kalender-Button + "Alle Termine" */
+.hero-ics-wrap{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;justify-content:center;margin-top:clamp(1.6rem,3.2vw,2.4rem);opacity:0;transform:translateY(15px)}
+.cd-line-btn{
+  font-family:var(--font-body);font-size:12px;letter-spacing:.2em;font-weight:500;text-transform:uppercase;
+  padding:14px 28px;background:transparent;border:1px solid var(--border-strong);color:var(--text);cursor:pointer;
+  transition:all .4s var(--ease);
+}
+.cd-line-btn:hover{border-color:var(--gold-light);background:var(--orange-dim)}
+.cd-line-all{font-size:14px;letter-spacing:.08em;color:#7A5A10;transition:color .3s var(--ease)}
+.cd-line-all:hover{color:var(--navy)}
+.cd-line-btn:focus-visible,.cd-line-all:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
+/* Handy: bei Platzmangel nur Heute, nächster und ein weiterer Termin */
+@media(max-width:600px){
+  .cd-line{--w:96px;margin-top:2rem}
+  .cd-line[data-count="4"]{--n:3}
+  .cd-line[data-count="4"] .cd-line-point:nth-child(4){display:none}
+  .cd-line-above span{white-space:normal;width:max-content;max-width:min(210px,56vw);text-align:center;line-height:1.35;letter-spacing:.16em}
+  .cd-line-point:first-child .cd-line-above span{text-align:left}
+  .cd-line-date{font-size:13px}
+  .hero-ics-wrap{gap:12px 16px}
+  .cd-line-btn{font-size:11px;padding:12px 16px;letter-spacing:.14em}
+  .cd-line-all{font-size:13px}
+}
 
 /* THREE LUXURY SVG ICONS */
 .hero-icons{
@@ -282,14 +316,9 @@ a{color:inherit;text-decoration:none}
   .hero-icon-svg{width:clamp(60px,18vw,90px)}
   .hero-deco{display:none}
 }
-/* Mobil: ruhiger Hero — schlichte Goldziffern statt Chronographen-Subdials,
-   die drei Deko-Icons (Schmuck/Uhren/Accessoires) entfallen */
+/* Mobil: ruhiger Hero — die drei Deko-Icons (Schmuck/Uhren/Accessoires) entfallen */
 @media(max-width:600px){
   .hero-icons{display:none}
-  .cd-dial-svg{display:none}
-  .countdown-dial{width:auto;height:auto}
-  .countdown-dial .countdown-value{position:static;display:block;font-size:1.9rem}
-  .countdown{gap:1.2rem}
 }
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 2.4rem;font-family:var(--font-body);font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:pointer;transition:all .4s var(--ease);position:relative;overflow:hidden}
@@ -786,7 +815,6 @@ a{color:inherit;text-decoration:none}
   .aussteller-form{padding:0;border-left:0;border-right:0;box-shadow:none;margin:0 -.25rem}
   .pricing-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}
   .pricing-card.featured{transform:none}.pricing-card.featured:hover{transform:translateY(-10px)}
-  .countdown-separator{display:none}
   .form-row{grid-template-columns:1fr}
   .gate-box .btn{display:block;width:100%;margin:.4rem 0}
   .ticket-badge{display:none!important}
@@ -795,8 +823,7 @@ a{color:inherit;text-decoration:none}
   .cursor-spotlight{display:none!important}
   .watch-draw-wrap{max-width:200px}
 }
-/* Subdial-Sizing entfaellt hier: ab <=600px zeigt der Hero schlichte Ziffern (kein .cd-dial-svg) */
-@media(max-width:480px){.section{padding:3.5rem 1.25rem}.nav{padding:1rem 1.25rem}.countdown{gap:1rem}.countdown-unit{padding:.15rem}.countdown-dial .countdown-value{font-size:1.7rem}.ticker-item{padding:0 1.5rem;font-size:.63rem}}
+@media(max-width:480px){.section{padding:3.5rem 1.25rem}.nav{padding:1rem 1.25rem}.ticker-item{padding:0 1.5rem;font-size:.63rem}}
 
 /* ===== TICKET POST-IT (top-right) ===== */
 .ticket-badge{
@@ -1136,8 +1163,6 @@ a{color:inherit;text-decoration:none}
 .ics-icon .draw{stroke-width:2.2}
 .ics-icon .draw.gold{stroke-width:1.8}
 .btn-ghost-sm .ics-icon{width:13px;height:13px}
-/* Hero: Wrapper trägt die Choreografie (data-hero-anim), damit der Hover-Lift des Buttons nicht mit dem Inline-Transform von animateHero kollidiert */
-.hero-ics-wrap{margin-top:1.1rem;opacity:0;transform:translateY(15px)}
 .termine-ics-all{text-align:center;margin-top:2.2rem}
 @media(max-width:768px){
   .btn-ghost-sm{padding:.35rem .6rem;font-size:.48rem;letter-spacing:.1em;margin-top:.6rem}
@@ -1159,7 +1184,6 @@ a{color:inherit;text-decoration:none}
    und im CTA-Banner-H2 behalten ihr flaches Orange (Lesbarkeit). */
 .section-title .orange,
 .ticket-price,
-.countdown-value,
 .termin-day,
 .termin-card.is-next .termin-day{
   background:linear-gradient(105deg,#B8860B 0%,#F4E5B8 18%,#D4AF37 30%,#B8860B 50%,#8B6914 80%,#8B6914 100%);
@@ -1173,7 +1197,6 @@ a{color:inherit;text-decoration:none}
 @supports not (-webkit-background-clip: text){
   .section-title .orange,
   .ticket-price,
-  .countdown-value,
   .termin-day,
   .termin-card.is-next .termin-day{background:none;color:var(--orange)}
   .termin-day{color:var(--navy)}
@@ -1426,8 +1449,6 @@ a{color:inherit;text-decoration:none}
 /* ===== PERFORMANCE: will-change ===== */
 .loader{will-change:opacity,visibility}
 .ticker-track{will-change:transform}
-.countdown-value{will-change:transform}
-.cd-hand{will-change:transform}
 .hero-icon-item.floating .hero-icon-svg{will-change:transform}
 .timeline-line-fill{will-change:width}
 

@@ -39,7 +39,7 @@
 <link rel="preconnect" href="https://maps.googleapis.com">
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20260930c">
+<link rel="stylesheet" href="css/style.css?v=20260930d">
 
 <!-- Lenis Smooth Scroll -->
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
@@ -825,88 +825,18 @@
     <p class="hero-date" data-hero-anim></p>
   </div>
 
-  <!-- Countdown: vier Chronographen-Subdials -->
-  <div class="hero-countdown-wrap">
-    <!-- Geteiltes Zifferblatt (Rehaut, Minuterie, 12 Indizes) — per <use> in allen 4 Subdials referenziert -->
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-      <defs>
-        <g id="cd-dial-face" fill="none">
-          <circle cx="50" cy="50" r="48" stroke="var(--navy)" stroke-width="1"/>
-          <circle cx="50" cy="50" r="44" stroke="var(--navy)" stroke-width="0.5" opacity="0.55" stroke-dasharray="0.7 3.908" stroke-dashoffset="0.35"/>
-          <g stroke="var(--navy)" stroke-width="1">
-            <line x1="73.5" y1="9.3" x2="71" y2="13.63"/>
-            <line x1="90.7" y1="26.5" x2="86.37" y2="29"/>
-            <line x1="90.7" y1="73.5" x2="86.37" y2="71"/>
-            <line x1="73.5" y1="90.7" x2="71" y2="86.37"/>
-            <line x1="26.5" y1="90.7" x2="29" y2="86.37"/>
-            <line x1="9.3" y1="73.5" x2="13.63" y2="71"/>
-            <line x1="9.3" y1="26.5" x2="13.63" y2="29"/>
-            <line x1="26.5" y1="9.3" x2="29" y2="13.63"/>
-          </g>
-          <g stroke="var(--gold-light)" stroke-width="1">
-            <line x1="50" y1="3" x2="50" y2="10"/>
-            <line x1="97" y1="50" x2="90" y2="50"/>
-            <line x1="50" y1="97" x2="50" y2="90"/>
-            <line x1="3" y1="50" x2="10" y2="50"/>
-          </g>
-        </g>
-      </defs>
-    </svg>
-    <div class="countdown" data-hero-anim role="timer" aria-label="Countdown">
-      <div class="countdown-unit">
-        <div class="countdown-dial">
-          <svg class="cd-dial-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-            <use href="#cd-dial-face"/>
-            <line class="cd-hand" x1="50" y1="50" x2="50" y2="14" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="50" cy="50" r="2" fill="var(--gold-light)"/>
-          </svg>
-          <span class="countdown-value" id="cd-days">--</span>
-        </div>
-        <span class="countdown-label" data-i18n-de="Tage" data-i18n-en="Days" data-i18n-it="Giorni">Tage</span>
-      </div>
-      <span class="countdown-separator" aria-hidden="true">:</span>
-      <div class="countdown-unit">
-        <div class="countdown-dial">
-          <svg class="cd-dial-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-            <use href="#cd-dial-face"/>
-            <line class="cd-hand" x1="50" y1="50" x2="50" y2="14" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="50" cy="50" r="2" fill="var(--gold-light)"/>
-          </svg>
-          <span class="countdown-value" id="cd-hours">--</span>
-        </div>
-        <span class="countdown-label" data-i18n-de="Std" data-i18n-en="Hrs" data-i18n-it="Ore">Std</span>
-      </div>
-      <span class="countdown-separator" aria-hidden="true">:</span>
-      <div class="countdown-unit">
-        <div class="countdown-dial">
-          <svg class="cd-dial-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-            <use href="#cd-dial-face"/>
-            <line class="cd-hand" x1="50" y1="50" x2="50" y2="14" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="50" cy="50" r="2" fill="var(--gold-light)"/>
-          </svg>
-          <span class="countdown-value" id="cd-mins">--</span>
-        </div>
-        <span class="countdown-label" data-i18n-de="Min" data-i18n-en="Min" data-i18n-it="Min">Min</span>
-      </div>
-      <span class="countdown-separator" aria-hidden="true">:</span>
-      <div class="countdown-unit">
-        <div class="countdown-dial">
-          <svg class="cd-dial-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-            <use href="#cd-dial-face"/>
-            <line class="cd-hand" x1="50" y1="50" x2="50" y2="14" stroke="var(--gold-light)" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="50" cy="50" r="2" fill="var(--gold-light)"/>
-          </svg>
-          <span class="countdown-value" id="cd-secs">--</span>
-        </div>
-        <span class="countdown-label" data-i18n-de="Sek" data-i18n-en="Sec" data-i18n-it="Sec">Sek</span>
-      </div>
+  <!-- Countdown als feine Zeitlinie: Heute · nächster Termin · zwei folgende (aus MESSE_TERMINE, befüllt in js/main.js: renderCountdownLine) -->
+  <div class="hero-countdown-wrap" id="heroCountdown">
+    <div class="cd-line" id="cdLine" data-hero-anim>
+      <div class="cd-line-track" aria-hidden="true"></div>
+      <div class="cd-line-progress" aria-hidden="true"></div>
+      <ol class="cd-line-points" id="cdLinePoints"></ol>
     </div>
-    <!-- ICS-Download des nächsten Termins (wird vom Termine-vorbei-Fallback mit entfernt) -->
     <div class="hero-ics-wrap" data-hero-anim>
-      <button type="button" class="btn-ghost js-ics-btn" id="icsHeroBtn" data-ics="next">
-        <svg class="ics-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect class="draw" x="8" y="10" width="24" height="22" rx="2"/><line class="draw" x1="8" y1="16.5" x2="32" y2="16.5"/><line class="draw gold" x1="14.5" y1="6.5" x2="14.5" y2="11.5"/><line class="draw gold" x1="25.5" y1="6.5" x2="25.5" y2="11.5"/><line class="draw gold" x1="20" y1="20.5" x2="20" y2="27.5"/><line class="draw gold" x1="16.5" y1="24" x2="23.5" y2="24"/></svg>
+      <button type="button" class="cd-line-btn js-ics-btn" id="icsHeroBtn" data-ics="next">
         <span data-i18n-de="In Kalender speichern" data-i18n-en="Add to Calendar" data-i18n-it="Salva nel calendario">In Kalender speichern</span>
       </button>
+      <a href="#termine" class="cd-line-all" data-i18n-html="true" data-i18n-de="Alle Termine &rarr;" data-i18n-en="All dates &rarr;" data-i18n-it="Tutte le date &rarr;">Alle Termine &rarr;</a>
     </div>
   </div>
 
@@ -1770,6 +1700,6 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script src="js/main.js?v=20260930c" defer></script>
+<script src="js/main.js?v=20260930d" defer></script>
 </body>
 </html>

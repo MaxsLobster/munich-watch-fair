@@ -80,6 +80,12 @@ const I18N_STRINGS = {
   it: { uhr:'', noTermin:'Nuove date in arrivo', tagesWithDate:'Dall\'alba al tramonto – ecco come si svolge il {d}.', tagesGeneric:'Dall\'alba al tramonto – ecco la vostra giornata fieristica.', barDays:'Mancano {n} giorni', barDay:'Manca 1 giorno', barToday:'Aperto oggi fino alle {t}', barTickets:'Biglietti da €20', barRoute:'Avvia il percorso' }
 };
 
+const I18N_WEEKDAYS_SHORT = {
+  de: {Sonntag:'So',Montag:'Mo',Dienstag:'Di',Mittwoch:'Mi',Donnerstag:'Do',Freitag:'Fr',Samstag:'Sa'},
+  en: {Sonntag:'Sun',Montag:'Mon',Dienstag:'Tue',Mittwoch:'Wed',Donnerstag:'Thu',Freitag:'Fri',Samstag:'Sat'},
+  it: {Sonntag:'Dom',Montag:'Lun',Dienstag:'Mar',Mittwoch:'Mer',Donnerstag:'Gio',Freitag:'Ven',Samstag:'Sab'}
+};
+
 function trMonth(m, lang) { return (I18N_MONTHS[lang] || I18N_MONTHS.de)[m] || m; }
 function trWeekday(w, lang) { return (I18N_WEEKDAYS[lang] || I18N_WEEKDAYS.de)[w] || w; }
 
@@ -96,7 +102,7 @@ function formatTerminLong(t, lang) {
   return t.day + '. ' + trMonth(t.month, lang) + ' ' + t.year;
 }
 
-/* ===== COUNTDOWN-TEXTE ===== */
+/* ===== COUNTDOWN-TEXTE (über dem nächsten Termin in der Countdown-Linie) ===== */
 // "In 4 Tagen" / "Morgen" und am Messetag live der Einlass-Stand (Münchner Zeit).
 const HERO_EINLASS = { early: '07:00', all: '10:30', last: '16:00' }; // Einlasszeiten am Messetag
 const HERO_BAND = {
@@ -115,6 +121,50 @@ function heroBandText(t, now, lang) {
   }
   var n = daysBetween(now.date, t.date);
   return n === 1 ? b.tomorrow : b.days.replace('{n}', n);
+}
+
+// Kurzdatum für die Countdown-Linie: "So, 4. Okt" · "Sun, 4 Oct" · "Dom 4 ott"
+function formatTerminTiny(t, lang) {
+  lang = lang || currentLang;
+  var wd = (I18N_WEEKDAYS_SHORT[lang] || I18N_WEEKDAYS_SHORT.de)[t.weekday] || t.weekday;
+  var mo = trMonthShort(t.month, lang);
+  if (lang === 'en') return wd + ', ' + t.day + ' ' + mo;
+  if (lang === 'it') return wd + ' ' + t.day + ' ' + mo.toLowerCase();
+  return wd + ', ' + t.day + '. ' + mo;
+}
+
+/* ===== COUNTDOWN-LINIE IM HERO ===== */
+// Vier gleichmäßig verteilte Punkte: Heute · nächster Termin · zwei folgende.
+// Goldene Strecke von Heute bis zum nächsten Termin, darüber der Countdown-Text.
+// Am Messetag fallen Heute und nächster Termin zusammen -> drei Punkte, ohne Goldstrecke.
+const HERO_TODAY = { de: 'Heute', en: 'Today', it: 'Oggi' };
+
+function renderCountdownLine() {
+  var wrap = document.getElementById('heroCountdown');
+  var line = document.getElementById('cdLine');
+  var list = document.getElementById('cdLinePoints');
+  if (!wrap || !line || !list) return;
+  var lang = currentLang;
+  var now = berlinNow();
+  var future = getFutureTermine();
+  wrap.hidden = !future.length; // keine Termine: Datumszeile sagt "Neue Termine folgen in Kürze"
+  if (!future.length) return;
+  var next = future[0];
+  var isToday = next.date === now.date;
+  var countdown = heroBandText(next, now, lang);
+  var points = [];
+  if (!isToday) points.push({ kind: 'today', label: HERO_TODAY[lang] || HERO_TODAY.de });
+  points.push({ kind: 'next', label: formatTerminTiny(next, lang), above: countdown });
+  future.slice(1, 3).forEach(function(t) { points.push({ kind: 'later', label: formatTerminTiny(t, lang) }); });
+  line.setAttribute('data-count', points.length);
+  line.classList.toggle('is-eventday', isToday);
+  list.innerHTML = points.map(function(p) {
+    return '<li class="cd-line-point is-' + p.kind + '">'
+      + '<span class="cd-line-above">' + (p.above ? '<span>' + p.above + '</span>' : '') + '</span>'
+      + '<span class="cd-line-dot" aria-hidden="true"></span>'
+      + '<span class="cd-line-date">' + p.label + '</span>'
+      + '</li>';
+  }).join('');
 }
 
 // Sprachrichtiges Datum mit Wochentag:
@@ -218,8 +268,12 @@ function updateAllTerminElements() {
   // Hero-Datum
   var heroDate = document.querySelector('.hero-date');
   if (heroDate) {
-    heroDate.textContent = next ? formatTerminHero(next, lang) : s.noTermin;
+    // Solange die Schreibmaschinen-Animation läuft, tippt sie selbst den jeweils aktuellen Text
+    heroDate.dataset.text = next ? formatTerminHero(next, lang) : s.noTermin;
+    if (heroDate.dataset.typing !== '1') heroDate.textContent = heroDate.dataset.text;
   }
+  // Hero: Countdown-Linie
+  renderCountdownLine();
 
   // Ticket Badge (Desktop)
   var badgeDate = document.querySelector('.ticket-badge-date');
@@ -378,65 +432,6 @@ function animateHero(){
   }
   window.addEventListener('load',()=>setTimeout(positionBand,100));
   window.addEventListener('resize',positionBand);
-})();
-
-/* ===== COUNTDOWN ===== */
-(function(){
-  const next = getNextTermin();
-  const countdownWrap = document.querySelector('.hero-countdown-wrap');
-  if (!next) {
-    // Alle Termine vorbei: Countdown durch Hinweis ersetzen
-    if (countdownWrap) {
-      countdownWrap.innerHTML = '<p style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-mid);text-align:center;opacity:0;" data-hero-anim data-i18n-de="Neue Termine folgen in Kürze" data-i18n-en="New dates coming soon" data-i18n-it="Nuove date in arrivo">Neue Termine folgen in Kürze</p>';
-    }
-    return;
-  }
-  const t = berlinEpoch(next.date, next.start); // Beginn in Münchner Zeit
-  const e={d:document.getElementById('cd-days'),h:document.getElementById('cd-hours'),m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};
-  if(!e.d) return; // Seite ohne Countdown
-  let p={};
-
-  // Chronographen-Zeiger der vier Subdials (Null-Guards: Fallback-HTML hat keine .cd-hand)
-  function handOf(el){
-    if(!el) return null;
-    const dial = el.closest('.countdown-dial');
-    return dial ? dial.querySelector('.cd-hand') : null;
-  }
-  const hands={d:handOf(e.d),h:handOf(e.h),m:handOf(e.m),s:handOf(e.s)};
-  // Kumulative Rotation pro Zeiger: der Zähler wächst nur, damit der Zeiger beim
-  // Wrap (z.B. Sek 0 -> 59) vorwärts über 360° weiterdreht statt rückwärts zu springen.
-  const rot={d:0,h:0,m:0,s:0};
-  let handsInit=false;
-  function setHands(target){
-    Object.keys(hands).forEach(k=>{
-      const hand=hands[k];
-      if(!hand) return;
-      const cur=((rot[k]%360)+360)%360;
-      rot[k]+=((target[k]-cur)%360+360)%360; // nur vorwärts drehen
-      if(!handsInit){hand.style.transition='none'}
-      hand.style.transform='rotate('+rot[k]+'deg)';
-      if(!handsInit){hand.getBoundingClientRect();hand.style.transition=''} // Startstellung ohne Anfahr-Animation
-    });
-    handsInit=true;
-  }
-
-  function pad(n){return String(n).padStart(2,'0')}
-  function tick(el){el.classList.add('tick');setTimeout(()=>el.classList.remove('tick'),300)}
-  function u(){
-    const d=t-Date.now();
-    if(d<=0){Object.values(e).forEach(x=>x.textContent='00');setHands({d:0,h:0,m:0,s:0});return}
-    const v={d:Math.floor(d/864e5),h:Math.floor(d%864e5/36e5),m:Math.floor(d%36e5/6e4),s:Math.floor(d%6e4/1e3)};
-    Object.keys(v).forEach(k=>{const s=pad(v[k]);if(p[k]!==s){e[k].textContent=s;tick(e[k]);p[k]=s}});
-    // Deadbeat-Tick: Sek/Min 6° pro Schritt, Std 15° (24h-Skala), Tage 12° (30-Tage-Skala).
-    // Zeiger laufen vorwärts und stehen bei 0 ihrer Einheit exakt auf 12 Uhr.
-    setHands({
-      d:(v.d%30)*12,
-      h:((24-v.h)%24)*15,
-      m:((60-v.m)%60)*6,
-      s:((60-v.s)%60)*6
-    });
-  }
-  u();setInterval(u,1e3);
 })();
 
 /* ===== SCROLL REVEAL ===== */
@@ -682,7 +677,7 @@ function animateHero(){
   });
 
   // Keine zukünftigen Termine: Sammel-Button ausblenden
-  // (den Hero-Button entfernt der Countdown-Fallback per innerHTML bereits selbst)
+  // (den Hero-Button blendet renderCountdownLine ohne Termine mit aus)
   if(!getNextTermin()){
     var allWrap = document.querySelector('.termine-ics-all');
     if(allWrap) allWrap.style.display = 'none';
@@ -1029,7 +1024,7 @@ function reapplyTitleEffects() {
   // Countdown ist beim Load bereits im Viewport, dort feuert der Trigger sofort).
   const foilReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!foilReduce){
-    gsap.utils.toArray('.section-title .orange, .ticket-price, .countdown-value, .termin-day').forEach(el => {
+    gsap.utils.toArray('.section-title .orange, .ticket-price, .termin-day').forEach(el => {
       gsap.fromTo(el,
         { backgroundPosition: '0% 0%' },
         { backgroundPosition: '100% 0%', duration: 1.4, ease: 'power2.out',
@@ -1105,9 +1100,8 @@ function reapplyTitleEffects() {
 
   // Typewriter for date
   const heroDate = document.querySelector('.hero-date');
-  let dateText = '';
   if(heroDate){
-    dateText = heroDate.textContent;
+    heroDate.dataset.typing = '1';
     heroDate.textContent = '';
     heroDate.style.opacity = '1';
     heroDate.style.transform = 'none';
@@ -1156,22 +1150,27 @@ function reapplyTitleEffects() {
     if(badge) tl.to(badge, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
 
     // Typewriter date
-    if(heroDate && dateText){
+    // (liest den Text bei jedem Schritt neu, damit ein Sprachwechsel währenddessen nicht doppelt schreibt)
+    if(heroDate){
       tl.add(() => {
         let i = 0;
         const interval = setInterval(() => {
-          if(i < dateText.length){
-            heroDate.textContent += dateText[i];
-            i++;
-          } else { clearInterval(interval); }
+          const full = heroDate.dataset.text || '';
+          i++;
+          heroDate.textContent = full.slice(0, i);
+          if(i >= full.length){
+            clearInterval(interval);
+            delete heroDate.dataset.typing;
+            heroDate.textContent = full;
+          }
         }, 25);
       }, '-=0.1');
     }
 
-    // Countdown
-    const countdown = document.querySelector('.countdown');
-    if(countdown){
-      tl.to(countdown, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '+=0.3');
+    // Countdown-Linie
+    const cdLine = document.getElementById('cdLine');
+    if(cdLine){
+      tl.to(cdLine, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '+=0.3');
     }
 
     // Scroll indicator
