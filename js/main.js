@@ -104,17 +104,18 @@ function formatTerminLong(t, lang) {
 
 /* ===== COUNTDOWN-TEXTE (über dem nächsten Termin in der Countdown-Linie) ===== */
 // "In 4 Tagen" / "Morgen" und am Messetag live der Einlass-Stand (Münchner Zeit).
-const HERO_EINLASS = { early: '07:00', all: '10:30', last: '16:00' }; // Einlasszeiten am Messetag
+const HERO_EINLASS = { early: '07:00', earlyBird: '08:00', all: '10:30', last: '16:00' }; // Einlasszeiten am Messetag (07:00 WTA/Table Holder, 08:00 Early Bird)
 const HERO_BAND = {
-  de: { days: 'In {n} Tagen', tomorrow: 'Morgen', before: 'Heute · ab 7 Uhr', early: 'Heute geöffnet · Early Bird', all: 'Heute geöffnet · Einlass für alle', last: 'Heute · letzter Einlass vorbei' },
-  en: { days: 'In {n} days', tomorrow: 'Tomorrow', before: 'Today · from 7 am', early: 'Open today · Early Bird', all: 'Open today · Entry for all', last: 'Today · last entry has passed' },
-  it: { days: 'Tra {n} giorni', tomorrow: 'Domani', before: 'Oggi · dalle 7', early: 'Aperto oggi · Early Bird', all: 'Aperto oggi · Ingresso per tutti', last: 'Oggi · ultimo ingresso passato' }
+  de: { days: 'In {n} Tagen', tomorrow: 'Morgen', before: 'Heute · ab 7 Uhr', waitEarly: 'Heute · Early Bird ab 8 Uhr', early: 'Heute geöffnet · Early Bird', all: 'Heute geöffnet · Einlass für alle', last: 'Heute · letzter Einlass vorbei' },
+  en: { days: 'In {n} days', tomorrow: 'Tomorrow', before: 'Today · from 7 am', waitEarly: 'Today · Early Bird from 8 am', early: 'Open today · Early Bird', all: 'Open today · Entry for all', last: 'Today · last entry has passed' },
+  it: { days: 'Tra {n} giorni', tomorrow: 'Domani', before: 'Oggi · dalle 7', waitEarly: 'Oggi · Early Bird dalle 8', early: 'Aperto oggi · Early Bird', all: 'Aperto oggi · Ingresso per tutti', last: 'Oggi · ultimo ingresso passato' }
 };
 
 function heroBandText(t, now, lang) {
   var b = HERO_BAND[lang] || HERO_BAND.de;
   if (t.date === now.date) {
     if (now.min < toMinutes(HERO_EINLASS.early)) return b.before;
+    if (now.min < toMinutes(HERO_EINLASS.earlyBird)) return b.waitEarly; // 7–8 Uhr: nur WTA-Mitglieder und Aussteller
     if (now.min < toMinutes(HERO_EINLASS.all)) return b.early;
     if (now.min < toMinutes(HERO_EINLASS.last)) return b.all;
     return b.last; // ab Messe-Ende (17:00) liefert getFutureTermine() bereits den nächsten Termin
@@ -594,9 +595,9 @@ function animateHero(){
   var ICS_LOCATION = 'Ballhausforum Unterschleißheim, Am Haingraben 33, 85716 Unterschleißheim';
   var ICS_URL = 'https://www.munichwatchfair.com';
   var ICS_DESC = {
-    de: 'Munich Watch Fair – Europas führende Uhrenbörse seit 1989. Einlass: 08:00 Uhr (Early Bird) / 10:30 Uhr (regulär). Infos & Tickets: ' + ICS_URL,
-    en: 'Munich Watch Fair – Europe\'s leading watch fair since 1989. Doors open: 08:00 (Early Bird) / 10:30 (regular). Info & tickets: ' + ICS_URL,
-    it: 'Munich Watch Fair – la principale borsa di orologi d\'Europa dal 1989. Apertura: ore 08:00 (Early Bird) / ore 10:30 (regolare). Info e biglietti: ' + ICS_URL
+    de: 'Munich Watch Fair – Europas führende Uhrenbörse seit 1989. Einlass: 07:00 Uhr (WTA-Mitglieder) / 08:00 Uhr (Early Bird) / 10:30 Uhr (regulär). Infos & Tickets: ' + ICS_URL,
+    en: 'Munich Watch Fair – Europe\'s leading watch fair since 1989. Doors open: 07:00 (WTA members) / 08:00 (Early Bird) / 10:30 (regular). Info & tickets: ' + ICS_URL,
+    it: 'Munich Watch Fair – la principale borsa di orologi d\'Europa dal 1989. Apertura: ore 07:00 (membri WTA) / ore 08:00 (Early Bird) / ore 10:30 (regolare). Info e biglietti: ' + ICS_URL
   };
 
   // Sonderzeichen nach RFC 5545 escapen (Backslash zuerst!)

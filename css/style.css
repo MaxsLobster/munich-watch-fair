@@ -564,7 +564,6 @@ a{color:inherit;text-decoration:none}
   box-shadow:0 1px 2px rgba(0,0,0,.03),inset 0 1px 2px rgba(0,0,0,.015);
   padding:1.2rem 1rem;
   transition:all .5s var(--ease);
-  flex:1;
 }
 .timeline-card-glass::before{
   content:'';position:absolute;inset:0;
@@ -576,12 +575,12 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(90deg,transparent,var(--orange),transparent);
   opacity:0;transition:opacity .4s;
 }
-.timeline-item:hover .timeline-card-glass{
+.timeline-card-glass:hover{
   transform:translateY(-2px);
   box-shadow:0 2px 6px rgba(0,0,0,.05);
   border-color:var(--gold-border);
 }
-.timeline-item:hover .timeline-card-glass::after{opacity:.5}
+.timeline-card-glass:hover::after{opacity:.5}
 .timeline-time{
   display:inline-block;font-size:.6rem;font-weight:600;
   letter-spacing:.12em;text-transform:uppercase;
@@ -593,6 +592,29 @@ a{color:inherit;text-decoration:none}
 .timeline-card-glass p{
   font-size:.78rem;color:var(--text-mid);line-height:1.5;font-weight:300;
 }
+/* Station 07:00: zwei Karten übereinander */
+.timeline-item-double{gap:.7rem}
+.timeline-time-row{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.3rem}
+.timeline-time-row .timeline-time{margin-bottom:0}
+.timeline-new{
+  font-size:.55rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--navy);color:var(--orange-light);padding:.18rem .45rem .18rem .55rem;border-radius:2px;
+}
+/* Preis + Armband-Etikett */
+.timeline-meta{display:flex;flex-direction:column;align-items:center;gap:.45rem;margin-top:.8rem;padding-top:.7rem;border-top:1px solid var(--border)}
+.timeline-card-glass .timeline-price{font-size:.72rem;color:var(--text-muted);line-height:1.2}
+.timeline-price-amount{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--navy);margin-right:.15rem}
+.timeline-card-glass .timeline-price-note{font-size:.72rem;font-style:italic}
+.timeline-band{
+  display:inline-flex;align-items:center;gap:.35rem;
+  font-size:.56rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  padding:.28rem .6rem .28rem .5rem;border-radius:999px;border:1px solid;
+}
+.timeline-band::before{content:'';width:.45rem;height:.45rem;border-radius:50%;background:currentColor}
+.timeline-band.is-dealer{color:#7A5A10;background:rgba(194,119,34,.12);border-color:var(--orange-border)}
+.timeline-band.is-dealer::before{background:var(--orange)}
+.timeline-band.is-visitor{color:var(--text-muted);background:rgba(107,100,92,.08);border-color:var(--border)}
+.timeline-band.is-visitor::before{background:#a39c91}
 
 /* Tablet: scroll horizontally */
 @media(max-width:1024px){
@@ -637,6 +659,9 @@ a{color:inherit;text-decoration:none}
     background:linear-gradient(90deg,var(--orange-border),transparent);
   }
   .timeline-card-glass{padding:1rem .9rem;width:100%}
+  .timeline-item-double{flex-direction:column}
+  .timeline-time-row{justify-content:flex-start}
+  .timeline-meta{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between}
   .timeline-card-glass h3{font-size:.95rem;margin-bottom:.3rem}
   .timeline-card-glass p{font-size:.78rem;line-height:1.5}
 }
@@ -645,6 +670,7 @@ a{color:inherit;text-decoration:none}
 .ticket-card{max-width:460px;margin:0 auto;background:var(--bg-card);border:1px solid var(--gold-border);padding:clamp(2.5rem,4vw,3.5rem);text-align:center;position:relative;overflow:hidden;transition:all .5s var(--ease);box-shadow:0 1px 2px rgba(0,0,0,.03),inset 0 1px 2px rgba(0,0,0,.015)}
 .ticket-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;max-width:960px;margin:0 auto}
 .ticket-grid .ticket-card{max-width:none}
+.ticket-note{text-align:center;margin-top:1.8rem;font-size:.88rem;color:var(--text-mid)}
 .ticket-ribbon{position:absolute;top:16px;right:-32px;background:var(--orange);color:#fff;font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.3rem 2.5rem;transform:rotate(45deg)}
 .ticket-card:hover{transform:translateY(-2px);box-shadow:0 3px 8px rgba(0,0,0,.06);border-color:var(--orange-border)}
 .ticket-card::before,.ticket-card::after{content:'';position:absolute;width:40px;height:40px;border-color:var(--navy);border-style:solid;opacity:.3;transition:all .5s var(--ease)}
