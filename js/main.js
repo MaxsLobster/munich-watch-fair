@@ -18,13 +18,31 @@ const MESSE_TERMINE = [
   { date: '2027-12-12', start: '08:00', end: '17:00', weekday: 'Sonntag', day: '12', month: 'Dezember', year: '2027', location: 'Ballhausforum Unterschleißheim' },
 ];
 
+/* Alle Termin-Entscheidungen laufen in Münchner Zeit (Europe/Berlin), egal wo der Besucher sitzt.
+   berlinNow() liefert { date: 'YYYY-MM-DD', min: Minuten seit Mitternacht }. */
+function berlinNow() {
+  var p = {};
+  new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+    .formatToParts(new Date()).forEach(function(x) { p[x.type] = x.value; });
+  return { date: p.year + '-' + p.month + '-' + p.day, min: (+p.hour % 24) * 60 + (+p.minute) };
+}
+function toMinutes(hhmm) { var a = hhmm.split(':'); return (+a[0]) * 60 + (+a[1]); }
+// Kalendertage zwischen zwei 'YYYY-MM-DD' (b - a)
+function daysBetween(a, b) {
+  function utc(d) { var x = d.split('-'); return Date.UTC(+x[0], +x[1] - 1, +x[2]); }
+  return Math.round((utc(b) - utc(a)) / 86400000);
+}
+// Ein Termin gilt ab seiner Endzeit (17:00) als vorbei
+function terminIsOver(t, now) {
+  now = now || berlinNow();
+  return t.date < now.date || (t.date === now.date && now.min >= toMinutes(t.end));
+}
+function getFutureTermine() {
+  var now = berlinNow();
+  return MESSE_TERMINE.filter(function(t) { return !terminIsOver(t, now); });
+}
 function getNextTermin() {
-  const now = new Date();
-  for (const t of MESSE_TERMINE) {
-    const end = new Date(t.date + 'T' + t.end + ':00');
-    if (end > now) return t;
-  }
-  return null;
+  return getFutureTermine()[0] || null;
 }
 
 /* Zentrale Ziel-URLs (Mobile App-Bar) */
@@ -55,11 +73,12 @@ const I18N_STRINGS = {
 function trMonth(m, lang) { return (I18N_MONTHS[lang] || I18N_MONTHS.de)[m] || m; }
 function trWeekday(w, lang) { return (I18N_WEEKDAYS[lang] || I18N_WEEKDAYS.de)[w] || w; }
 
+const I18N_MONTHS_SHORT = {de:{Jan:'Jan',Feb:'Feb','Mär':'Mär',Apr:'Apr',Mai:'Mai',Jun:'Jun',Jul:'Jul',Aug:'Aug',Sep:'Sep',Okt:'Okt',Nov:'Nov',Dez:'Dez'},en:{Jan:'Jan',Feb:'Feb','Mär':'Mar',Apr:'Apr',Mai:'May',Jun:'Jun',Jul:'Jul',Aug:'Aug',Sep:'Sep',Okt:'Oct',Nov:'Nov',Dez:'Dec'},it:{Jan:'Gen',Feb:'Feb','Mär':'Mar',Apr:'Apr',Mai:'Mag',Jun:'Giu',Jul:'Lug',Aug:'Ago',Sep:'Set',Okt:'Ott',Nov:'Nov',Dez:'Dic'}};
+function trMonthShort(m, lang) { var ms = m.substring(0, 3); return (I18N_MONTHS_SHORT[lang] || I18N_MONTHS_SHORT.de)[ms] || ms; }
+
 function formatTerminShort(t, lang) {
   lang = lang || currentLang;
-  var ms = t.month.substring(0, 3);
-  var map = {de:{Jan:'Jan',Feb:'Feb','Mär':'Mär',Apr:'Apr',Mai:'Mai',Jun:'Jun',Jul:'Jul',Aug:'Aug',Sep:'Sep',Okt:'Okt',Nov:'Nov',Dez:'Dez'},en:{Jan:'Jan',Feb:'Feb','Mär':'Mar',Apr:'Apr',Mai:'May',Jun:'Jun',Jul:'Jul',Aug:'Aug',Sep:'Sep',Okt:'Oct',Nov:'Nov',Dez:'Dec'},it:{Jan:'Gen',Feb:'Feb','Mär':'Mar',Apr:'Apr',Mai:'Mag',Jun:'Giu',Jul:'Lug',Aug:'Ago',Sep:'Set',Okt:'Ott',Nov:'Nov',Dez:'Dic'}};
-  return t.day + '. ' + ((map[lang] || map.de)[ms] || ms) + ' ' + t.year;
+  return t.day + '. ' + trMonthShort(t.month, lang) + ' ' + t.year;
 }
 
 function formatTerminLong(t, lang) {
@@ -67,13 +86,67 @@ function formatTerminLong(t, lang) {
   return t.day + '. ' + trMonth(t.month, lang) + ' ' + t.year;
 }
 
-function formatTerminHero(t, lang) {
-  lang = lang || currentLang;
+/* ===== HERO: TERMIN-LEISTE ("KALENDERBLÄTTER") ===== */
+// Die nächsten drei Termine aus MESSE_TERMINE. Das Band am nächsten Blatt zählt herunter
+// und zeigt am Messetag live den Einlass-Stand (Münchner Zeit).
+const HERO_EINLASS = { early: '07:00', all: '10:30', last: '16:00' }; // Einlasszeiten am Messetag
+const HERO_BAND = {
+  de: { days: 'In {n} Tagen', tomorrow: 'Morgen', before: 'Heute · ab 7 Uhr', early: 'Heute geöffnet · Early Bird', all: 'Heute geöffnet · Einlass für alle', last: 'Heute · letzter Einlass vorbei' },
+  en: { days: 'In {n} days', tomorrow: 'Tomorrow', before: 'Today · from 7 am', early: 'Open today · Early Bird', all: 'Open today · Entry for all', last: 'Today · last entry has passed' },
+  it: { days: 'Tra {n} giorni', tomorrow: 'Domani', before: 'Oggi · dalle 7', early: 'Aperto oggi · Early Bird', all: 'Aperto oggi · Ingresso per tutti', last: 'Oggi · ultimo ingresso passato' }
+};
+
+function heroBandText(t, now, lang) {
+  var b = HERO_BAND[lang] || HERO_BAND.de;
+  if (t.date === now.date) {
+    if (now.min < toMinutes(HERO_EINLASS.early)) return b.before;
+    if (now.min < toMinutes(HERO_EINLASS.all)) return b.early;
+    if (now.min < toMinutes(HERO_EINLASS.last)) return b.all;
+    return b.last; // ab Messe-Ende (17:00) liefert getFutureTermine() bereits den nächsten Termin
+  }
+  var n = daysBetween(now.date, t.date);
+  return n === 1 ? b.tomorrow : b.days.replace('{n}', n);
+}
+
+// Messetag-Texte ("Heute geöffnet · Early Bird") zweizeilig am "·" umbrechen
+function bandHtml(text) {
+  var parts = text.split(' · ');
+  if (parts.length < 2) return '<span class="cal-sheet-band">' + text + '</span>';
+  return '<span class="cal-sheet-band is-live">' + parts.map(function(p) { return '<span>' + p + '</span>'; }).join('') + '</span>';
+}
+
+function renderHeroTermine() {
+  var wrap = document.getElementById('heroTermine');
+  if (!wrap) return;
+  var lang = currentLang;
   var s = I18N_STRINGS[lang] || I18N_STRINGS.de;
-  var timeStr = t.start + ' \u2013 ' + t.end + (s.uhr ? ' ' + s.uhr : '');
-  return trWeekday(t.weekday, lang) + ', ' + t.day + '. ' + trMonth(t.month, lang) + ' ' + t.year
-    + ' \u2003\u00B7\u2003' + timeStr
-    + ' \u2003\u00B7\u2003' + t.location;
+  var now = berlinNow();
+  var list = getFutureTermine().slice(0, 3);
+  var sheets = document.getElementById('heroTermineSheets');
+  var dateEl = document.getElementById('heroTermineDate');
+  var metaEl = document.getElementById('heroTermineMeta');
+  wrap.classList.toggle('is-empty', !list.length);
+  if (!list.length) {
+    sheets.innerHTML = '';
+    dateEl.textContent = s.noTermin;
+    metaEl.textContent = '';
+    return;
+  }
+  sheets.innerHTML = list.map(function(t, i) {
+    return '<div class="cal-sheet' + (i === 0 ? ' is-next' : '') + '">'
+      + '<span class="cal-sheet-month">' + trMonthShort(t.month, lang) + '</span>'
+      + '<span class="cal-sheet-day">' + t.day + '</span>'
+      + '<span class="cal-sheet-weekday">' + trWeekday(t.weekday, lang) + '</span>'
+      + (i === 0 ? bandHtml(heroBandText(t, now, lang)) : '')
+      + '</div>';
+  }).join('');
+  var t = list[0];
+  // Sprachrichtig: "Sonntag, 4. Oktober 2026" · "Sunday, 4 October 2026" · "Domenica 4 ottobre 2026"
+  var wd = trWeekday(t.weekday, lang), mo = trMonth(t.month, lang);
+  dateEl.textContent = lang === 'en' ? wd + ', ' + t.day + ' ' + mo + ' ' + t.year
+    : lang === 'it' ? wd + ' ' + t.day + ' ' + mo.toLowerCase() + ' ' + t.year
+    : wd + ', ' + t.day + '. ' + mo + ' ' + t.year;
+  metaEl.textContent = t.start + '–' + t.end + (s.uhr ? ' ' + s.uhr : '') + ' · ' + t.location;
 }
 
 /* ===== TERMINLISTE AUS MESSE_TERMINE ERZEUGEN ===== */
@@ -89,8 +162,7 @@ var TERMIN_TOGGLE_TEXT = {
 function renderTerminList() {
   var list = document.getElementById('termineGrid');
   if (!list) return;
-  var now = new Date();
-  var future = MESSE_TERMINE.filter(function(t) { return new Date(t.date + 'T' + t.end + ':00') > now; });
+  var future = getFutureTermine();
   var icsSvg = '<svg class="ics-icon icon-engrave" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect class="draw" x="8" y="10" width="24" height="22" rx="2"/><line class="draw" x1="8" y1="16.5" x2="32" y2="16.5"/><line class="draw gold" x1="14.5" y1="6.5" x2="14.5" y2="11.5"/><line class="draw gold" x1="25.5" y1="6.5" x2="25.5" y2="11.5"/><line class="draw gold" x1="20" y1="20.5" x2="20" y2="27.5"/><line class="draw gold" x1="16.5" y1="24" x2="23.5" y2="24"/></svg>';
   function i18nAttrs(fn) {
     return ['de', 'en', 'it'].map(function(l) { return ' data-i18n-' + l + '="' + fn(l) + '"'; }).join('');
@@ -156,11 +228,8 @@ function updateAllTerminElements() {
   var s = I18N_STRINGS[lang] || I18N_STRINGS.de;
   var next = getNextTermin();
 
-  // Hero-Datum
-  var heroDate = document.querySelector('.hero-date');
-  if (heroDate) {
-    heroDate.textContent = next ? formatTerminHero(next, lang) : s.noTermin;
-  }
+  // Hero: Termin-Leiste (Kalenderblätter)
+  renderHeroTermine();
 
   // Ticket Badge (Desktop)
   var badgeDate = document.querySelector('.ticket-badge-date');
@@ -175,9 +244,8 @@ function updateAllTerminElements() {
   if (mobileBar) {
     var barChip = document.getElementById('mobileBarChip');
     var barCta = document.getElementById('mobileBarCta');
-    var barNow = new Date();
-    var todayStr = barNow.getFullYear() + '-' + ('0' + (barNow.getMonth() + 1)).slice(-2) + '-' + ('0' + barNow.getDate()).slice(-2);
-    var isMesseTag = !!next && next.date === todayStr;
+    var barNow = berlinNow();
+    var isMesseTag = !!next && next.date === barNow.date;
     mobileBar.classList.toggle('is-eventday', isMesseTag);
     mobileBar.classList.toggle('no-chip', !next);
     if (barChip) {
@@ -186,7 +254,7 @@ function updateAllTerminElements() {
       } else if (isMesseTag) {
         barChip.textContent = s.barToday.replace('{t}', next.end);
       } else {
-        var restTage = Math.ceil((new Date(next.date + 'T00:00:00') - barNow) / 86400000);
+        var restTage = daysBetween(barNow.date, next.date);
         barChip.textContent = restTage === 1 ? s.barDay : s.barDays.replace('{n}', restTage);
       }
     }
@@ -231,10 +299,11 @@ function updateAllTerminElements() {
 
   // Terminliste: vergangene ausblenden, nächsten markieren, Aufklapp-Buttons übersetzen
   var rows = document.querySelectorAll('.termin-row[data-date]');
-  var now = new Date();
+  var now = berlinNow();
   rows.forEach(function(row) {
     row.classList.remove('is-next');
-    if (new Date(row.dataset.date + 'T17:00:00') < now) {
+    var rt = MESSE_TERMINE.filter(function(x) { return x.date === row.dataset.date; })[0];
+    if (rt && terminIsOver(rt, now)) {
       row.style.display = 'none';
     } else if (next && row.dataset.date === next.date) {
       row.classList.add('is-next');
@@ -259,6 +328,8 @@ function updateAllTerminElements() {
   }
 }
 updateAllTerminElements();
+// Minütlich nachführen: Band-Text am Messetag, Wechsel auf den nächsten Termin um 17:00
+setInterval(updateAllTerminElements, 60000);
 
 /* ===== LOADER ===== */
 window.addEventListener('load',()=>{
@@ -317,65 +388,6 @@ function animateHero(){
   }
   window.addEventListener('load',()=>setTimeout(positionBand,100));
   window.addEventListener('resize',positionBand);
-})();
-
-/* ===== COUNTDOWN ===== */
-(function(){
-  const next = getNextTermin();
-  const countdownWrap = document.querySelector('.hero-countdown-wrap');
-  if (!next) {
-    // Alle Termine vorbei: Countdown durch Hinweis ersetzen
-    if (countdownWrap) {
-      countdownWrap.innerHTML = '<p style="font-family:var(--font-display);font-size:1.2rem;color:var(--text-mid);text-align:center;opacity:0;" data-hero-anim data-i18n-de="Neue Termine folgen in Kürze" data-i18n-en="New dates coming soon" data-i18n-it="Nuove date in arrivo">Neue Termine folgen in Kürze</p>';
-    }
-    return;
-  }
-  const t = new Date(next.date + 'T' + next.start + ':00').getTime();
-  const e={d:document.getElementById('cd-days'),h:document.getElementById('cd-hours'),m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};
-  if(!e.d) return; // Seite ohne Countdown
-  let p={};
-
-  // Chronographen-Zeiger der vier Subdials (Null-Guards: Fallback-HTML hat keine .cd-hand)
-  function handOf(el){
-    if(!el) return null;
-    const dial = el.closest('.countdown-dial');
-    return dial ? dial.querySelector('.cd-hand') : null;
-  }
-  const hands={d:handOf(e.d),h:handOf(e.h),m:handOf(e.m),s:handOf(e.s)};
-  // Kumulative Rotation pro Zeiger: der Zähler wächst nur, damit der Zeiger beim
-  // Wrap (z.B. Sek 0 -> 59) vorwärts über 360° weiterdreht statt rückwärts zu springen.
-  const rot={d:0,h:0,m:0,s:0};
-  let handsInit=false;
-  function setHands(target){
-    Object.keys(hands).forEach(k=>{
-      const hand=hands[k];
-      if(!hand) return;
-      const cur=((rot[k]%360)+360)%360;
-      rot[k]+=((target[k]-cur)%360+360)%360; // nur vorwärts drehen
-      if(!handsInit){hand.style.transition='none'}
-      hand.style.transform='rotate('+rot[k]+'deg)';
-      if(!handsInit){hand.getBoundingClientRect();hand.style.transition=''} // Startstellung ohne Anfahr-Animation
-    });
-    handsInit=true;
-  }
-
-  function pad(n){return String(n).padStart(2,'0')}
-  function tick(el){el.classList.add('tick');setTimeout(()=>el.classList.remove('tick'),300)}
-  function u(){
-    const d=t-Date.now();
-    if(d<=0){Object.values(e).forEach(x=>x.textContent='00');setHands({d:0,h:0,m:0,s:0});return}
-    const v={d:Math.floor(d/864e5),h:Math.floor(d%864e5/36e5),m:Math.floor(d%36e5/6e4),s:Math.floor(d%6e4/1e3)};
-    Object.keys(v).forEach(k=>{const s=pad(v[k]);if(p[k]!==s){e[k].textContent=s;tick(e[k]);p[k]=s}});
-    // Deadbeat-Tick: Sek/Min 6° pro Schritt, Std 15° (24h-Skala), Tage 12° (30-Tage-Skala).
-    // Zeiger laufen vorwärts und stehen bei 0 ihrer Einheit exakt auf 12 Uhr.
-    setHands({
-      d:(v.d%30)*12,
-      h:((24-v.h)%24)*15,
-      m:((60-v.m)%60)*6,
-      s:((60-v.s)%60)*6
-    });
-  }
-  u();setInterval(u,1e3);
 })();
 
 /* ===== SCROLL REVEAL ===== */
@@ -597,10 +609,7 @@ function animateHero(){
     setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
   }
 
-  function futureTermine(){
-    var now = new Date();
-    return MESSE_TERMINE.filter(function(t){ return new Date(t.date + 'T' + t.end + ':00') > now; });
-  }
+  function futureTermine(){ return getFutureTermine(); }
 
   // Event-Delegation für alle ICS-Buttons (Hero, Termin-Karten, Sammel-Button)
   document.addEventListener('click', function(e){
@@ -624,7 +633,7 @@ function animateHero(){
   });
 
   // Keine zukünftigen Termine: Sammel-Button ausblenden
-  // (den Hero-Button entfernt der Countdown-Fallback per innerHTML bereits selbst)
+  // (Hero-Leiste ohne Termine blendet ihre Buttons per .is-empty selbst aus)
   if(!getNextTermin()){
     var allWrap = document.querySelector('.termine-ics-all');
     if(allWrap) allWrap.style.display = 'none';
@@ -971,7 +980,7 @@ function reapplyTitleEffects() {
   // Countdown ist beim Load bereits im Viewport, dort feuert der Trigger sofort).
   const foilReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!foilReduce){
-    gsap.utils.toArray('.section-title .orange, .ticket-price, .countdown-value, .termin-day').forEach(el => {
+    gsap.utils.toArray('.section-title .orange, .ticket-price, .termin-day').forEach(el => {
       gsap.fromTo(el,
         { backgroundPosition: '0% 0%' },
         { backgroundPosition: '100% 0%', duration: 1.4, ease: 'power2.out',
@@ -1029,16 +1038,6 @@ function reapplyTitleEffects() {
   let aSwingDone = false; // Load-Geste abgeschlossen -> Hover-Mini-Swing freigeben
   let aSwingBusy = false; // Guard gegen Mehrfach-Trigger bei Hover
 
-  // Typewriter for date
-  const heroDate = document.querySelector('.hero-date');
-  let dateText = '';
-  if(heroDate){
-    dateText = heroDate.textContent;
-    heroDate.textContent = '';
-    heroDate.style.opacity = '1';
-    heroDate.style.transform = 'none';
-  }
-
   // After loader hides, start cinematic sequence
   function startCinematic(){
     const tl = gsap.timeline({ delay: 0.3 });
@@ -1066,23 +1065,10 @@ function reapplyTitleEffects() {
     if(line) tl.to(line, { opacity: 0.5, duration: 0.6 }, '-=0.1');
     if(badge) tl.to(badge, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
 
-    // Typewriter date
-    if(heroDate && dateText){
-      tl.add(() => {
-        let i = 0;
-        const interval = setInterval(() => {
-          if(i < dateText.length){
-            heroDate.textContent += dateText[i];
-            i++;
-          } else { clearInterval(interval); }
-        }, 25);
-      }, '-=0.1');
-    }
-
-    // Countdown
-    const countdown = document.querySelector('.countdown');
-    if(countdown){
-      tl.to(countdown, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '+=0.3');
+    // Termin-Leiste (Kalenderblätter)
+    const heroTermine = document.getElementById('heroTermine');
+    if(heroTermine){
+      tl.to(heroTermine, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '+=0.2');
     }
 
     // Scroll indicator
@@ -1145,12 +1131,11 @@ function reapplyTitleEffects() {
         const p = self.progress;
         const heroContent = hero.querySelector('.hero-banner');
         const heroIcons = document.getElementById('heroIcons');
-        const heroInfo = hero.querySelector('.hero-info');
-        const heroCW = hero.querySelector('.hero-countdown-wrap');
+        const heroTermine = document.getElementById('heroTermine');
         const scrollInd = document.getElementById('heroScrollIndicator');
         const fade = Math.max(0, 1 - p * 2.5);
         const ty = p * 80;
-        [heroContent, heroIcons, heroInfo, heroCW].forEach(el => {
+        [heroContent, heroIcons, heroTermine].forEach(el => {
           if(el){
             el.style.opacity = fade;
             el.style.transform = 'translateY(-' + ty + 'px)';
